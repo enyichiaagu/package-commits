@@ -18,9 +18,6 @@ async function packageIdentification(packageName) {
 
 async function getPackage(req, res) {
 	const { packageName } = req.params;
-	if (!packageName) {
-		throw new Error('Invalid Package Name');
-	}
 	const { owner, repo } = await packageIdentification(packageName);
 	res.send({ owner, repo });
 }
