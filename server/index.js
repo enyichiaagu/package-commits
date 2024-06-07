@@ -2,7 +2,7 @@ import express from 'express';
 import 'dotenv/config';
 import { Octokit } from 'octokit';
 
-import packagesRouter from './routes/packages.router'
+import packagesRouter from './routes/packages.router';
 
 const app = express();
 
