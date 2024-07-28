@@ -6,8 +6,6 @@ function App() {
     <>
       <h1>Package Commits</h1>
       <DailyGraph
-        height={150}
-        width={800}
         weeks={52}
         xStart={25}
         yStart={0}

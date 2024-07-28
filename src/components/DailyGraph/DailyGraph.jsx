@@ -12,16 +12,7 @@ const days = [
   'Saturday',
 ];
 
-function DailyGraph({
-  height,
-  width,
-  weeks,
-  xStart,
-  yStart,
-  squareLength,
-  padding,
-  radius,
-}) {
+function DailyGraph({ weeks, xStart, yStart, squareLength, padding, radius }) {
   const columns = [];
   let xPosition = xStart;
 
@@ -41,7 +32,10 @@ function DailyGraph({
   }
 
   return (
-    <svg height={height} width={width}>
+    <svg
+      height={(squareLength + padding) * days.length - padding}
+      width={xStart + (squareLength + padding) * weeks - padding}
+    >
       <DaysPlacement
         days={days}
         squareLength={squareLength}

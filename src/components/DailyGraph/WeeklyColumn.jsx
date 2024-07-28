@@ -1,7 +1,7 @@
 import React from 'react';
 import SquareSvg from './SquareSvg';
 
-const fillColor = '#2CA05A';
+const fillColor = ['#EBEDF0', '#9BE9A8', '#40C463', '#30A14E', '#216E39'];
 
 function WeeklyColumn({
   xPosition,
@@ -22,7 +22,7 @@ function WeeklyColumn({
         yPosition={yPosition}
         length={squareLength}
         radius={radius}
-        bgColor={fillColor}
+        bgColor={fillColor[2]}
       />
     );
     yPosition += squareLength + padding;
