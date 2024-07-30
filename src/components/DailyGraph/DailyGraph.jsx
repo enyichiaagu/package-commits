@@ -1,4 +1,3 @@
-import React from 'react';
 import DaysPlacement from './DaysPlacement';
 import WeeklyColumn from './WeeklyColumn';
 

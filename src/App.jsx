@@ -5,6 +5,8 @@ function App() {
   return (
     <>
       <h1>Package Commits</h1>
+      <input type='text' name='package' />
+      <br />
       <DailyGraph
         weeks={52}
         xStart={25}
