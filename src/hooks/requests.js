@@ -1,4 +1,4 @@
-import { dateRange } from './utils.js';
+import { commitsMap, dateRange, dayIndex, findWeek } from './utils.js';
 
 // Define Constants
 const NPM_REGISTRY = 'https://registry.npmjs.org',
@@ -42,7 +42,7 @@ async function httpGetDailyCommits(
     return { totalPages: Number(totalPages), payload };
   }
 
-  return payload;
+  return { payload };
 }
 
 // Fetch Daily Commits, remove the year parameter if you want the current year
@@ -54,4 +54,21 @@ async function httpGetAllCommits(githubRepo, year, path) {
     endTime,
     path
   );
+
+  const commitData = commitsMap(new Map(), startTime, endTime);
+
+  payload.map(({ commit, author }) => {
+    let mapWeek = commitData.get(findWeek(commit.author.date));
+    mapWeek.total++;
+    mapWeek.days[dayIndex(commit.author.date)]++;
+  });
+
+  return commitData;
 }
+
+const response = await httpGetAllCommits(
+  'facebook/react',
+  null,
+  'packages/react'
+);
+console.log(response);
