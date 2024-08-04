@@ -1,5 +1,14 @@
 import './App.css';
 import DailyGraph from './components/DailyGraph/DailyGraph';
+import { httpGetAllCommits } from './hooks/requests';
+
+const commits = await httpGetAllCommits(
+  'vitest-dev/vitest',
+  'current',
+  'packages/runner'
+);
+
+console.log(Array.from(commits.values()));
 
 function App() {
   return (
@@ -14,6 +23,7 @@ function App() {
         squareLength={12}
         padding={2}
         radius={2}
+        commits={Array.from(commits.values())}
       />
     </>
   );

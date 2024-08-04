@@ -1,4 +1,10 @@
-import { commitsMap, dateRange, dayIndex, findWeek } from './utils.js';
+import {
+  dateRange,
+  findWeek,
+  dayIndex,
+  numRange,
+  commitsMap,
+} from './utils.js';
 
 // Define Constants
 const NPM_REGISTRY = 'https://registry.npmjs.org',
@@ -42,33 +48,41 @@ async function httpGetDailyCommits(
     return { totalPages: Number(totalPages), payload };
   }
 
-  return { payload };
+  return payload;
 }
 
 // Fetch Daily Commits, remove the year parameter if you want the current year
 async function httpGetAllCommits(githubRepo, year, path) {
   const { startTime, endTime } = dateRange(year);
-  const { totalPages, payload } = await httpGetDailyCommits(
+  const result = await httpGetDailyCommits(
     githubRepo,
     startTime,
     endTime,
     path
   );
 
-  const commitData = commitsMap(new Map(), startTime, endTime);
+  const commitData = commitsMap(startTime, endTime);
+  let total = [result];
 
-  payload.map(({ commit, author }) => {
+  if (result.totalPages) {
+    const pages = numRange(2, result.totalPages);
+    const remCommits = await Promise.all(
+      pages.map((page) =>
+        httpGetDailyCommits(githubRepo, startTime, endTime, path, page)
+      )
+    );
+    total = [result.payload, ...remCommits];
+  }
+
+  total.flat().forEach(({ commit, author }) => {
     let mapWeek = commitData.get(findWeek(commit.author.date));
-    mapWeek.total++;
-    mapWeek.days[dayIndex(commit.author.date)]++;
+    if (mapWeek) {
+      mapWeek.total++;
+      mapWeek.days[dayIndex(commit.author.date)]++;
+    }
   });
 
   return commitData;
 }
 
-const response = await httpGetAllCommits(
-  'facebook/react',
-  null,
-  'packages/react'
-);
-console.log(response);
+export { httpSearchPackages, httpGetAllCommits };

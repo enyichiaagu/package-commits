@@ -1,6 +1,8 @@
 import React from 'react';
 import SquareSvg from './SquareSvg';
 
+import { weekShade } from '../../hooks/utils';
+
 const fillColor = ['#EBEDF0', '#9BE9A8', '#40C463', '#30A14E', '#216E39'];
 
 function WeeklyColumn({
@@ -10,9 +12,13 @@ function WeeklyColumn({
   padding,
   radius,
   numOfDays,
+  commits,
+  quartiles,
 }) {
   let squares = [],
     yPosition = yStart;
+
+  console.log(commits, quartiles);
 
   for (let i = 0; i < numOfDays; i++) {
     squares.push(
@@ -22,7 +28,7 @@ function WeeklyColumn({
         yPosition={yPosition}
         length={squareLength}
         radius={radius}
-        bgColor={fillColor[2]}
+        bgColor={fillColor[weekShade(commits[i], quartiles)]}
       />
     );
     yPosition += squareLength + padding;

@@ -16,7 +16,7 @@ function DaysPlacement({ yStart, squareLength, padding, days }) {
               fontFamily='Consolas, sans serif'
               fontSize='0.8rem'
             >
-              {day.slice(0, 3)}
+              {day}
             </text>
           )
         );

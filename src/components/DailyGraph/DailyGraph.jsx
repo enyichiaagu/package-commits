@@ -1,19 +1,23 @@
+import { quarts } from '../../hooks/utils.js';
 import DaysPlacement from './DaysPlacement';
 import WeeklyColumn from './WeeklyColumn';
 
-const days = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-];
+const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-function DailyGraph({ weeks, xStart, yStart, squareLength, padding, radius }) {
+function DailyGraph({
+  weeks,
+  xStart,
+  yStart,
+  squareLength,
+  padding,
+  radius,
+  commits,
+}) {
   const columns = [];
   let xPosition = xStart;
+
+  let quartiles = quarts(commits.map((week) => week.days));
+  console.log(quartiles);
 
   for (let i = 0; i < weeks; i++) {
     columns.push(
@@ -25,6 +29,8 @@ function DailyGraph({ weeks, xStart, yStart, squareLength, padding, radius }) {
         padding={padding}
         radius={radius}
         numOfDays={days.length}
+        commits={commits[i].days}
+        quartiles={quartiles}
       />
     );
     xPosition += squareLength + padding;
