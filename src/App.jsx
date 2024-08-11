@@ -1,29 +1,23 @@
 import './App.css';
 import DailyGraph from './components/DailyGraph/DailyGraph';
-import { httpGetAllCommits } from './hooks/requests';
-
-const commits = await httpGetAllCommits(
-  'vitest-dev/vitest',
-  'current',
-  'packages/runner'
-);
-
-console.log(Array.from(commits.values()));
+import useCommits from './hooks/useCommits';
 
 function App() {
+  const commits = useCommits('facebook/react', 2024, 'packages/react');
+
   return (
     <>
       <h1>Package Commits</h1>
       <input type='text' name='package' />
       <br />
       <DailyGraph
-        weeks={52}
+        weeks={commits[0] ? commits.length : 52}
         xStart={25}
         yStart={0}
-        squareLength={12}
+        squareLength={15}
         padding={2}
-        radius={2}
-        commits={Array.from(commits.values())}
+        radius={3}
+        commits={commits}
       />
     </>
   );

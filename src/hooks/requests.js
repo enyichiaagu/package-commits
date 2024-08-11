@@ -35,6 +35,7 @@ async function httpGetDailyCommits(
       headers: {
         Accept: 'application/vnd.github+json',
         'X-GitHub-Api-Version': '2022-11-28',
+        Authorization: `Bearer ${import.meta.env.VITE_GITHUB_PAT}`,
       },
     }
   );
@@ -82,7 +83,7 @@ async function httpGetAllCommits(githubRepo, year, path) {
     }
   });
 
-  return commitData;
+  return Array.from(commitData.values());
 }
 
 export { httpSearchPackages, httpGetAllCommits };

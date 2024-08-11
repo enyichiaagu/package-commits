@@ -1,5 +1,3 @@
-import React from 'react';
-
 function DaysPlacement({ yStart, squareLength, padding, days }) {
   let xPosition = 0;
 

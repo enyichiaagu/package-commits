@@ -17,7 +17,6 @@ function DailyGraph({
   let xPosition = xStart;
 
   let quartiles = quarts(commits.map((week) => week.days));
-  console.log(quartiles);
 
   for (let i = 0; i < weeks; i++) {
     columns.push(
@@ -29,7 +28,8 @@ function DailyGraph({
         padding={padding}
         radius={radius}
         numOfDays={days.length}
-        commits={commits[i].days}
+        commits={commits[i]?.days}
+        week={commits[i]?.week}
         quartiles={quartiles}
       />
     );
@@ -38,7 +38,7 @@ function DailyGraph({
 
   return (
     <svg
-      height={(squareLength + padding) * days.length - padding}
+      height={(squareLength + padding) * days.length + 100}
       width={xStart + (squareLength + padding) * weeks - padding}
     >
       <DaysPlacement
