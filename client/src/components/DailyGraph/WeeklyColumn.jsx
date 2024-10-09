@@ -46,7 +46,6 @@ function WeeklyColumn({
           monthIndex={new Date(week).getUTCMonth()}
         />
       )}
-      // xPosition, yPosition, monthIndex
     </>
   );
 }
