@@ -1,8 +1,12 @@
 .daily-commits {
   border: 1px solid red;
-}
 
-.daily-commits .text {
-  font-family: Consolas, 'sans serif';
-  font-size: 0.75rem;
+  & text {
+    font-family: Consolas, 'sans serif';
+    font-size: 0.75rem;
+  }
+
+  & rect.day:hover {
+    fill: green;
+  }
 }

@@ -30,7 +30,10 @@ function WeeklyColumn({
           );
         })}
       </g>
-      <g></g>
+      <MonthsText
+        xPosition={xPosition}
+        yPosition={yPosition + squareLength + padding}
+      />
     </>
   );
 }

@@ -19,7 +19,7 @@ function MonthsText({ xPosition, yPosition, monthIndex }) {
   return (
     <g>
       <text
-        xPosition={xPosition}
+        x={xPosition}
         y={yPosition}
         dominantBaseline='hanging'
         className='text'

@@ -10,6 +10,7 @@ function Square({ xPosition, yPosition, length, radius, bgColor }) {
       rx={radius}
       ry={radius}
       fill={bgColor}
+      className='day'
     ></rect>
   );
 }

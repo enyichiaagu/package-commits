@@ -8,7 +8,7 @@ import './DailyCommits.css';
 const totalWeeks = 53,
   xStart = 0,
   yStart = 0,
-  commitsXStart = 25,
+  commitsXStart = 22,
   squareLength = 13,
   padding = 3,
   radius = 2,
