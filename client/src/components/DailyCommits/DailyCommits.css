@@ -1,0 +1,8 @@
+.daily-commits {
+  background-color: blue;
+}
+
+.daily-commits .text {
+  font-family: Consolas, 'sans serif';
+  font-size: 0.8rem;
+}
