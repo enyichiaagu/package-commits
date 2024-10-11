@@ -5,7 +5,7 @@ import DaysText from './DaysText';
 import WeeklyColumn from './WeeklyColumn';
 import './DailyCommits.css';
 
-const totalWeeks = 53,
+const totalWeeks = 52,
   xStart = 0,
   yStart = 0,
   commitsXStart = 22,
@@ -27,12 +27,12 @@ function DailyCommits({ colors = defaultColors, commits }) {
       <WeeklyColumn
         key={i}
         xPosition={xPosition}
-        yStart={yStart}
         squareLength={squareLength}
         padding={padding}
         radius={radius}
         days={daysArray}
         colors={defaultColors}
+        weekIndex={i}
       />
     );
     xPosition += squareLength + padding;

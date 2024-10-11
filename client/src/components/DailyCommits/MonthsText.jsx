@@ -24,7 +24,8 @@ function MonthsText({ xPosition, yPosition, monthIndex }) {
         dominantBaseline='hanging'
         className='text'
       >
-        {monthIndex && months[monthIndex]}
+        {/* Making sure month index is a number before displaying */}
+        {!isNaN(monthIndex) && months[monthIndex]}
       </text>
     </g>
   );

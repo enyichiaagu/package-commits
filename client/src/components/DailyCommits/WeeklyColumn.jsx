@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import MonthsText from './MonthsText';
 import Square from './Square';
 
+function calcMonthIndex(weekIndex, week) {
+  if (!week && weekIndex % 4 === 0) {
+    return weekIndex / 4;
+  }
+}
+
 function WeeklyColumn({
   xPosition,
   squareLength,
@@ -10,8 +16,13 @@ function WeeklyColumn({
   radius,
   days,
   colors,
+  weekIndex,
+  week,
 }) {
   let yPosition;
+
+  let monthIndex = calcMonthIndex(weekIndex, week);
+
   return (
     <>
       <g>
@@ -33,6 +44,7 @@ function WeeklyColumn({
       <MonthsText
         xPosition={xPosition}
         yPosition={yPosition + squareLength + padding}
+        monthIndex={monthIndex}
       />
     </>
   );
@@ -45,6 +57,8 @@ WeeklyColumn.propTypes = {
   radius: PropTypes.number.isRequired,
   days: PropTypes.arrayOf(PropTypes.string).isRequired,
   colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  weekIndex: PropTypes.number.isRequired,
+  week: PropTypes.string,
 };
 
 export default WeeklyColumn;
