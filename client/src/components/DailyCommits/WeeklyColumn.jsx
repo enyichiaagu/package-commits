@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import MonthsText from './MonthsText';
 import Square from './Square';
 
+// function for calculating the month index using the week index
 function calcMonthIndex(weekIndex, week) {
   if (!week && weekIndex % 4 === 0) {
     return weekIndex / 4;
