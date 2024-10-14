@@ -10,6 +10,14 @@ function calcMonthIndex(weekIndex, week) {
   }
 }
 
+function colorIndex(bounds, dayCommit) {
+  if (bounds.length === 0) return 0;
+  if (dayCommit <= bounds[0]) return 1;
+  if (dayCommit <= bounds[1]) return 2;
+  if (dayCommit <= bounds[2]) return 3;
+  return 4;
+}
+
 function WeeklyColumn({
   xPosition,
   squareLength,
@@ -18,11 +26,12 @@ function WeeklyColumn({
   days,
   colors,
   weekIndex,
-  week,
+  weeklyCommits,
+  bounds,
 }) {
   let yPosition;
 
-  let monthIndex = calcMonthIndex(weekIndex, week);
+  let monthIndex = calcMonthIndex(weekIndex, weeklyCommits.week);
 
   return (
     <>
@@ -37,7 +46,7 @@ function WeeklyColumn({
               length={squareLength}
               padding={padding}
               radius={radius}
-              bgColor={colors[0]}
+              bgColor={colors[colorIndex(bounds, weeklyCommits.commits[index])]}
             />
           );
         })}
@@ -59,7 +68,7 @@ WeeklyColumn.propTypes = {
   days: PropTypes.arrayOf(PropTypes.string).isRequired,
   colors: PropTypes.arrayOf(PropTypes.string).isRequired,
   weekIndex: PropTypes.number.isRequired,
-  week: PropTypes.string,
+  bounds: PropTypes.arrayOf(PropTypes.number),
 };
 
 export default WeeklyColumn;

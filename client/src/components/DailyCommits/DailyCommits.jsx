@@ -5,6 +5,8 @@ import DaysText from './DaysText';
 import WeeklyColumn from './WeeklyColumn';
 import './DailyCommits.css';
 
+import { calcDistribution } from './helpers';
+
 const totalWeeks = 52,
   xStart = 0,
   yStart = 0,
@@ -17,9 +19,11 @@ const totalWeeks = 52,
   daysArray = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 /** Daily Commits Component for a single year */
-function DailyCommits({ colors = defaultColors, commits }) {
+function DailyCommits({ colors = defaultColors, weeklyCommits = [] }) {
   let columns = [],
     xPosition = commitsXStart;
+
+  const bounds = calcDistribution(weeklyCommits);
 
   // Loop to generate the weekly columns in the graph
   for (let i = 0; i < totalWeeks; i++) {
@@ -33,6 +37,8 @@ function DailyCommits({ colors = defaultColors, commits }) {
         days={daysArray}
         colors={defaultColors}
         weekIndex={i}
+        weeklyCommits={weeklyCommits[i]}
+        bounds={bounds}
       />
     );
     xPosition += squareLength + padding;
@@ -61,7 +67,7 @@ DailyCommits.propTypes = {
   colors: PropTypes.arrayOf(PropTypes.string).isRequired,
 
   /** Array containing all the commits of a package in a single year */
-  commits: PropTypes.arrayOf(
+  weeklyCommits: PropTypes.arrayOf(
     PropTypes.exact({
       week: PropTypes.string,
       commits: PropTypes.arrayOf(PropTypes.number),

@@ -1,5 +1,5 @@
 .daily-commits {
-  border: 1px solid red;
+  /* border: 1px solid red; */
 
   & text {
     font-family: Consolas, 'sans serif';

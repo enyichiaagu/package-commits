@@ -1,19 +1,21 @@
 import DailyCommits from '../components/DailyCommits';
+import { genMockCommits } from '../utils/graph';
 
 export default {
-  title: 'Library/DailyCommits',
+  title: 'Library/Daily Commits',
   component: DailyCommits,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
-  argTypes: {
-    colors: { control: 'object' },
+  args: {
+    colors: ['#f9f9f9', '#87deaa', '#5fd38d', '#217844', '#0b2817'],
+    weeklyCommits: [],
   },
 };
 
-export const Default = {
+export const Filled = {
   args: {
-    colors: ['#f9f9f9', '#87deaa', '#5fd38d', '#217844', '#0b2817'],
+    weeklyCommits: genMockCommits(),
   },
 };
