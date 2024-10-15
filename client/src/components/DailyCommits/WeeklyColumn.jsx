@@ -8,6 +8,9 @@ function calcMonthIndex(weekIndex, week) {
   if (!week && weekIndex % 4 === 0) {
     return weekIndex / 4;
   }
+  let date = new Date(week).getUTCDate();
+  let month = new Date(week).getUTCMonth();
+  if (date <= 7) return month;
 }
 
 function colorIndex(bounds, dayCommit) {
