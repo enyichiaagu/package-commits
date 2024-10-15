@@ -1,8 +1,24 @@
+:root {
+  --red-border: 1px solid red;
+  --text-font: Consolas, 'sans serif';
+  --text-size: 0.75rem;
+  --tooltip-text: 0.7rem;
+}
+
 .daily-commits {
-  /* border: 1px solid red; */
+  /* border: var(--red-border); */
 
   & text {
-    font-family: Consolas, 'sans serif';
-    font-size: 0.75rem;
+    font-family: var(--text-font);
+    font-size: var(--text-size);
   }
+}
+
+.TooltipContent {
+  border: 1px solid #9f9f9f;
+  border-radius: 0.2rem;
+  padding: 0.2rem 0.5rem;
+  background-color: #ececec;
+  font-family: var(--text-font);
+  font-size: var(--tooltip-text);
 }

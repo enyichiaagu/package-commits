@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Provider as TooltipProvider } from '@radix-ui/react-tooltip';
 import DaysText from './DaysText';
 import WeeklyColumn from './WeeklyColumn';
 import './DailyCommits.css';
@@ -46,20 +47,22 @@ function DailyCommits({ colors = defaultColors, weeklyCommits = [] }) {
   }
 
   return (
-    <svg
-      className='daily-commits'
-      height={(squareLength + padding) * daysArray.length + bottomSpace}
-      width={commitsXStart + (squareLength + padding) * totalWeeks - padding}
-    >
-      <DaysText
-        xStart={xStart}
-        yStart={yStart}
-        squareLength={squareLength}
-        padding={padding}
-        days={daysArray}
-      />
-      {columns}
-    </svg>
+    <TooltipProvider>
+      <svg
+        className='daily-commits'
+        height={(squareLength + padding) * daysArray.length + bottomSpace}
+        width={commitsXStart + (squareLength + padding) * totalWeeks - padding}
+      >
+        <DaysText
+          xStart={xStart}
+          yStart={yStart}
+          squareLength={squareLength}
+          padding={padding}
+          days={daysArray}
+        />
+        {columns}
+      </svg>
+    </TooltipProvider>
   );
 }
 

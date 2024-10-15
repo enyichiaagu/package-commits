@@ -12,6 +12,7 @@ function calcDistribution(weeklyCommits) {
   //remove zero from the commits
   const modifiedArr = sorted.slice(sorted.findIndex((n) => n > 0));
 
+  //return empty array if its all zeroes
   if (modifiedArr[0] === 0) {
     return dist;
   }
@@ -24,12 +25,13 @@ function calcDistribution(weeklyCommits) {
     const dividend = modifiedArr.length / 4;
 
     let temp = [0, 0, 0, 0];
-    let upperBounds = temp.map(
-      (value, index) => modifiedArr[Math.round(index * dividend)]
-    );
+    let upperBounds = temp.map((value, index) => {
+      console.log(Math.round(index * dividend));
+      return modifiedArr[Math.round(index * dividend) - 1];
+    });
     dist = upperBounds.slice(1, upperBounds.length);
   }
-
+  console.log(dist);
   // return the upper bounds which is first three elements of dist
   return dist;
 }

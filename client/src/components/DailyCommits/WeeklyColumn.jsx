@@ -38,8 +38,6 @@ function WeeklyColumn({
   let yPosition;
 
   let monthIndex = calcMonthIndex(weekIndex, weeklyCommits.week);
-  // colors[colorIndex(bounds, weeklyCommits.commits[index])]
-  // console.log(bounds, weeklyCommits.commits);
 
   return (
     <>
@@ -54,6 +52,7 @@ function WeeklyColumn({
               length={squareLength}
               padding={padding}
               radius={radius}
+              commits={weeklyCommits.commits[index]}
               bgColor={
                 colors[colorIndex(bounds, weeklyCommits.commits[index])] ||
                 bgColor
@@ -79,6 +78,7 @@ WeeklyColumn.propTypes = {
   days: PropTypes.arrayOf(PropTypes.string).isRequired,
   colors: PropTypes.arrayOf(PropTypes.string).isRequired,
   weekIndex: PropTypes.number.isRequired,
+  weeklyCommits: PropTypes.object,
   bounds: PropTypes.arrayOf(PropTypes.number),
 };
 

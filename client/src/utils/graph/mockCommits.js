@@ -46,7 +46,7 @@ function genMockCommits() {
     for (let i = 0; i < 7; i++) {
       currentDate = addDay(newWeek, i);
       if (isValidDate(currentDate, yearStart, yearEnd)) {
-        dummyCommits.push(Math.floor(Math.random() * 6));
+        dummyCommits.push(Math.floor(Math.random() * 4));
       } else {
         dummyCommits.push(null);
       }
