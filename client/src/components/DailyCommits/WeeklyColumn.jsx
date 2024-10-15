@@ -11,12 +11,15 @@ function calcMonthIndex(weekIndex, week) {
 }
 
 function colorIndex(bounds, dayCommit) {
-  if (bounds.length === 0) return 0;
+  if (dayCommit === null) return -1;
+  if (bounds.length === 0 || dayCommit === 0) return 0;
   if (dayCommit <= bounds[0]) return 1;
   if (dayCommit <= bounds[1]) return 2;
   if (dayCommit <= bounds[2]) return 3;
   return 4;
 }
+
+let bgColor = '#ffffff00';
 
 function WeeklyColumn({
   xPosition,
@@ -32,6 +35,8 @@ function WeeklyColumn({
   let yPosition;
 
   let monthIndex = calcMonthIndex(weekIndex, weeklyCommits.week);
+  // colors[colorIndex(bounds, weeklyCommits.commits[index])]
+  // console.log(bounds, weeklyCommits.commits);
 
   return (
     <>
@@ -46,7 +51,10 @@ function WeeklyColumn({
               length={squareLength}
               padding={padding}
               radius={radius}
-              bgColor={colors[colorIndex(bounds, weeklyCommits.commits[index])]}
+              bgColor={
+                colors[colorIndex(bounds, weeklyCommits.commits[index])] ||
+                bgColor
+              }
             />
           );
         })}

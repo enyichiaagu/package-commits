@@ -5,8 +5,4 @@
     font-family: Consolas, 'sans serif';
     font-size: 0.75rem;
   }
-
-  & rect.day:hover {
-    fill: green;
-  }
 }

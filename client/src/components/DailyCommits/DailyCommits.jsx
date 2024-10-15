@@ -7,19 +7,20 @@ import './DailyCommits.css';
 
 import { calcDistribution } from './helpers';
 
-const totalWeeks = 52,
-  xStart = 0,
+const xStart = 0,
   yStart = 0,
   commitsXStart = 22,
   squareLength = 13,
   padding = 3,
   radius = 2,
   bottomSpace = 20,
-  defaultColors = ['#e6e6e6', '#87deaa', '#5fd38d', '#217844', '#0b2817'],
+  defaultColors = ['#eaeaea;', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
   daysArray = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 /** Daily Commits Component for a single year */
 function DailyCommits({ colors = defaultColors, weeklyCommits = [] }) {
+  let totalWeeks = weeklyCommits?.length || 52;
+
   let columns = [],
     xPosition = commitsXStart;
 
@@ -35,7 +36,7 @@ function DailyCommits({ colors = defaultColors, weeklyCommits = [] }) {
         padding={padding}
         radius={radius}
         days={daysArray}
-        colors={defaultColors}
+        colors={colors}
         weekIndex={i}
         weeklyCommits={weeklyCommits[i]}
         bounds={bounds}

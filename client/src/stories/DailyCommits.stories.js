@@ -9,8 +9,8 @@ export default {
     layout: 'centered',
   },
   args: {
-    colors: ['#f9f9f9', '#87deaa', '#5fd38d', '#217844', '#0b2817'],
-    weeklyCommits: [],
+    // weeklyCommits: [],
+    colors: ['#eaeaea', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
   },
 };
 
