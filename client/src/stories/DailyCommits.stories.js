@@ -1,5 +1,4 @@
-import DailyCommits from '../components/DailyCommits';
-import { genMockCommits } from '../utils/graph';
+import { DailyCommits, genMockCommits } from '../components/Graphs';
 
 export default {
   title: 'Library/Daily Commits',
@@ -17,5 +16,6 @@ export default {
 export const Filled = {
   args: {
     weeklyCommits: genMockCommits(),
+    colors: ['#eaeaea', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
   },
 };

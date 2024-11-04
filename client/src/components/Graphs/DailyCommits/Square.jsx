@@ -1,7 +1,15 @@
 import * as Tooltip from '@radix-ui/react-tooltip';
 import PropTypes from 'prop-types';
 
-function Square({ xPosition, yPosition, length, radius, commits, bgColor }) {
+function Square({
+  xPosition,
+  yPosition,
+  length,
+  radius,
+  commits,
+  date,
+  bgColor,
+}) {
   return (
     <Tooltip.Root>
       <Tooltip.Trigger asChild>
@@ -18,7 +26,7 @@ function Square({ xPosition, yPosition, length, radius, commits, bgColor }) {
       </Tooltip.Trigger>
       <Tooltip.TooltipPortal>
         <Tooltip.Content className='TooltipContent'>
-          {`${commits} commit${commits !== 1 ? 's' : ''}`}
+          {`${commits} commit${commits !== 1 ? 's' : ''} on ${date}`}
         </Tooltip.Content>
       </Tooltip.TooltipPortal>
     </Tooltip.Root>
@@ -31,6 +39,7 @@ Square.propTypes = {
   length: PropTypes.number.isRequired,
   radius: PropTypes.number.isRequired,
   commits: PropTypes.number,
+  date: PropTypes.string,
   bgColor: PropTypes.string,
 };
 

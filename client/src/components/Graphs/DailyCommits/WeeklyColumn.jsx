@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-
 import MonthsText from './MonthsText';
 import Square from './Square';
+import { addDay } from '../utils/mockCommits';
 
 // function for calculating the month index using the week index
 function calcMonthIndex(weekIndex, week) {
@@ -24,6 +24,31 @@ function colorIndex(bounds, dayCommit) {
 
 let bgColor = '#ffffff00';
 
+function formatDate(date) {
+  const month = date.toLocaleString('default', { month: 'long' });
+  const day = date.getUTCDate();
+  let suffix;
+
+  if (day <= 3 || (day > 20 && day <= 23)) {
+    const lastNum = day % 10;
+    switch (lastNum) {
+      case 1:
+        suffix = 'st';
+        break;
+      case 2:
+        suffix = 'nd';
+        break;
+      case 3:
+        suffix = 'rd';
+        break;
+    }
+  } else {
+    suffix = 'th';
+  }
+
+  return `${month} ${day}${suffix}`;
+}
+
 function WeeklyColumn({
   xPosition,
   squareLength,
@@ -39,11 +64,15 @@ function WeeklyColumn({
 
   let monthIndex = calcMonthIndex(weekIndex, weeklyCommits.week);
 
+  let displayDate;
+
   return (
     <>
       <g>
-        {days.map((day, index) => {
+        {days.map((_, index) => {
           yPosition = (squareLength + padding) * index;
+          displayDate = formatDate(addDay(weeklyCommits.week, index));
+
           return (
             <Square
               key={index}
@@ -53,6 +82,7 @@ function WeeklyColumn({
               padding={padding}
               radius={radius}
               commits={weeklyCommits.commits[index]}
+              date={displayDate}
               bgColor={
                 colors[colorIndex(bounds, weeklyCommits.commits[index])] ||
                 bgColor

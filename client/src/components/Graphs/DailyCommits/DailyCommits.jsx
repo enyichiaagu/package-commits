@@ -6,7 +6,7 @@ import DaysText from './DaysText';
 import WeeklyColumn from './WeeklyColumn';
 import './DailyCommits.css';
 
-import { calcDistribution } from './helpers';
+import { calcDistribution } from '../utils/distribution';
 
 const xStart = 0,
   yStart = 0,

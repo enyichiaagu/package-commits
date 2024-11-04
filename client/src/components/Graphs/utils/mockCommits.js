@@ -12,7 +12,7 @@ function findWeek(timestamp) {
 
 function addDay(date, numOfDays) {
   const newDate = new Date(date);
-  newDate.setUTCDate(date.getUTCDate() + numOfDays);
+  newDate.setUTCDate(newDate.getUTCDate() + numOfDays);
 
   return newDate;
 }
@@ -46,7 +46,7 @@ function genMockCommits() {
     for (let i = 0; i < 7; i++) {
       currentDate = addDay(newWeek, i);
       if (isValidDate(currentDate, yearStart, yearEnd)) {
-        dummyCommits.push(Math.floor(Math.random() * 4));
+        dummyCommits.push(Math.floor(Math.random() * 10));
       } else {
         dummyCommits.push(null);
       }
@@ -67,4 +67,4 @@ function genMockCommits() {
   return data;
 }
 
-export default genMockCommits;
+export { addDay, genMockCommits };

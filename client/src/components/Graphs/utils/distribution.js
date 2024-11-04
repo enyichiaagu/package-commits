@@ -26,12 +26,10 @@ function calcDistribution(weeklyCommits) {
 
     let temp = [0, 0, 0, 0];
     let upperBounds = temp.map((value, index) => {
-      console.log(Math.round(index * dividend));
       return modifiedArr[Math.round(index * dividend) - 1];
     });
     dist = upperBounds.slice(1, upperBounds.length);
   }
-  console.log(dist);
   // return the upper bounds which is first three elements of dist
   return dist;
 }
