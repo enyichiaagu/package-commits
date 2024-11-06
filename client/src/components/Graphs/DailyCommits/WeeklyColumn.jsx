@@ -13,15 +13,19 @@ function calcMonthIndex(weekIndex, week) {
   if (date <= 7) return month;
 }
 
+// function to find the index of the color in the palette
 function colorIndex(bounds, dayCommit) {
   if (dayCommit === null) return -1;
   if (bounds.length === 0 || dayCommit === 0) return 0;
-  if (dayCommit <= bounds[0]) return 1;
-  if (dayCommit <= bounds[1]) return 2;
-  if (dayCommit <= bounds[2]) return 3;
+
+  for (let i = 0; i < bounds.length; i++) {
+    if (dayCommit <= bounds[i]) return i + 1;
+  }
+
   return 4;
 }
 
+// Transparent Color
 let bgColor = '#ffffff00';
 
 function formatDate(date) {
