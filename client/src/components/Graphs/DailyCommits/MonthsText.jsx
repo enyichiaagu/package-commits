@@ -1,19 +1,5 @@
 import PropTypes from 'prop-types';
-
-const months = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-];
+import { MONTHS } from '../utils/constants';
 
 function MonthsText({ xPosition, yPosition, monthIndex }) {
   return (
@@ -25,7 +11,7 @@ function MonthsText({ xPosition, yPosition, monthIndex }) {
         className='text'
       >
         {/* Making sure month index is a number before displaying */}
-        {!isNaN(monthIndex) && months[monthIndex]}
+        {!isNaN(monthIndex) && MONTHS[monthIndex]}
       </text>
     </g>
   );

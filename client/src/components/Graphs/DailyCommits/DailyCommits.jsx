@@ -10,22 +10,29 @@ import { calcDistribution } from '../utils/distribution';
 
 const xStart = 0,
   yStart = 0,
-  commitsXStart = 22,
+  daysWidth = 22,
   squareLength = 13,
   padding = 3,
   radius = 2,
   bottomSpace = 20,
-  defaultColors = ['#eaeaea;', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+  defaultColors = ['#eaeaea', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
   daysArray = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+// Set height of the component once
+const GRAPH_HEIGHT = (squareLength + padding) * daysArray.length + bottomSpace;
 
 /** Daily Commits Component for a single year */
 function DailyCommits({ colors = defaultColors, weeklyCommits = [] }) {
   let totalWeeks = weeklyCommits?.length || 52;
 
   let columns = [],
-    xPosition = commitsXStart;
+    xPosition = daysWidth;
 
   const bounds = calcDistribution(weeklyCommits);
+
+  // Set width of contributions svg
+  const contributionsWidth =
+    daysWidth + (squareLength + padding) * totalWeeks - padding;
 
   // Loop to generate the weekly columns in the graph
   for (let i = 0; i < totalWeeks; i++) {
@@ -48,27 +55,29 @@ function DailyCommits({ colors = defaultColors, weeklyCommits = [] }) {
 
   return (
     <TooltipProvider>
-      <svg
-        className='daily-commits'
-        height={(squareLength + padding) * daysArray.length + bottomSpace}
-        width={commitsXStart + (squareLength + padding) * totalWeeks - padding}
-      >
-        <DaysText
-          xStart={xStart}
-          yStart={yStart}
-          squareLength={squareLength}
-          padding={padding}
-          days={daysArray}
-        />
-        {columns}
-      </svg>
+      <div className='daily-commits'>
+        <svg height={GRAPH_HEIGHT} width={daysWidth} className='days-placement'>
+          <DaysText
+            xStart={xStart}
+            yStart={yStart}
+            squareLength={squareLength}
+            padding={padding}
+            days={daysArray}
+          />
+        </svg>
+        <div className='contributions'>
+          <svg height={GRAPH_HEIGHT} width={contributionsWidth}>
+            {columns}
+          </svg>
+        </div>
+      </div>
     </TooltipProvider>
   );
 }
 
 DailyCommits.propTypes = {
   /** Set exactly 5 colors for the daily commits graph */
-  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  colors: PropTypes.arrayOf(PropTypes.string),
 
   /** Array containing all the commits of a package in a single year */
   weeklyCommits: PropTypes.arrayOf(

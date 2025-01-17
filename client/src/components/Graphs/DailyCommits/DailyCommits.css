@@ -3,14 +3,31 @@
   --text-font: Consolas, 'sans serif';
   --text-size: 0.75rem;
   --tooltip-text: 0.7rem;
+  --bg-white: #fff;
+}
+
+text {
+  font-family: var(--text-font);
+  font-size: var(--text-size);
 }
 
 .daily-commits {
-  /* border: var(--red-border); */
+  border: var(--red-border);
+  position: relative;
 
-  & text {
-    font-family: var(--text-font);
-    font-size: var(--text-size);
+  & svg {
+    border: var(--red-border);
+    display: block;
+
+    &.days-placement {
+      background-color: var(--bg-white);
+      position: absolute;
+      left: 0;
+    }
+  }
+
+  & div.contributions {
+    overflow: auto;
   }
 }
 
