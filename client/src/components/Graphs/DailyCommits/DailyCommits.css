@@ -12,15 +12,12 @@ text {
 }
 
 .daily-commits {
-  border: var(--red-border);
   position: relative;
 
   & svg {
-    border: var(--red-border);
     display: block;
 
     &.days-placement {
-      background-color: var(--bg-white);
       position: absolute;
       left: 0;
     }
