@@ -16,6 +16,7 @@ text {
 
   & svg {
     display: block;
+    background-color: var(--bg-white);
 
     &.days-placement {
       position: absolute;
