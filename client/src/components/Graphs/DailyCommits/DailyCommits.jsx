@@ -11,7 +11,7 @@ import { genMockCommits } from '../utils/mockCommits';
 
 const xStart = 0,
   yStart = 0,
-  daysWidth = 22,
+  daysWidth = 25,
   squareLength = 13,
   padding = 3,
   radius = 2,
