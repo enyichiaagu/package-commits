@@ -7,6 +7,7 @@ import WeeklyColumn from './WeeklyColumn';
 import './DailyCommits.css';
 
 import { calcDistribution } from '../utils/distribution';
+import { genMockCommits } from '../utils/mockCommits';
 
 const xStart = 0,
   yStart = 0,
@@ -22,7 +23,10 @@ const xStart = 0,
 const GRAPH_HEIGHT = (squareLength + padding) * daysArray.length + bottomSpace;
 
 /** Daily Commits Component for a single year */
-function DailyCommits({ colors = defaultColors, weeklyCommits = [] }) {
+function DailyCommits({
+  colors = defaultColors,
+  weeklyCommits = genMockCommits(0),
+}) {
   let totalWeeks = weeklyCommits?.length || 52;
 
   let columns = [],
