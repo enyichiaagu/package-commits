@@ -1,6 +1,6 @@
 :root {
   --red-border: 1px solid red;
-  --text-font: Consolas, 'sans serif';
+  --text-font: Consolas, monospace, 'sans serif';
   --text-size: 0.75rem;
   --tooltip-text: 0.7rem;
   --bg-white: #fff;
