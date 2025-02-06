@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Provider as TooltipProvider } from '@radix-ui/react-tooltip';
+import { TooltipProvider } from '@radix-ui/react-tooltip';
 import DaysText from './DaysText';
 import WeeklyColumn from './WeeklyColumn';
 import './DailyCommits.css';
