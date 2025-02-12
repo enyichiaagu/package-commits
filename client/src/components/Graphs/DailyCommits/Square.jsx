@@ -10,20 +10,24 @@ function Square({
   date,
   bgColor,
 }) {
+  const squareRect = (
+    <rect
+      x={xPosition}
+      y={yPosition}
+      width={length}
+      height={length}
+      rx={radius}
+      ry={radius}
+      fill={bgColor}
+      className='day'
+    ></rect>
+  );
+
+  if (!Boolean(commits)) return squareRect;
+
   return (
     <Tooltip.Root>
-      <Tooltip.Trigger asChild>
-        <rect
-          x={xPosition}
-          y={yPosition}
-          width={length}
-          height={length}
-          rx={radius}
-          ry={radius}
-          fill={bgColor}
-          className='day'
-        ></rect>
-      </Tooltip.Trigger>
+      <Tooltip.Trigger asChild>{squareRect}</Tooltip.Trigger>
       <Tooltip.TooltipPortal>
         <Tooltip.Content className='TooltipContent'>
           {`${commits} commit${commits !== 1 ? 's' : ''} on ${date}`}
