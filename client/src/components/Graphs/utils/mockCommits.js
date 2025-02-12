@@ -29,8 +29,11 @@ function isValidDate(current, yearStart, yearEnd) {
   return false;
 }
 
-function genMockCommits() {
-  const randomYear = 2010 + Math.floor(Math.random() * 10);
+// The random value 1 means the generated commit numbers are random while 0 means they are all o
+function genMockCommits(random = 1) {
+  const randomYear = Boolean(random)
+    ? 2010 + Math.floor(Math.random() * 10)
+    : 2010;
 
   let data = [];
   let yearStart = `${randomYear}-01-01T00:00:00.000Z`;
@@ -43,13 +46,17 @@ function genMockCommits() {
     currentDate;
 
   while (newWeek.getTime() <= endWeek.getTime()) {
-    for (let i = 0; i < 7; i++) {
-      currentDate = addDay(newWeek, i);
-      if (isValidDate(currentDate, yearStart, yearEnd)) {
-        dummyCommits.push(Math.floor(Math.random() * 10));
-      } else {
-        dummyCommits.push(null);
+    if (Boolean(random)) {
+      for (let i = 0; i < 7; i++) {
+        currentDate = addDay(newWeek, i);
+        if (isValidDate(currentDate, yearStart, yearEnd)) {
+          dummyCommits.push(Math.floor(Math.random() * 10));
+        } else {
+          dummyCommits.push(null);
+        }
       }
+    } else {
+      dummyCommits = new Array(7).fill(0);
     }
 
     data.push({

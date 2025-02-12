@@ -1,16 +1,17 @@
-import React from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 
-import { Provider as TooltipProvider } from '@radix-ui/react-tooltip';
+import { TooltipProvider } from '@radix-ui/react-tooltip';
 import DaysText from './DaysText';
 import WeeklyColumn from './WeeklyColumn';
 import './DailyCommits.css';
 
 import { calcDistribution } from '../utils/distribution';
+import { genMockCommits } from '../utils/mockCommits';
 
 const xStart = 0,
   yStart = 0,
-  daysWidth = 22,
+  daysWidth = 25,
   squareLength = 13,
   padding = 3,
   radius = 2,
@@ -22,7 +23,10 @@ const xStart = 0,
 const GRAPH_HEIGHT = (squareLength + padding) * daysArray.length + bottomSpace;
 
 /** Daily Commits Component for a single year */
-function DailyCommits({ colors = defaultColors, weeklyCommits = [] }) {
+const DailyCommits = memo(function DailyCommits({
+  colors = defaultColors,
+  weeklyCommits = genMockCommits(0),
+}) {
   let totalWeeks = weeklyCommits?.length || 52;
 
   let columns = [],
@@ -73,7 +77,7 @@ function DailyCommits({ colors = defaultColors, weeklyCommits = [] }) {
       </div>
     </TooltipProvider>
   );
-}
+});
 
 DailyCommits.propTypes = {
   /** Set exactly 5 colors for the daily commits graph */
