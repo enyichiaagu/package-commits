@@ -25,13 +25,17 @@ function calcDistribution(weeklyCommits) {
     const dividend = modifiedArr.length / 4;
 
     let temp = [0, 0, 0, 0];
-    let upperBounds = temp.map((value, index) => {
+    let upperBounds = temp.map((_value, index) => {
       return modifiedArr[Math.round(index * dividend) - 1];
     });
     dist = upperBounds.slice(1, upperBounds.length);
   }
   // return the upper bounds which is first three elements of dist
   return dist;
+}
+
+function monthlyCommitsY(highestMonthlyCommits) {
+  if (highestMonthlyCommits === 0) return null;
 }
 
 export { calcDistribution };

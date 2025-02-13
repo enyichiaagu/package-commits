@@ -3,8 +3,15 @@ import PropTypes from 'prop-types';
 
 // TODO: Remember to remove tooltip provider
 
-function MonthlyCommits({ weeklyCommits = [] }) {
-  return <></>;
+function MonthlyCommits({}) {
+  return (
+    <div className='monthly-commits'>
+      <svg></svg>
+      <div>
+        <svg></svg>
+      </div>
+    </div>
+  );
 }
 
 MonthlyCommits.propTypes = {

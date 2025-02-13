@@ -16,6 +16,7 @@ text {
 
   & svg {
     display: block;
+    border: var(--red-border);
     background-color: var(--bg-white);
 
     &.days-placement {

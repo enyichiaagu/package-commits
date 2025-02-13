@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { TooltipProvider } from '@radix-ui/react-tooltip';
 import DaysText from './DaysText';
 import WeeklyColumn from './WeeklyColumn';
-import './DailyCommits.css';
 
 import { calcDistribution } from '../utils/distribution';
 import { genMockCommits } from '../utils/mockCommits';
