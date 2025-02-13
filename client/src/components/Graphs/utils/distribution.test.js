@@ -3,5 +3,6 @@ import { genMockCommits } from './mockCommits';
 import { calcDistribution } from './distribution';
 
 test('Should properly calcDistribution', () => {
-  expect(calcDistribution(genMockCommits(0))).toStrictEqual([]);
+  expect(calcDistribution(genMockCommits())).toStrictEqual([]);
+  expect(calcDistribution(genMockCommits(4))).toStrictEqual([1, 2, 3]);
 });
