@@ -36,6 +36,18 @@ function calcDistribution(weeklyCommits) {
 
 function monthlyCommitsY(highestMonthlyCommits) {
   if (highestMonthlyCommits === 0) return null;
+  else if (highestMonthlyCommits <= 4) {
+    return new Array(highestMonthlyCommits + 1)
+      .fill(0)
+      .map((_, index) => index);
+  } else {
+    const maxYValues = [20, 40, 100, 200, 400, 1000, 2000, 4000, 10000];
+
+    let maxY = maxYValues.find((num) => highestMonthlyCommits < num);
+    const values = new Array(5).fill(0).map((_, index) => (maxY * index) / 4);
+
+    return values.sort((a, b) => a - b);
+  }
 }
 
-export { calcDistribution };
+export { calcDistribution, monthlyCommitsY };
