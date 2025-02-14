@@ -6,6 +6,11 @@
   --bg-white: #fff;
 }
 
+.daily-commits svg,
+.monthly-commits svg {
+  border: var(--red-border);
+}
+
 text {
   font-family: var(--text-font);
   font-size: var(--text-size);
@@ -16,7 +21,6 @@ text {
 
   & svg {
     display: block;
-    border: var(--red-border);
     background-color: var(--bg-white);
 
     &.days-placement {
@@ -27,6 +31,13 @@ text {
 
   & div.contributions {
     overflow: auto;
+  }
+}
+
+.monthly-commits {
+  & svg {
+    display: block;
+    background-color: var(--bg-white);
   }
 }
 

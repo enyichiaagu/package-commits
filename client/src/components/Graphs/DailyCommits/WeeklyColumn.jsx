@@ -55,6 +55,7 @@ function formatDate(date) {
 
 function WeeklyColumn({
   xPosition,
+  yPosition,
   squareLength,
   padding,
   radius,
@@ -64,24 +65,21 @@ function WeeklyColumn({
   weeklyCommits,
   bounds,
 }) {
-  let yPosition;
-
   let monthIndex = calcMonthIndex(weekIndex, weeklyCommits.week);
-
-  let displayDate;
+  let yPlacement, displayDate;
 
   return (
     <>
       <g>
         {days.map((_, index) => {
-          yPosition = (squareLength + padding) * index;
+          yPlacement = (squareLength + padding) * index + yPosition;
           displayDate = formatDate(addDay(weeklyCommits.week, index));
 
           return (
             <Square
               key={index}
               xPosition={xPosition}
-              yPosition={yPosition}
+              yPosition={yPlacement}
               length={squareLength}
               padding={padding}
               radius={radius}
@@ -97,7 +95,7 @@ function WeeklyColumn({
       </g>
       <MonthsText
         xPosition={xPosition}
-        yPosition={yPosition + squareLength + padding}
+        yPosition={yPlacement + squareLength + padding}
         monthIndex={monthIndex}
       />
     </>
@@ -106,6 +104,7 @@ function WeeklyColumn({
 
 WeeklyColumn.propTypes = {
   xPosition: PropTypes.number.isRequired,
+  yPosition: PropTypes.number.isRequired,
   squareLength: PropTypes.number.isRequired,
   padding: PropTypes.number.isRequired,
   radius: PropTypes.number.isRequired,

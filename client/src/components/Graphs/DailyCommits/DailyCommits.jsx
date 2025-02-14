@@ -5,21 +5,19 @@ import { TooltipProvider } from '@radix-ui/react-tooltip';
 import DaysText from './DaysText';
 import WeeklyColumn from './WeeklyColumn';
 
+import {
+  xStart,
+  daysWidth,
+  squareLength,
+  padding,
+  radius,
+  topSpace,
+  defaultColors,
+  daysArray,
+  GRAPH_HEIGHT,
+} from '../utils/constants';
 import { calcDistribution } from '../utils/distribution';
 import { genMockCommits } from '../utils/mockCommits';
-
-const xStart = 0,
-  yStart = 0,
-  daysWidth = 25,
-  squareLength = 13,
-  padding = 3,
-  radius = 2,
-  bottomSpace = 20,
-  defaultColors = ['#eaeaea', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
-  daysArray = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-// Set height of the component once
-const GRAPH_HEIGHT = (squareLength + padding) * daysArray.length + bottomSpace;
 
 /** Daily Commits Component for a single year */
 const DailyCommits = memo(function DailyCommits({
@@ -43,6 +41,7 @@ const DailyCommits = memo(function DailyCommits({
       <WeeklyColumn
         key={i}
         xPosition={xPosition}
+        yPosition={topSpace}
         squareLength={squareLength}
         padding={padding}
         radius={radius}
@@ -62,7 +61,7 @@ const DailyCommits = memo(function DailyCommits({
         <svg height={GRAPH_HEIGHT} width={daysWidth} className='days-placement'>
           <DaysText
             xStart={xStart}
-            yStart={yStart}
+            yStart={topSpace}
             squareLength={squareLength}
             padding={padding}
             days={daysArray}

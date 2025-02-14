@@ -15,7 +15,7 @@ export default {
 
 export const Filled = {
   args: {
-    weeklyCommits: genMockCommits(),
+    weeklyCommits: genMockCommits(5),
     colors: ['#eaeaea', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
   },
 };

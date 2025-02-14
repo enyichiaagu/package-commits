@@ -8,6 +8,7 @@ export default {
     layout: 'centered',
   },
   args: {
+    highestCommits: 3,
     // weeklyCommits: [],
   },
 };

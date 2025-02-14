@@ -1,15 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import YAxis from './YAxis';
+import {
+  daysWidth,
+  GRAPH_HEIGHT,
+  xStart,
+  bottomSpace,
+  topSpace,
+} from '../utils/constants';
 
-// TODO: Remember to remove tooltip provider
-
-function MonthlyCommits({}) {
+function MonthlyCommits({ highestCommits }) {
   return (
     <div className='monthly-commits'>
-      <svg></svg>
-      <div>
-        <svg></svg>
-      </div>
+      <svg height={GRAPH_HEIGHT} width={daysWidth} className='days-placement'>
+        <YAxis
+          height={GRAPH_HEIGHT - bottomSpace - topSpace}
+          xStart={xStart}
+          topSpace={topSpace}
+          highestCommits={highestCommits}
+        />
+      </svg>
+      <div>{/* <svg></svg> */}</div>
     </div>
   );
 }
