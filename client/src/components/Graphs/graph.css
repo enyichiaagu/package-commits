@@ -1,5 +1,5 @@
 :root {
-  --red-border: 1px solid red;
+  /* --red-border: 1px solid red; */
   --text-font: Consolas, monospace, 'sans serif';
   --text-size: 0.75rem;
   --tooltip-text: 0.7rem;
@@ -16,14 +16,16 @@ text {
   font-size: var(--text-size);
 }
 
-.daily-commits {
+.daily-commits,
+.monthly-commits {
   position: relative;
 
   & svg {
     display: block;
     background-color: var(--bg-white);
 
-    &.days-placement {
+    &.days-placement,
+    &.y-placement {
       position: absolute;
       left: 0;
     }
@@ -31,13 +33,6 @@ text {
 
   & div.contributions {
     overflow: auto;
-  }
-}
-
-.monthly-commits {
-  & svg {
-    display: block;
-    background-color: var(--bg-white);
   }
 }
 

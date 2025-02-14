@@ -15,6 +15,6 @@ export default {
 
 export const Filled = {
   args: {
-    // weeklyCommits: genMockCommits()
+    highestCommits: 20
   },
 };

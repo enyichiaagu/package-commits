@@ -15,6 +15,7 @@ import {
   defaultColors,
   daysArray,
   GRAPH_HEIGHT,
+  GRAPH_WIDTH,
 } from '../utils/constants';
 import { calcDistribution } from '../utils/distribution';
 import { genMockCommits } from '../utils/mockCommits';
@@ -24,16 +25,12 @@ const DailyCommits = memo(function DailyCommits({
   colors = defaultColors,
   weeklyCommits = genMockCommits(0),
 }) {
-  let totalWeeks = weeklyCommits?.length || 52;
+  let totalWeeks = weeklyCommits.length;
 
   let columns = [],
     xPosition = daysWidth;
 
   const bounds = calcDistribution(weeklyCommits);
-
-  // Set width of contributions svg
-  const contributionsWidth =
-    daysWidth + (squareLength + padding) * totalWeeks - padding;
 
   // Loop to generate the weekly columns in the graph
   for (let i = 0; i < totalWeeks; i++) {
@@ -68,7 +65,7 @@ const DailyCommits = memo(function DailyCommits({
           />
         </svg>
         <div className='contributions'>
-          <svg height={GRAPH_HEIGHT} width={contributionsWidth}>
+          <svg height={GRAPH_HEIGHT} width={GRAPH_WIDTH}>
             {columns}
           </svg>
         </div>
