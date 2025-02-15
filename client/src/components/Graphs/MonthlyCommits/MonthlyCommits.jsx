@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import YAxis from './YAxis';
 import Bars from './Bars';
@@ -19,7 +18,7 @@ import { weeklyToMonthlyCommits } from '../utils/distribution';
 function MonthlyCommits({ weeklyCommits }) {
   const monthObj = weeklyToMonthlyCommits(weeklyCommits, MONTHS);
   const highestCommits = Math.max(...Object.values(monthObj));
-  console.log(highestCommits);
+  console.log(monthObj);
 
   return (
     <div className='monthly-commits'>

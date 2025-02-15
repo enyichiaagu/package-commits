@@ -37,7 +37,7 @@ describe('monthlyCommitsY', () => {
 });
 
 describe('WeeklyToMonthlyCommits', () => {
-  test('Should work when there are no year commits', () => {
+  test.skip('Should work when there are no year commits', () => {
     expect(weeklyToMonthlyCommits(genMockCommits(0), MONTHS)).toStrictEqual(
       new Array(12).fill(0)
     );

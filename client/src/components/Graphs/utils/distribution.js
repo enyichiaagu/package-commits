@@ -72,7 +72,7 @@ function weeklyToMonthlyCommits(weeklyCommits, months) {
 
   months.forEach((month, index) => (finalObj[month] = monthlyCommits[index]));
 
-  return monthlyCommits;
+  return finalObj;
 }
 
 export { calcDistribution, monthlyCommitsY, weeklyToMonthlyCommits };

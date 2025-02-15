@@ -1,5 +1,10 @@
-// import { useState } from 'react';
-import { DailyCommits } from './components/Graphs';
+import {
+  DailyCommits,
+  MonthlyCommits,
+  genMockCommits,
+} from './components/Graphs';
+
+const commits = genMockCommits(7);
 
 function App() {
   // const [searchText, setSearchText] = useState('');
@@ -16,7 +21,8 @@ function App() {
         onChange={(event) => setSearchText(event.target.value)}
       /> */}
       {/* <button onClick={handleCheck}>Check</button> */}
-      <DailyCommits />
+      <DailyCommits weeklyCommits={commits} />
+      <MonthlyCommits weeklyCommits={commits} />
     </>
   );
 }
