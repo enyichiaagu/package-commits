@@ -1,8 +1,8 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { DailyCommits } from './components/Graphs';
 
 function App() {
-  const [searchText, setSearchText] = useState('');
+  // const [searchText, setSearchText] = useState('');
 
   // const handleCheck = () => {
   //   const response = await fetch(`https:///api.github.com/repos/`)
@@ -10,12 +10,12 @@ function App() {
 
   return (
     <>
-      <input
+      {/* <input
         type='text'
         value={searchText}
         onChange={(event) => setSearchText(event.target.value)}
-      />
-      <button onClick={handleCheck}>Check</button>
+      /> */}
+      {/* <button onClick={handleCheck}>Check</button> */}
       <DailyCommits />
     </>
   );
