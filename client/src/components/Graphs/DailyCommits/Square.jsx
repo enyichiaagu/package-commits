@@ -23,7 +23,7 @@ function Square({
     ></rect>
   );
 
-  if (!Boolean(commits)) return squareRect;
+  if (!commits) return squareRect;
 
   return (
     <Tooltip.Root>

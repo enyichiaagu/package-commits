@@ -14,13 +14,19 @@ import {
   GRAPH_HEIGHT,
   GRAPH_WIDTH,
 } from '../utils/constants';
+import { weeklyToMonthlyCommits } from '../utils/distribution';
 
-function MonthlyCommits({ highestCommits }) {
+function MonthlyCommits({ weeklyCommits }) {
+  const monthObj = weeklyToMonthlyCommits(weeklyCommits, MONTHS);
+  const highestCommits = Math.max(...Object.values(monthObj));
+  console.log(highestCommits);
+
   return (
     <div className='monthly-commits'>
       <svg height={GRAPH_HEIGHT} width={daysWidth} className='y-placement'>
         <YAxis
           height={GRAPH_HEIGHT - bottomSpace - topSpace}
+          width={daysWidth}
           topSpace={topSpace}
           highestCommits={highestCommits}
         />
@@ -33,7 +39,8 @@ function MonthlyCommits({ highestCommits }) {
             minY={GRAPH_HEIGHT - bottomSpace - topSpace}
             textY={GRAPH_HEIGHT - bottomSpace + padding}
             barWidth={barWidth}
-            months={MONTHS}
+            monthObj={monthObj}
+            highestCommits={highestCommits}
             sidePadding={barLeftPadding}
             defaultColors={defaultColors}
           />

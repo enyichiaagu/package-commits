@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { monthlyCommitsY } from '../utils/distribution';
 
-function YAxis({ height, topSpace, highestCommits }) {
+function YAxis({ height, topSpace, highestCommits, width }) {
   const yNumbers = monthlyCommitsY(highestCommits).sort((a, b) => a - b);
   let dividend = highestCommits <= 3 ? highestCommits : 4,
-    xSpace = 20,
+    xSpace = width,
     yPosition;
 
   return (
@@ -32,6 +32,7 @@ YAxis.propTypes = {
   height: PropTypes.number.isRequired,
   topSpace: PropTypes.number.isRequired,
   highestCommits: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
 };
 
 export default YAxis;

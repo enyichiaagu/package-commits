@@ -1,3 +1,5 @@
+import { addDay } from './mockCommits';
+
 function calcDistribution(weeklyCommits) {
   let dist = [];
   // Get commits for every single day in the year
@@ -50,4 +52,27 @@ function monthlyCommitsY(highestMonthlyCommits) {
   }
 }
 
-export { calcDistribution, monthlyCommitsY };
+function weeklyToMonthlyCommits(weeklyCommits, months) {
+  const monthlyCommits = new Array(12).fill(0);
+  let finalObj = {};
+
+  let commitsMonthIndex;
+
+  weeklyCommits.forEach((weekObj) => {
+    let { week, commits } = weekObj;
+
+    commits.forEach((numOfCommits, index) => {
+      commitsMonthIndex =
+        numOfCommits !== null ? addDay(week, index).getMonth() : NaN;
+
+      if (isNaN(commitsMonthIndex)) return;
+      return (monthlyCommits[commitsMonthIndex] += numOfCommits);
+    });
+  });
+
+  months.forEach((month, index) => (finalObj[month] = monthlyCommits[index]));
+
+  return monthlyCommits;
+}
+
+export { calcDistribution, monthlyCommitsY, weeklyToMonthlyCommits };

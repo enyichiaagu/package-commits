@@ -1,4 +1,4 @@
-import { MonthlyCommits } from '../components/Graphs';
+import { genMockCommits, MonthlyCommits } from '../components/Graphs';
 
 export default {
   title: 'Library/Monthly Commits',
@@ -8,13 +8,13 @@ export default {
     layout: 'centered',
   },
   args: {
-    highestCommits: 3,
+    highestCommits: genMockCommits(),
     // weeklyCommits: [],
   },
 };
 
 export const Filled = {
   args: {
-    highestCommits: 20
+    weeklyCommits: genMockCommits(27),
   },
 };

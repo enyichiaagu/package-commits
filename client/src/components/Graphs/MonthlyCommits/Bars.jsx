@@ -7,24 +7,29 @@ function Bars({
   textY,
   barWidth,
   sidePadding,
-  months,
+  monthObj,
+  highestCommits,
   defaultColors,
 }) {
-  let xPosition;
+  let xPosition, yPosition, height, fraction;
 
   return (
     <>
-      {months.map((month, index) => {
+      {Object.entries(monthObj).map(([month, commits], index) => {
         xPosition = xStart + sidePadding + (barWidth + sidePadding) * index;
+        fraction = commits / highestCommits;
+        yPosition = yStart + (1 - fraction) * minY;
+        height = fraction * minY;
+
         return (
           <g key={index}>
-            <SingleBar
-              xPosition={xPosition}
-              yPosition={yStart}
+            <rect
+              x={xPosition}
+              y={yPosition}
               width={barWidth}
-              height={minY}
+              height={height}
               fill={defaultColors[3]}
-            />
+            ></rect>
             <text
               x={xPosition + barWidth / 2}
               y={textY}
@@ -40,20 +45,16 @@ function Bars({
   );
 }
 
-function SingleBar({ xPosition, yPosition, width, height, fill }) {
-  return (
-    <rect
-      x={xPosition}
-      y={yPosition}
-      width={width}
-      height={height}
-      fill={fill}
-    ></rect>
-  );
-}
-
 Bars.propTypes = {
-  monthlyCommits: PropTypes.object,
+  xStart: PropTypes.number.isRequired,
+  yStart: PropTypes.number.isRequired,
+  minY: PropTypes.number.isRequired,
+  textY: PropTypes.number.isRequired,
+  barWidth: PropTypes.number.isRequired,
+  sidePadding: PropTypes.number.isRequired,
+  monthObj: PropTypes.object.isRequired,
+  highestCommits: PropTypes.number.isRequired,
+  defaultColors: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default Bars;

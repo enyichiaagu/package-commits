@@ -1,5 +1,5 @@
 export const xStart = 0,
-  daysWidth = 25,
+  daysWidth = 35,
   squareLength = 13,
   padding = 3,
   radius = 2,
