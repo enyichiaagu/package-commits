@@ -1,0 +1,11 @@
+@import 'tailwindcss';
+
+* {
+  border: 1px solid red;
+}
+
+@theme {
+  --default-font-family: Consolas, monospace, 'sans serif';
+  --color-body-gradient-t: #f7fcf0;
+  --color-body-gradient-b: #eaebf4;
+}

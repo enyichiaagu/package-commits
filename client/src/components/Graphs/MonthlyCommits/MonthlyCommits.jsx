@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { TooltipProvider } from '@radix-ui/react-tooltip';
 import YAxis from './YAxis';
 import Bars from './Bars';
 import {
@@ -18,34 +19,35 @@ import { weeklyToMonthlyCommits } from '../utils/distribution';
 function MonthlyCommits({ weeklyCommits }) {
   const monthObj = weeklyToMonthlyCommits(weeklyCommits, MONTHS);
   const highestCommits = Math.max(...Object.values(monthObj));
-  console.log(monthObj);
 
   return (
-    <div className='monthly-commits'>
-      <svg height={GRAPH_HEIGHT} width={daysWidth} className='y-placement'>
-        <YAxis
-          height={GRAPH_HEIGHT - bottomSpace - topSpace}
-          width={daysWidth}
-          topSpace={topSpace}
-          highestCommits={highestCommits}
-        />
-      </svg>
-      <div className='contributions'>
-        <svg height={GRAPH_HEIGHT} width={GRAPH_WIDTH}>
-          <Bars
-            xStart={daysWidth}
-            yStart={topSpace}
-            minY={GRAPH_HEIGHT - bottomSpace - topSpace}
-            textY={GRAPH_HEIGHT - bottomSpace + padding}
-            barWidth={barWidth}
-            monthObj={monthObj}
+    <TooltipProvider>
+      <div className='monthly-commits'>
+        <svg height={GRAPH_HEIGHT} width={daysWidth} className='y-placement'>
+          <YAxis
+            height={GRAPH_HEIGHT - bottomSpace - topSpace}
+            width={daysWidth}
+            topSpace={topSpace}
             highestCommits={highestCommits}
-            sidePadding={barLeftPadding}
-            defaultColors={defaultColors}
           />
         </svg>
+        <div className='contributions'>
+          <svg height={GRAPH_HEIGHT} width={GRAPH_WIDTH}>
+            <Bars
+              xStart={daysWidth}
+              yStart={topSpace}
+              minY={GRAPH_HEIGHT - bottomSpace - topSpace}
+              textY={GRAPH_HEIGHT - bottomSpace + padding}
+              barWidth={barWidth}
+              monthObj={monthObj}
+              highestCommits={highestCommits}
+              sidePadding={barLeftPadding}
+              defaultColors={defaultColors}
+            />
+          </svg>
+        </div>
       </div>
-    </div>
+    </TooltipProvider>
   );
 }
 

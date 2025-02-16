@@ -1,29 +1,21 @@
-import {
-  DailyCommits,
-  MonthlyCommits,
-  genMockCommits,
-} from './components/Graphs';
+// import {
+//   DailyCommits,
+//   MonthlyCommits,
+//   genMockCommits,
+// } from './components/Graphs';
+import Footer from './components/Footer';
+import FrontPage from './pages/FrontPage';
 
-const commits = genMockCommits(7);
+// const commits = genMockCommits(7);
 
 function App() {
-  // const [searchText, setSearchText] = useState('');
-
-  // const handleCheck = () => {
-  //   const response = await fetch(`https:///api.github.com/repos/`)
-  // };
-
   return (
-    <>
-      {/* <input
-        type='text'
-        value={searchText}
-        onChange={(event) => setSearchText(event.target.value)}
-      /> */}
-      {/* <button onClick={handleCheck}>Check</button> */}
-      <DailyCommits weeklyCommits={commits} />
-      <MonthlyCommits weeklyCommits={commits} />
-    </>
+    <div className='h-svh flex flex-col bg-linear-to-t from-body-gradient-b to-body-gradient-t'>
+      <div className='flex-1'>
+        <FrontPage />
+      </div>
+      <Footer />
+    </div>
   );
 }
 
