@@ -1,18 +1,13 @@
-// import {
-//   DailyCommits,
-//   MonthlyCommits,
-//   genMockCommits,
-// } from './components/Graphs';
 import Footer from './components/Footer';
-import FrontPage from './pages/FrontPage';
-
-// const commits = genMockCommits(7);
+// import FrontPage from './pages/FrontPage';
+import DisplayGraphs from './pages/DisplayGraphs';
 
 function App() {
   return (
     <div className='h-svh flex flex-col bg-linear-to-t from-body-gradient-b to-body-gradient-t'>
       <div className='flex-1'>
-        <FrontPage />
+        {/* <FrontPage /> */}
+        <DisplayGraphs />
       </div>
       <Footer />
     </div>

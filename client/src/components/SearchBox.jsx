@@ -43,7 +43,10 @@ function SearchBox({ variant }) {
           {...getInputProps()}
         />
       </div>
-      <ul {...getMenuProps()} className={`bg-list-bg max-h-60 overflow-y-auto`}>
+      <ul
+        {...getMenuProps()}
+        className={`bg-list-bg max-h-60 overflow-y-auto shadow-md z-10 absolute w-lg`}
+      >
         {isOpen &&
           items.map((item, index) => (
             <SearchListItem

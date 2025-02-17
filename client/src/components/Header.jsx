@@ -3,7 +3,7 @@ import Socials from './Socials';
 
 function Header({ children }) {
   return (
-    <header className='py-2 px-4 sm:py-4 sm:px-8 flex justify-between'>
+    <header className='py-2 px-4 sm:py-4 sm:px-8 flex gap-20'>
       {children}
       <Socials className='ml-auto' />
     </header>
@@ -11,7 +11,7 @@ function Header({ children }) {
 }
 
 Header.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.arrayOf(PropTypes.element),
 };
 
 export default Header;
