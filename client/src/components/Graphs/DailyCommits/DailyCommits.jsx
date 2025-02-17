@@ -23,7 +23,7 @@ import { genMockCommits } from '../utils/mockCommits';
 /** Daily Commits Component for a single year */
 const DailyCommits = memo(function DailyCommits({
   colors = defaultColors,
-  weeklyCommits = genMockCommits(0),
+  weeklyCommits = genMockCommits(5),
 }) {
   let totalWeeks = weeklyCommits.length;
 

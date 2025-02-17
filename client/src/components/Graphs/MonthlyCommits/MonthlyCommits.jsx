@@ -15,8 +15,9 @@ import {
   GRAPH_WIDTH,
 } from '../utils/constants';
 import { weeklyToMonthlyCommits } from '../utils/distribution';
+import { genMockCommits } from '../utils/mockCommits';
 
-function MonthlyCommits({ weeklyCommits }) {
+function MonthlyCommits({ weeklyCommits = genMockCommits(5) }) {
   const monthObj = weeklyToMonthlyCommits(weeklyCommits, MONTHS);
   const highestCommits = Math.max(...Object.values(monthObj));
 
