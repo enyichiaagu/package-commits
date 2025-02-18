@@ -2,8 +2,8 @@ import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 const variants = {
-  front: 'bg-white border border-custom-grey text-xl py-2 px-6',
-  normal: 'outline-0',
+  front: 'text-xl py-2 px-6',
+  normal: '',
 };
 
 const SearchInput = forwardRef(function SearchInput(
@@ -12,8 +12,9 @@ const SearchInput = forwardRef(function SearchInput(
 ) {
   return (
     <input
-      className={`placeholder:text-black w-full block ${variants[variant]}`}
+      className={`placeholder:text-black w-full block outline-0 ${variants[variant]}`}
       placeholder={placeholder}
+      type='text'
       ref={ref}
       {...otherProps}
     />

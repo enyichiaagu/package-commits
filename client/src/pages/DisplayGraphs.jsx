@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { BiSearchAlt } from 'react-icons/bi';
 import { DailyCommits, MonthlyCommits } from '../components/Graphs';
 import Header from '../components/Header';
@@ -9,10 +10,12 @@ function DisplayGraphs() {
   return (
     <>
       <Header>
-        <h1 className='font-bold text-xl flex-col flex italic'>
-          <span>Package</span>
-          <span className='-mt-3 relative left-2'>Commits</span>
-        </h1>
+        <Link to='/'>
+          <h1 className='font-bold text-xl flex-col flex italic'>
+            <span>Package</span>
+            <span className='-mt-3 relative left-2'>Commits</span>
+          </h1>
+        </Link>
         <div className='flex gap-4 items-center'>
           {/* TODO: Remove this to use downshift functionality */}
           <BiSearchAlt className='text-3xl' />
