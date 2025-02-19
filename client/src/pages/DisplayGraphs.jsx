@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link, useParams } from 'react-router';
 import { BiSearchAlt } from 'react-icons/bi';
 import { DailyCommits, MonthlyCommits } from '../components/Graphs';
 import Header from '../components/Header';
@@ -7,6 +7,8 @@ import PackageTitle from '../components/PackageTitle';
 import GraphControls from '../components/GraphControls';
 
 function DisplayGraphs() {
+  const params = useParams();
+  const { '*': pkg } = params;
   return (
     <>
       <Header>
@@ -19,7 +21,7 @@ function DisplayGraphs() {
         <div className='flex gap-4 items-center'>
           {/* TODO: Remove this to use downshift functionality */}
           <BiSearchAlt className='text-3xl' />
-          <SearchBox variant='normal' />
+          <SearchBox variant='normal' pkg={pkg} />
         </div>
       </Header>
       <main className='mt-10 mx-auto max-w-4xl'>

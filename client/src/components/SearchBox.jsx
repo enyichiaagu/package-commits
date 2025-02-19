@@ -1,23 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 import { useCombobox } from 'downshift';
-import { BiSearchAlt } from 'react-icons/bi';
 import SearchInput from './SearchInput';
 import SearchListItem from './SearchListItem';
-const NPM_SEARCH = 'https://api.npms.io/v2/search';
+const NPM_SEARCH = 'https://api.npms.io/v2/search/suggestions';
 
 async function getFilteredList(query) {
   if (!query.trim()) return [];
-  let response = await fetch(
-    `${NPM_SEARCH}?q=${encodeURIComponent(query.trim())}`
-  );
+  let response = await fetch(`${NPM_SEARCH}?q=${query.trim()}`);
   let data = await response.json();
-  return data.results;
+  return data;
 }
 
-function SearchBox({ variant }) {
+function SearchBox({ variant, pkg }) {
   const [items, setItems] = useState([]);
+  const [displayValue, setDisplayValue] = useState(pkg || '');
 
   const {
     isOpen,
@@ -25,11 +22,12 @@ function SearchBox({ variant }) {
     getMenuProps,
     getItemProps,
     highlightedIndex,
-    inputValue,
     // selectedItem,
   } = useCombobox({
     async onInputValueChange({ inputValue }) {
+      setDisplayValue(inputValue);
       setItems(await getFilteredList(inputValue));
+      console.log(items);
     },
     items,
     itemToString(item) {
@@ -37,30 +35,28 @@ function SearchBox({ variant }) {
     },
   });
 
-  let isFrontVariant = variant === 'front';
+  // Make sure it fetches updates on a fresh display packages page
+  useEffect(() => {
+    const loadItems = async () => {
+      if (isOpen && pkg && !items.length) {
+        setItems(await getFilteredList(pkg));
+      }
+    };
+    loadItems();
+  }, [isOpen, pkg, items]);
 
   return (
     <div className='w-lg justify-center'>
-      <div
-        className={`flex justify-center ${
-          isFrontVariant && 'bg-white border border-custom-grey'
-        }`}
-      >
-        <SearchInput
-          placeholder='Search npm package'
-          variant={variant}
-          {...getInputProps()}
-        />
-        {isFrontVariant && (
-          <Link to={`/package`} className='inline-flex items-center pr-4'>
-            <BiSearchAlt className='text-4xl' />
-          </Link>
-        )}
-      </div>
+      <SearchInput
+        placeholder='Search npm package'
+        variant={variant}
+        displayValue={displayValue}
+        {...getInputProps()}
+      />
       <ul
         {...getMenuProps()}
         className={`bg-list-bg max-h-60 overflow-y-auto shadow-md z-10 absolute w-lg ${
-          !inputValue && 'hidden'
+          !displayValue && 'hidden'
         }`}
       >
         {isOpen &&
@@ -79,6 +75,7 @@ function SearchBox({ variant }) {
 
 SearchBox.propTypes = {
   variant: PropTypes.oneOf(['front', 'normal']).isRequired,
+  pkg: PropTypes.string,
 };
 
 export default SearchBox;

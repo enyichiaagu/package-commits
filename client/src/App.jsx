@@ -9,7 +9,7 @@ function App() {
       <div className='flex-1'>
         <Routes>
           <Route index element={<FrontPage />} />
-          <Route path='package' element={<DisplayGraphs />} />
+          <Route path='package/*' element={<DisplayGraphs />} />
         </Routes>
       </div>
       <Footer />
