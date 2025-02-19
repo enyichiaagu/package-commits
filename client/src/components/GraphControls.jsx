@@ -1,9 +1,11 @@
+import PropTypes from 'prop-types';
 import { useSelect } from 'downshift';
 import { AiFillCaretDown } from 'react-icons/ai';
+import ControlBtn from './ControlBtn';
 
 const timeFrames = ['Current', '2025', '2024'];
 
-function GraphControls() {
+function GraphControls({ tabType }) {
   const {
     isOpen,
     getToggleButtonProps,
@@ -16,8 +18,8 @@ function GraphControls() {
 
   return (
     <div className='my-8 flex'>
-      <span className='px-6 py-0.5 bg-black text-white shadow-md'>Daily</span>
-      <span className='px-6 py-0.5'>Monthly</span>
+      <ControlBtn option='daily' currentTab={tabType} />
+      <ControlBtn option='monthly' currentTab={tabType} />
 
       <div className='ml-auto'>
         <div
@@ -46,5 +48,9 @@ function GraphControls() {
     </div>
   );
 }
+
+GraphControls.propTypes = {
+  tabType: PropTypes.oneOf(['daily', 'monthly']).isRequired,
+};
 
 export default GraphControls;
