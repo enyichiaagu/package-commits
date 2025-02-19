@@ -5,10 +5,13 @@ import Header from '../components/Header';
 import SearchBox from '../components/SearchBox';
 import PackageTitle from '../components/PackageTitle';
 import GraphControls from '../components/GraphControls';
+import usePackage from '../hooks/usePackage';
 
 function DisplayGraphs() {
   const params = useParams();
   const { '*': pkg } = params;
+  const { pkgData, isLoading, isError } = usePackage(pkg);
+
   return (
     <>
       <Header>
@@ -25,7 +28,7 @@ function DisplayGraphs() {
         </div>
       </Header>
       <main className='mt-10 mx-auto max-w-4xl'>
-        <PackageTitle />
+        <PackageTitle pkgData={pkgData} />
         <GraphControls />
         <DailyCommits />
         {/* <MonthlyCommits /> */}

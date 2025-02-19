@@ -1,14 +1,15 @@
 import { FaGithubAlt } from 'react-icons/fa6';
 import { TbBrandNpm } from 'react-icons/tb';
 import { SlGlobe } from 'react-icons/sl';
+import PropTypes from 'prop-types';
 
-function PackageTitle() {
+function PackageTitle({ pkgData }) {
   return (
     <>
       <div className='flex justify-between'>
         <div className='text-3xl'>
-          <span className='font-bold'>react</span>
-          <span>(19.alpha.1)</span>
+          <span className='font-bold'>{pkgData?.name}</span>
+          <span>{pkgData && `(${pkgData.version})`}</span>
         </div>
         <div className='flex text-2xl gap-3 items-end'>
           <FaGithubAlt />
@@ -17,9 +18,13 @@ function PackageTitle() {
         </div>
       </div>
 
-      <p>React is a JavaScript library for creating user interfaces.</p>
+      <p>{pkgData?.description}</p>
     </>
   );
 }
+
+PackageTitle.propTypes = {
+  pkgData: PropTypes.object,
+};
 
 export default PackageTitle;

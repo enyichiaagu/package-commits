@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useCombobox } from 'downshift';
 import SearchInput from './SearchInput';
 import SearchListItem from './SearchListItem';
+
 const NPM_SEARCH = 'https://api.npms.io/v2/search/suggestions';
 
 async function getFilteredList(query) {
@@ -27,7 +28,6 @@ function SearchBox({ variant, pkg }) {
     async onInputValueChange({ inputValue }) {
       setDisplayValue(inputValue);
       setItems(await getFilteredList(inputValue));
-      console.log(items);
     },
     items,
     itemToString(item) {
