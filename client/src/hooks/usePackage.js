@@ -4,21 +4,23 @@ const NPM_FETCH = 'https://registry.npmjs.org';
 
 async function fetcher(pkg) {
   const response = await fetch(`${NPM_FETCH}/${pkg}/latest`);
-  const data = response.json();
+  const data = await response.json();
 
-  return data;
+  console.log(data);
+
+  return {
+    name: data.name,
+    version: data.version,
+    description: data.description,
+    owner: data.repository.url.split('/')[3],
+    repo: data.repository.url.split('/')[4].split('.')[0],
+  };
 }
 
 function usePackage(pkg) {
   const { data, error, isLoading } = useSWR(pkg, fetcher);
-  let pkgData;
 
-  if (data) {
-    const { name, version, description } = data;
-    pkgData = { name, version, description };
-  }
-
-  return { pkgData: pkgData ?? data, isLoading, isError: error };
+  return { pkgData: data, isLoading, isError: error };
 }
 
 export default usePackage;

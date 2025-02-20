@@ -13,7 +13,6 @@ function DisplayGraphs() {
 
   const { '*': pkg } = params;
   const { pkgData, isLoading, isError } = usePackage(pkg);
-
   const tabType = searchParams.get('tab') || 'daily';
 
   return (
@@ -33,7 +32,7 @@ function DisplayGraphs() {
       </Header>
       <main className='mt-10 mx-auto max-w-4xl'>
         <PackageTitle pkgData={pkgData} />
-        <GraphControls tabType={tabType} />
+        <GraphControls tabType={tabType} pkgData={pkgData} />
         <div className={tabType === 'monthly' ? 'hidden' : ''}>
           <DailyCommits />
         </div>
