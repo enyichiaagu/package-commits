@@ -1,11 +1,11 @@
 import { Link, useParams, useSearchParams } from 'react-router';
 import { BiSearchAlt } from 'react-icons/bi';
-import { DailyCommits, MonthlyCommits } from '../components/Graphs';
 import Header from '../components/Header';
 import SearchBox from '../components/SearchBox';
 import PackageTitle from '../components/PackageTitle';
 import GraphControls from '../components/GraphControls';
 import usePackage from '../hooks/usePackage';
+import GraphBox from '../components/GraphBox';
 
 function DisplayGraphs() {
   const params = useParams();
@@ -33,12 +33,7 @@ function DisplayGraphs() {
       <main className='mt-10 mx-auto max-w-4xl'>
         <PackageTitle pkgData={pkgData} />
         <GraphControls tabType={tabType} pkgData={pkgData} />
-        <div className={tabType === 'monthly' ? 'hidden' : ''}>
-          <DailyCommits />
-        </div>
-        <div className={tabType === 'daily' ? 'hidden' : ''}>
-          <MonthlyCommits />
-        </div>
+        <GraphBox tabType={tabType} />
         <span className='block text-right mt-8'>300 contributors</span>
       </main>
     </>

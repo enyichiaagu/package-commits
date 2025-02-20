@@ -93,4 +93,9 @@ function generateYrsArr(year, currentYear) {
   return yrs.reverse();
 }
 
-export { generateYrsArr };
+function getYear(dateStr) {
+  const date = new Date(dateStr);
+  return date.getFullYear();
+}
+
+export { generateYrsArr, getYear };

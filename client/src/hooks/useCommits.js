@@ -1,19 +1,23 @@
-import { useCallback, useEffect, useState } from 'react';
-import { httpGetAllCommits } from './requests';
+// import { useCallback, useEffect, useState } from 'react';
+// import { httpGetAllCommits } from './requests';
 
-function useCommits(repo, year, path) {
-  const [commits, saveCommits] = useState([]);
+// function useCommits(repo, year, path) {
+//   const [commits, saveCommits] = useState([]);
 
-  const getCommits = useCallback(async () => {
-    const fetchedCommits = await httpGetAllCommits(repo, year, path);
-    saveCommits(fetchedCommits);
-  }, [repo, year, path]);
+//   const getCommits = useCallback(async () => {
+//     const fetchedCommits = await httpGetAllCommits(repo, year, path);
+//     saveCommits(fetchedCommits);
+//   }, [repo, year, path]);
 
-  useEffect(() => {
-    getCommits();
-  }, [getCommits]);
+//   useEffect(() => {
+//     getCommits();
+//   }, [getCommits]);
 
-  return commits;
-}
+//   return commits;
+// }
 
-export default useCommits;
+// export default useCommits;
+
+import useSWR from 'swr';
+
+async function fetcher() {}

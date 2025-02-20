@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { TooltipProvider } from '@radix-ui/react-tooltip';
 import YAxis from './YAxis';
@@ -17,7 +18,9 @@ import {
 import { weeklyToMonthlyCommits } from '../utils/distribution';
 import { genMockCommits } from '../utils/mockCommits';
 
-function MonthlyCommits({ weeklyCommits = genMockCommits(5) }) {
+const MonthlyCommits = memo(function MonthlyCommits({
+  weeklyCommits = genMockCommits(5),
+}) {
   const monthObj = weeklyToMonthlyCommits(weeklyCommits, MONTHS);
   const highestCommits = Math.max(...Object.values(monthObj));
 
@@ -50,7 +53,7 @@ function MonthlyCommits({ weeklyCommits = genMockCommits(5) }) {
       </div>
     </TooltipProvider>
   );
-}
+});
 
 MonthlyCommits.propTypes = {
   weeklyCommits: PropTypes.arrayOf(
