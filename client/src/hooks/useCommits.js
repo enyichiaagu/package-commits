@@ -1,23 +1,28 @@
-// import { useCallback, useEffect, useState } from 'react';
-// import { httpGetAllCommits } from './requests';
-
-// function useCommits(repo, year, path) {
-//   const [commits, saveCommits] = useState([]);
-
-//   const getCommits = useCallback(async () => {
-//     const fetchedCommits = await httpGetAllCommits(repo, year, path);
-//     saveCommits(fetchedCommits);
-//   }, [repo, year, path]);
-
-//   useEffect(() => {
-//     getCommits();
-//   }, [getCommits]);
-
-//   return commits;
-// }
-
-// export default useCommits;
-
 import useSWR from 'swr';
 
-async function fetcher() {}
+const GITHUB_FETCH = 'https://api.github.com/repos';
+
+async function fetcher(repoLocation) {
+  console.log(`${GITHUB_FETCH}/${repoLocation}/commits`);
+  const response = await fetch(`${GITHUB_FETCH}/${repoLocation}/commits`);
+  const data = await response.json();
+  console.log(data);
+  return data;
+}
+
+function useCommits(pkgData) {
+  const { data, error, isLoading } = useSWR(
+    pkgData && pkgData.owner && pkgData.repo
+      ? `${pkgData.owner}/${pkgData.repo}`
+      : null,
+    fetcher
+  );
+
+  return {
+    data,
+    isLoading,
+    isError: error,
+  };
+}
+
+export default useCommits;

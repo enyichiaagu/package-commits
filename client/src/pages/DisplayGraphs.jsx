@@ -33,7 +33,8 @@ function DisplayGraphs() {
       <main className='mt-10 mx-auto max-w-4xl'>
         <PackageTitle pkgData={pkgData} />
         <GraphControls tabType={tabType} pkgData={pkgData} />
-        <GraphBox tabType={tabType} />
+        <GraphBox tabType={tabType} pkgData={pkgData} />
+        {/* Change this to maintainers for now */}
         <span className='block text-right mt-8'>300 contributors</span>
       </main>
     </>

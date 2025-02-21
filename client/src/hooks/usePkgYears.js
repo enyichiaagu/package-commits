@@ -4,7 +4,7 @@ import { getYear } from './utils';
 const GITHUB_API = 'https://api.github.com/repos';
 
 async function fetcher(repoLocation) {
-  const response = await fetch(`${GITHUB_API}${repoLocation}`);
+  const response = await fetch(`${GITHUB_API}/${repoLocation}`);
   const data = await response.json();
 
   return getYear(data.created_at);
@@ -13,9 +13,7 @@ async function fetcher(repoLocation) {
 function usePkgCreatedYear(pkgData) {
   const { data, error, isLoading } = useSWR(
     () =>
-      pkgData.owner && pkgData.repo
-        ? `/${pkgData.owner}/${pkgData.repo}`
-        : null,
+      pkgData.owner && pkgData.repo ? `${pkgData.owner}/${pkgData.repo}` : null,
     fetcher
   );
 
