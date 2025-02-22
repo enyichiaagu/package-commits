@@ -15,9 +15,9 @@ async function pagesFetcher(key) {
       Authorization: `Bearer ${import.meta.env.VITE_GITHUB_PAT}`,
     },
   });
-  let headerLink = response.headers.get('link');
+  let headerLink = response.headers.get('link') || null;
 
-  let pages = +headerLink.match(/page=(\d*).*last/)[1] || 1;
+  let pages = headerLink ? +headerLink.match(/page=(\d*).*last/)[1] : 1;
   let result = await response.json();
   return { result, pages };
 }
@@ -37,7 +37,7 @@ function useCommits(pkgData) {
     pagesFetcher
   );
 
-  let commits = data ? getWeeklyCommits(data?.result, range) : [];
+  let commits = data ? getWeeklyCommits(data.result, range) : [];
 
   return {
     commits,

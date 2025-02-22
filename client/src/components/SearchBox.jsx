@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import PropTypes from 'prop-types';
 import { useCombobox } from 'downshift';
 import SearchInput from './SearchInput';
@@ -16,6 +17,7 @@ async function getFilteredList(query) {
 function SearchBox({ variant, pkg }) {
   const [items, setItems] = useState([]);
   const [displayValue, setDisplayValue] = useState(pkg || '');
+  const navigate = useNavigate();
 
   const {
     isOpen,
@@ -23,7 +25,7 @@ function SearchBox({ variant, pkg }) {
     getMenuProps,
     getItemProps,
     highlightedIndex,
-    // selectedItem,
+    selectedItem,
   } = useCombobox({
     async onInputValueChange({ inputValue }) {
       setDisplayValue(inputValue);
@@ -34,6 +36,10 @@ function SearchBox({ variant, pkg }) {
       return item?.package.name || '';
     },
   });
+
+  useEffect(() => {
+    selectedItem && navigate(`/package/${selectedItem.package.name}`);
+  }, [selectedItem]);
 
   // Make sure it fetches updates on a fresh display packages page
   useEffect(() => {

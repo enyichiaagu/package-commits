@@ -49,8 +49,7 @@ function getWeeklyCommits(commitsArr, range) {
     weekIndex;
 
   commitsArr.forEach((ghCommit) => {
-    let commitIsoDate =
-      ghCommit.commit?.author.date || ghCommit.commit?.committer.date;
+    let commitIsoDate = ghCommit.commit.committer.date;
     weekIndex = template.findIndex(
       (tempCommit) => getWeek(commitIsoDate).toISOString() === tempCommit.week
     );
