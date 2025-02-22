@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelect } from 'downshift';
 import { AiFillCaretDown } from 'react-icons/ai';
 import ControlBtn from './ControlBtn';
-import usePkgYears from '../hooks/usePkgYears';
-import { generateYrsArr } from '../hooks/utils';
-
-const currentYear = new Date().getFullYear();
+import useYears from '../hooks/useYears';
 
 function GraphControls({ tabType, pkgData }) {
   let [timeFrame, setTimeFrame] = useState(['Current']);
@@ -21,12 +18,11 @@ function GraphControls({ tabType, pkgData }) {
     items: timeFrame,
   });
 
-  const { year, isLoading, isError } = usePkgYears(pkgData);
+  const { years, isLoading, isError } = useYears(pkgData);
 
   useEffect(() => {
-    year &&
-      setTimeFrame((prev) => [...prev, ...generateYrsArr(year, currentYear)]);
-  }, [year]);
+    years && setTimeFrame(['Current', ...years]);
+  }, [years]);
 
   return (
     <div className='my-8 flex'>

@@ -83,14 +83,16 @@
 //   weekShade,
 // };
 
-function generateYrsArr(year, currentYear) {
-  const yrs = [];
-  do {
-    yrs.push(year);
-    year++;
-  } while (currentYear >= year);
+function generateYrsArr(createdYear, currentYear, maxNumYears = 3) {
+  if (createdYear > currentYear)
+    throw new RangeError('Starting year cannot be greater than current year');
 
-  return yrs.reverse();
+  const minYear = Math.max(createdYear, currentYear - maxNumYears + 1);
+
+  return Array.from(
+    { length: currentYear - minYear + 1 },
+    (_, i) => minYear + i
+  ).reverse();
 }
 
 function getYear(dateStr) {

@@ -10,14 +10,16 @@ describe('generateYrsArr', () => {
     ]);
   });
 
-  test('Year should return 2025', () => {
-    expect(generateYrsArr(2025, currentYear)).toStrictEqual([2025]);
+  test('Check for different years', () => {
+    expect(generateYrsArr(2023, 2025)).toStrictEqual([2025, 2024, 2023]);
+    expect(generateYrsArr(2024, 2025)).toStrictEqual([2025, 2024]);
+    expect(generateYrsArr(2022, 2025)).toStrictEqual([2025, 2024, 2023]);
+    expect(generateYrsArr(2021, 2025)).toStrictEqual([2025, 2024, 2023]);
   });
 
-  test('Check for different years', () => {
-    expect(generateYrsArr(2023, currentYear)).toStrictEqual([2025, 2024, 2023]);
-    expect(generateYrsArr(2021, currentYear)).toStrictEqual([
-      2025, 2024, 2023, 2022, 2021,
-    ]);
+  test('Throw on error', () => {
+    expect(() => generateYrsArr(currentYear + 1, currentYear)).toThrow(
+      RangeError
+    );
   });
 });

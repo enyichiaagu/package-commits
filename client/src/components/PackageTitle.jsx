@@ -4,8 +4,6 @@ import { SlGlobe } from 'react-icons/sl';
 import PropTypes from 'prop-types';
 
 function PackageTitle({ pkgData }) {
-  console.log(pkgData);
-
   return (
     <>
       <div className='flex justify-between'>
