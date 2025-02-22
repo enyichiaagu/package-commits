@@ -1,7 +1,8 @@
 import { describe, test, expect } from 'vitest';
-import { generateYrsArr } from './utils';
+import { generateYrsArr, getDateRange, getYear } from './utils';
 
-const currentYear = new Date().getFullYear();
+const currentYear = getYear(Date.now());
+const timestamp = Date.now();
 
 describe('generateYrsArr', () => {
   test('Check for when year is only current year', () => {
@@ -21,5 +22,22 @@ describe('generateYrsArr', () => {
     expect(() => generateYrsArr(currentYear + 1, currentYear)).toThrow(
       RangeError
     );
+  });
+});
+
+describe('getDateRange', () => {
+  test('Check if it works for literal years', () => {
+    expect(getDateRange(2010)).toStrictEqual({
+      start: '2010-01-01T00:00:00.000Z',
+      end: '2010-12-31T23:59:59.999Z',
+    });
+  });
+
+  test('Check if it works for timestamp', () => {
+    expect(getDateRange(timestamp)).toBeTypeOf('object');
+    expect(getDateRange(timestamp)).toHaveProperty('start');
+    expect(getDateRange(timestamp)).toHaveProperty('end');
+    expect(getDateRange(timestamp).end).toMatch(currentYear);
+    expect(getDateRange(timestamp).start).toMatch(currentYear - 1);
   });
 });

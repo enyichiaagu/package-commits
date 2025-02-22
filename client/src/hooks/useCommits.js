@@ -1,4 +1,5 @@
 import useSWR from 'swr';
+import { getDateRange } from './utils';
 
 const GITHUB_FETCH = 'https://api.github.com/repos';
 
@@ -9,11 +10,12 @@ async function fetcher(key) {
 }
 
 function useCommits(pkgData) {
+  const range = getDateRange();
   const { data, error, isLoading } = useSWR(
     () =>
       pkgData.repo &&
       pkgData.owner &&
-      `${pkgData.owner}/${pkgData.repo}/commits`,
+      `${pkgData.owner}/${pkgData.repo}/commits?since=${range.start}&until=${range.end}`,
     fetcher
   );
 
