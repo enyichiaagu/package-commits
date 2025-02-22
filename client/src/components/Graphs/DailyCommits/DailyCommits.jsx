@@ -23,7 +23,7 @@ import { genMockCommits } from '../utils/mockCommits';
 /** Daily Commits Component for a single year */
 const DailyCommits = memo(function DailyCommits({
   colors = defaultColors,
-  weeklyCommits = genMockCommits(5),
+  weeklyCommits = genMockCommits(0),
 }) {
   let totalWeeks = weeklyCommits.length;
 
@@ -31,6 +31,7 @@ const DailyCommits = memo(function DailyCommits({
     xPosition = daysWidth;
 
   const bounds = calcDistribution(weeklyCommits);
+  console.log(bounds);
 
   // Loop to generate the weekly columns in the graph
   for (let i = 0; i < totalWeeks; i++) {

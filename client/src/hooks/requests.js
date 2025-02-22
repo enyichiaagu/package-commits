@@ -4,7 +4,7 @@ import {
   dayIndex,
   numRange,
   commitsMap,
-} from './utils.js';
+} from './utils/common.js';
 
 // Define Constants
 // const NPM_REGISTRY = 'https://registry.npmjs.org',

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
 import { BiSearchAlt } from 'react-icons/bi';
 import Header from '../components/Header';

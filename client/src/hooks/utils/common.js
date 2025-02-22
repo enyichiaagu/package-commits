@@ -65,6 +65,11 @@
 //   weekShade,
 // };
 
+function getYear(dateId) {
+  const date = new Date(dateId);
+  return date.getUTCFullYear();
+}
+
 function getDateRange(period = Date.now()) {
   // Check if period is a year
   if (Number(period) && period.toString().length === 4) {
@@ -76,7 +81,7 @@ function getDateRange(period = Date.now()) {
 
   let reference = new Date(period);
   let startPoint = new Date(period);
-  startPoint.setUTCFullYear(getYear(period) - 1);
+  startPoint.setFullYear(getYear(period) - 1);
 
   return {
     start: startPoint.toISOString(),
@@ -92,13 +97,8 @@ function generateYrsArr(createdYear, currentYear, maxNumYears = 3) {
 
   return Array.from(
     { length: currentYear - minYear + 1 },
-    (_, i) => minYear + i
+    (_value, index) => minYear + index
   ).reverse();
-}
-
-function getYear(dateId) {
-  const date = new Date(dateId);
-  return date.getUTCFullYear();
 }
 
 export { generateYrsArr, getYear, getDateRange };

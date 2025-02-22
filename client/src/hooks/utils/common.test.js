@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { generateYrsArr, getDateRange, getYear } from './utils';
+import { generateYrsArr, getDateRange, getYear } from './common';
 
 const currentYear = getYear(Date.now());
 const timestamp = Date.now();
@@ -40,4 +40,8 @@ describe('getDateRange', () => {
     expect(getDateRange(timestamp).end).toMatch(currentYear);
     expect(getDateRange(timestamp).start).toMatch(currentYear - 1);
   });
+});
+
+describe('getYear', () => {
+  test('Check if it works', () => expect(getYear(timestamp)).toBe(currentYear));
 });

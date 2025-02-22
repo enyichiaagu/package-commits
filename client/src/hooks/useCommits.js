@@ -1,26 +1,46 @@
-import useSWR from 'swr';
-import { getDateRange } from './utils';
+import useSWRImmutable from 'swr/immutable';
+import { getDateRange } from './utils/common';
+import { getWeeklyCommits } from './utils/commits';
 
 const GITHUB_FETCH = 'https://api.github.com/repos';
+const MAX_COMMITS_FETCH = 30;
 
-async function fetcher(key) {
-  const response = await fetch(`${GITHUB_FETCH}/${key}`);
-  const data = await response.json();
-  return data;
+const range = getDateRange();
+
+async function pagesFetcher(key) {
+  let response = await fetch(`${GITHUB_FETCH}/${key}`, {
+    headers: {
+      Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      Authorization: `Bearer ${import.meta.env.VITE_GITHUB_PAT}`,
+    },
+  });
+  let headerLink = response.headers.get('link');
+
+  let pages = +headerLink.match(/page=(\d*).*last/)[1] || 1;
+  let result = await response.json();
+  return { result, pages };
 }
 
 function useCommits(pkgData) {
-  const range = getDateRange();
-  const { data, error, isLoading } = useSWR(
-    () =>
-      pkgData.repo &&
-      pkgData.owner &&
-      `${pkgData.owner}/${pkgData.repo}/commits?since=${range.start}&until=${range.end}`,
-    fetcher
+  const firstPageKey = () =>
+    pkgData.repo &&
+    pkgData.owner &&
+    `${pkgData.owner}/${pkgData.repo}/commits?since=${range.start}&until=${
+      range.end
+    }&per_page=${MAX_COMMITS_FETCH}${
+      pkgData.path ? `&path=${pkgData.path}` : ''
+    }`;
+
+  const { data, error, isLoading } = useSWRImmutable(
+    firstPageKey,
+    pagesFetcher
   );
 
+  let commits = data ? getWeeklyCommits(data?.result, range) : [];
+
   return {
-    commits: data,
+    commits,
     isLoading,
     isError: error,
   };

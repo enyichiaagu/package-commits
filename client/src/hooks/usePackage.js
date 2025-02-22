@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 
 const NPM_FETCH = 'https://registry.npmjs.org';
 
@@ -21,7 +21,7 @@ async function fetcher(pkg) {
 }
 
 function usePackage(pkg) {
-  const { data, error, isLoading } = useSWR(pkg, fetcher);
+  const { data, error, isLoading } = useSWRImmutable(pkg, fetcher);
   return { pkgData: data, isLoading, isError: error };
 }
 

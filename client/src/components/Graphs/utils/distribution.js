@@ -43,7 +43,7 @@ function monthlyCommitsY(highestMonthlyCommits) {
       .fill(0)
       .map((_, index) => index);
   } else {
-    const maxYValues = [20, 40, 100, 200, 400, 1000, 2000, 4000, 10000];
+    const maxYValues = [20, 40, 100, 200, 400, 1000, 2000, 4000, 10000, 20000];
 
     let maxY = maxYValues.find((num) => highestMonthlyCommits <= num);
     const values = new Array(5).fill(0).map((_, index) => (maxY * index) / 4);
