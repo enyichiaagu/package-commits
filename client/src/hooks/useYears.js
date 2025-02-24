@@ -24,7 +24,7 @@ function useYears(pkgData) {
     fetcher
   );
 
-  return { years: data, isLoading, isError: error };
+  return { years: data || [], isLoading, isError: error };
 }
 
 export default useYears;

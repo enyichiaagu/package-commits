@@ -39,7 +39,7 @@ function SearchBox({ variant, pkg }) {
 
   useEffect(() => {
     selectedItem && navigate(`/package/${selectedItem.package.name}`);
-  }, [selectedItem]);
+  }, [selectedItem, navigate]);
 
   // Make sure it fetches updates on a fresh display packages page
   useEffect(() => {
