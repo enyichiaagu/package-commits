@@ -44,12 +44,12 @@ function SearchBox({ variant, pkg }) {
   // Make sure it fetches updates on a fresh display packages page
   useEffect(() => {
     const loadItems = async () => {
-      if (isOpen && pkg && !items.length) {
+      if (isOpen && displayValue === pkg && !items.length) {
         setItems(await getFilteredList(pkg));
       }
     };
     loadItems();
-  }, [isOpen, pkg, items]);
+  }, [isOpen, pkg, displayValue, items]);
 
   return (
     <div className='w-lg justify-center'>
@@ -61,7 +61,7 @@ function SearchBox({ variant, pkg }) {
       />
       <ul
         {...getMenuProps()}
-        className={`bg-list-bg max-h-60 overflow-y-auto shadow-md z-10 absolute w-lg ${
+        className={`bg-list-bg max-h-60 overflow-y-auto shadow-md z-10 absolute max-w-lg w-full ${
           !displayValue && 'hidden'
         }`}
       >

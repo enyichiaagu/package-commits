@@ -4,7 +4,6 @@ import useCommits from '../hooks/useCommits';
 
 function GraphBox({ tabType, pkgData }) {
   const { commits, isLoading, isError } = useCommits(pkgData);
-  console.log(commits);
 
   return (
     <>

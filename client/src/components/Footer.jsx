@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 function Footer() {
   return (
-    <div className='text-center text-sm py-4 bg-body-gradient-b'>{`Made with <3 and JavaScript`}</div>
+    <div className='text-center py-4'>{`Made with <3 and JavaScript`}</div>
   );
 }
 

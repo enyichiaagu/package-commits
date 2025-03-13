@@ -31,7 +31,6 @@ const DailyCommits = memo(function DailyCommits({
     xPosition = daysWidth;
 
   const bounds = calcDistribution(weeklyCommits);
-  console.log(bounds);
 
   // Loop to generate the weekly columns in the graph
   for (let i = 0; i < totalWeeks; i++) {

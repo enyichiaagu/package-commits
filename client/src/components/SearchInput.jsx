@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { BiSearchAlt } from 'react-icons/bi';
 
 const inputStyles = {
-  front: 'text-xl py-2 px-6',
+  front: 'sm:text-xl py-2 px-6',
   normal: '',
 };
 
@@ -17,6 +17,7 @@ const SearchInput = forwardRef(function SearchInput(
   ref
 ) {
   let isFrontVariant = variant === 'front';
+  let trimmedValue = displayValue.trim();
 
   return (
     <div className={`flex justify-center ${containerStyles[variant]}`}>
@@ -27,13 +28,15 @@ const SearchInput = forwardRef(function SearchInput(
         ref={ref}
         {...otherProps}
         value={displayValue}
+        autoCapitalize='none'
+        autoCorrect='off'
       />
       {isFrontVariant && (
         <Link
-          to={`/package/${displayValue}`}
+          to={trimmedValue && `/package/${trimmedValue}`}
           className='inline-flex items-center pr-4'
         >
-          <BiSearchAlt className='text-4xl' />
+          <BiSearchAlt className='text-2xl sm:text-4xl' />
         </Link>
       )}
     </div>

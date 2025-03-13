@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 
 function Socials({ className = '' }) {
   return (
-    <div className={`flex gap-5 ${className}`}>
+    <div className={`flex gap-4 text-xl ${className}`}>
       <a href='https://github.com/enyichiaagu/package-commits' target='_blank'>
-        <ImGithub className='text-2xl' />
+        <ImGithub />
       </a>
       <a href='https://x.com/EnyichiA' target='_blank'>
-        <BsTwitterX className='text-2xl' />
+        <BsTwitterX />
       </a>
     </div>
   );
