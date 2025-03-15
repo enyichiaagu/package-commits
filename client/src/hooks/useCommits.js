@@ -1,13 +1,14 @@
-import useSWRImmutable from 'swr/immutable';
+import { useEffect } from 'react';
+import useSWRInfinite from 'swr/infinite';
 import { getDateRange } from './utils/common';
 import { getWeeklyCommits } from './utils/commits';
 
 const GITHUB_FETCH = 'https://api.github.com/repos';
-const MAX_COMMITS_FETCH = 30;
+const MAX_COMMITS_FETCH = 100;
 
 const range = getDateRange();
 
-async function pagesFetcher(key) {
+async function fetcher(key, size) {
   let response = await fetch(`${GITHUB_FETCH}/${key}`, {
     headers: {
       Accept: 'application/vnd.github+json',
@@ -16,29 +17,42 @@ async function pagesFetcher(key) {
     },
   });
   let headerLink = response.headers.get('link') || null;
-
-  let pages = headerLink ? +headerLink.match(/page=(\d*).*last/)[1] : 1;
+  let regexArr = headerLink ? headerLink.match(/next.*page=(\d*).*last/) : null;
+  let pages = regexArr ? +regexArr[1] : headerLink ? size : 1;
   let result = await response.json();
   return { result, pages };
 }
 
-function useCommits(pkgData) {
-  const firstPageKey = () =>
+const getKey = (pkgData, index) => {
+  return (
     pkgData.repo &&
     pkgData.owner &&
     `${pkgData.owner}/${pkgData.repo}/commits?since=${range.start}&until=${
       range.end
     }&per_page=${MAX_COMMITS_FETCH}${
       pkgData.path ? `&path=${pkgData.path}` : ''
-    }`;
+    }&page=${index + 1}`
+  );
+};
 
-  const { data, error, isLoading } = useSWRImmutable(
-    firstPageKey,
-    pagesFetcher
+function useCommits(pkgData) {
+  const { data, error, isLoading, size, setSize } = useSWRInfinite(
+    (index) => getKey(pkgData, index),
+    (key) => fetcher(key, size),
+    { parallel: true }
   );
 
-  let commits = data ? getWeeklyCommits(data.result, range) : [];
+  let totalPages = data?.[0].pages;
+  let isLoadedAllPages = data && data?.length === totalPages;
 
+  useEffect(() => {
+    setSize(totalPages);
+  }, [totalPages, setSize]);
+
+  let fetchedCommits = isLoadedAllPages
+    ? [].concat(...data.map((page) => page.result))
+    : [];
+  let commits = getWeeklyCommits(fetchedCommits, range);
   return {
     commits,
     isLoading,
