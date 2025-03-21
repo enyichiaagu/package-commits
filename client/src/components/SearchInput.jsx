@@ -27,7 +27,7 @@ const SearchInput = forwardRef(function SearchInput(
         type='text'
         ref={ref}
         {...otherProps}
-        value={displayValue}
+        // value={displayValue}
         autoCapitalize='none'
         autoCorrect='off'
       />
