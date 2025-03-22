@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { BiSearchAlt } from 'react-icons/bi';
@@ -13,11 +13,12 @@ const containerStyles = {
 };
 
 const SearchInput = forwardRef(function SearchInput(
-  { variant, placeholder, displayValue, ...otherProps },
+  { variant, placeholder, pkg, otherProps: { value, ...restProps } },
   ref
 ) {
   let isFrontVariant = variant === 'front';
-  let trimmedValue = displayValue.trim();
+  let trimmedValue = value.trim();
+  const [displayValue, setDisplayValue] = useState(pkg);
 
   return (
     <div className={`flex justify-center ${containerStyles[variant]}`}>
@@ -26,10 +27,11 @@ const SearchInput = forwardRef(function SearchInput(
         placeholder={placeholder}
         type='text'
         ref={ref}
-        {...otherProps}
-        // value={displayValue}
         autoCapitalize='none'
         autoCorrect='off'
+        value={displayValue || ''}
+        onInput={(event) => setDisplayValue(event.currentTarget.value)}
+        {...restProps}
       />
       {isFrontVariant && (
         <Link
@@ -46,7 +48,7 @@ const SearchInput = forwardRef(function SearchInput(
 SearchInput.propTypes = {
   variant: PropTypes.oneOf(Object.keys(inputStyles)),
   placeholder: PropTypes.string,
-  displayValue: PropTypes.string,
+  pkg: PropTypes.string,
   otherProps: PropTypes.object,
 };
 

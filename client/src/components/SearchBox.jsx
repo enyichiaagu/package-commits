@@ -16,7 +16,6 @@ async function getFilteredList(query) {
 
 function SearchBox({ variant, pkg }) {
   const [items, setItems] = useState([]);
-  const [displayValue, setDisplayValue] = useState(pkg || '');
   const navigate = useNavigate();
 
   const {
@@ -28,7 +27,6 @@ function SearchBox({ variant, pkg }) {
     selectedItem,
   } = useCombobox({
     async onInputValueChange({ inputValue }) {
-      setDisplayValue(inputValue);
       setItems(await getFilteredList(inputValue));
     },
     items,
@@ -42,28 +40,26 @@ function SearchBox({ variant, pkg }) {
   }, [selectedItem, navigate]);
 
   // Make sure it fetches updates on a fresh display packages page
-  useEffect(() => {
-    const loadItems = async () => {
-      if (isOpen && displayValue === pkg && !items.length) {
-        setItems(await getFilteredList(pkg));
-      }
-    };
-    loadItems();
-  }, [isOpen, pkg, displayValue, items]);
+  // useEffect(() => {
+  //   const loadItems = async () => {
+  //     if (isOpen && displayValue === pkg && !items.length) {
+  //       setItems(await getFilteredList(pkg));
+  //     }
+  //   };
+  //   loadItems();
+  // }, [isOpen, pkg, displayValue, items]);
 
   return (
     <div className='w-lg justify-center'>
       <SearchInput
         placeholder='Search npm package'
         variant={variant}
-        displayValue={displayValue}
-        {...getInputProps()}
+        pkg={pkg}
+        otherProps={getInputProps()}
       />
       <ul
         {...getMenuProps()}
-        className={`bg-list-bg max-h-60 overflow-y-auto shadow-md z-10 absolute max-w-lg w-full ${
-          !displayValue && 'hidden'
-        }`}
+        className={`bg-list-bg max-h-60 overflow-y-auto shadow-md z-10 absolute max-w-lg w-full`}
       >
         {isOpen &&
           items.map((item, index) => (
