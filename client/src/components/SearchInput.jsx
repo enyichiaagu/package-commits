@@ -18,7 +18,9 @@ const SearchInput = forwardRef(function SearchInput(
 ) {
   let isFrontVariant = variant === 'front';
   let trimmedValue = value.trim();
-  const [displayValue, setDisplayValue] = useState(pkg);
+  const [displayValue, setDisplayValue] = useState(pkg || '');
+
+  if (value && displayValue !== value) setDisplayValue(value);
 
   return (
     <div className={`flex justify-center ${containerStyles[variant]}`}>
@@ -29,7 +31,7 @@ const SearchInput = forwardRef(function SearchInput(
         ref={ref}
         autoCapitalize='none'
         autoCorrect='off'
-        value={displayValue || ''}
+        value={displayValue}
         onInput={(event) => setDisplayValue(event.currentTarget.value)}
         {...restProps}
       />
