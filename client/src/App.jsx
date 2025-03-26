@@ -7,7 +7,7 @@ import { SWRConfig } from 'swr';
 function App() {
   return (
     <SWRConfig value={{ revalidateOnFocus: false }}>
-      <div className='h-svh flex flex-col bg-linear-to-t from-body-gradient-b to-body-gradient-t text-xs sm:text-base'>
+      <div className='h-svh flex flex-col bg-linear-to-t from-body-gradient-b to-body-gradient-t text-sm sm:text-base'>
         <div className='flex-1'>
           <Routes>
             <Route index element={<FrontPage />} />
