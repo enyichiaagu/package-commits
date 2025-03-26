@@ -7,11 +7,11 @@ function PackageTitle({ pkgData }) {
   return (
     <>
       <div className='flex justify-between'>
-        <div className='text-3xl'>
+        <div className='text-lg/tight sm:text-3xl'>
           <span className='font-bold'>{pkgData?.name}</span>
           <span>{pkgData && `(${pkgData.version})`}</span>
         </div>
-        <div className='flex text-2xl gap-3 items-end'>
+        <div className='flex text-2xl gap-3 items-start sm:items-end'>
           <FaGithubAlt />
           <TbBrandNpm />
           <SlGlobe />

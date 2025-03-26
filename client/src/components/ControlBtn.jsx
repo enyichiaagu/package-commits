@@ -6,7 +6,7 @@ const tabTypes = ['daily', 'monthly'];
 function ControlBtn({ option, currentTab }) {
   return (
     <NavLink
-      className={`px-6 py-0.5 ${
+      className={`px-3 sm:px-6 py-0.5 ${
         option === currentTab && 'bg-black text-white shadow-md'
       }`}
       to={`?tab=${option}`}

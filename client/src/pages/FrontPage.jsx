@@ -5,16 +5,16 @@ function FrontPage() {
   return (
     <>
       <Header />
-      <main className='flex-1 mx-4 relative'>
+      <main className='flex-1 mx-4'>
         <div className='flex flex-col items-center mt-10 sm:mt-20'>
-          <h1 className='font-bold italic text-2xl sm:text-5xl'>
+          <h1 className='font-bold italic text-3xl sm:text-5xl tracking-tight [word-spacing:-0.5rem]'>
             package commits
           </h1>
-          <span className='text-center'>
+          <span className='text-center w-60'>
             Check how frequently an NPM package is maintained
           </span>
         </div>
-        <div className='mt-3 sm:mt-10 flex justify-center'>
+        <div className='mt-10 flex justify-center'>
           <SearchBox variant='front' />
         </div>
       </main>

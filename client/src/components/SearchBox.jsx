@@ -35,9 +35,9 @@ function SearchBox({ variant, pkg }) {
     },
   });
 
-  useEffect(() => {
-    selectedItem && navigate(`/package/${selectedItem.package.name}`);
-  }, [selectedItem, navigate]);
+  // useEffect(() => {
+  //   selectedItem && navigate(`/package/${selectedItem.package.name}`);
+  // }, [selectedItem, navigate]);
 
   // Make sure it fetches updates on a fresh display packages page
   // useEffect(() => {
@@ -50,7 +50,7 @@ function SearchBox({ variant, pkg }) {
   // }, [isOpen, pkg, displayValue, items]);
 
   return (
-    <div className='w-lg justify-center'>
+    <div className='sm:w-lg w-full relative'>
       <SearchInput
         placeholder='Search npm package'
         variant={variant}
@@ -59,7 +59,7 @@ function SearchBox({ variant, pkg }) {
       />
       <ul
         {...getMenuProps()}
-        className={`bg-list-bg max-h-60 overflow-y-auto shadow-md z-10 absolute max-w-lg w-full`}
+        className={`bg-list-bg max-h-60 overflow-y-auto shadow-md z-10 absolute w-[calc(100%-(--spacing(4)))] right-0`}
       >
         {isOpen &&
           items.map((item, index) => (

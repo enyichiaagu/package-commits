@@ -4,28 +4,39 @@ import { Link } from 'react-router';
 import { BiSearchAlt } from 'react-icons/bi';
 
 const inputStyles = {
-  front: 'sm:text-xl py-2 px-6',
+  // front: 'sm:text-xl py-2 px-6',
+  front: '',
   normal: '',
 };
 
 const containerStyles = {
-  front: 'bg-white border border-custom-grey',
+  // front: 'bg-white border border-custom-grey',
+  front: '',
 };
 
 const SearchInput = forwardRef(function SearchInput(
   { variant, placeholder, pkg, otherProps: { value, ...restProps } },
   ref
 ) {
-  let isFrontVariant = variant === 'front';
+  // let isFrontVariant = variant === 'front';
   let trimmedValue = value.trim();
   const [displayValue, setDisplayValue] = useState(pkg || '');
 
   if (value && displayValue !== value) setDisplayValue(value);
 
   return (
-    <div className={`flex justify-center ${containerStyles[variant]}`}>
+    <div
+      className={`flex bg-white border border-custom-grey rounded-lg py-1 px-4 gap-x-2 ${containerStyles[variant]}`}
+    >
+      <Link
+        to={trimmedValue && `/package/${trimmedValue}`}
+        className='block w-8'
+      >
+        <BiSearchAlt className='text-3xl sm:text-4xl text-darker-grey' />
+      </Link>
+
       <input
-        className={`placeholder:text-black w-full block outline-0 ${inputStyles[variant]}`}
+        className={`w-full placeholder:text-black outline-0 ${inputStyles[variant]}`}
         placeholder={placeholder}
         type='text'
         ref={ref}
@@ -35,14 +46,6 @@ const SearchInput = forwardRef(function SearchInput(
         onInput={(event) => setDisplayValue(event.currentTarget.value)}
         {...restProps}
       />
-      {isFrontVariant && (
-        <Link
-          to={trimmedValue && `/package/${trimmedValue}`}
-          className='inline-flex items-center pr-4'
-        >
-          <BiSearchAlt className='text-2xl sm:text-4xl' />
-        </Link>
-      )}
     </div>
   );
 });

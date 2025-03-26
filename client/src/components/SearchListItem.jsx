@@ -10,7 +10,7 @@ const SearchListItem = forwardRef(function SearchListItem(
       ref={ref}
       className={`${
         highlighted ? 'bg-green-highlight' : ''
-      } px-6 py-1 border-b-1 border-custom-grey cursor-pointer`}
+      } pl-10 pr-2 py-1 border-b-1 border-custom-grey cursor-pointer`}
       {...otherProps}
     >
       {item.highlight ? (
@@ -21,7 +21,7 @@ const SearchListItem = forwardRef(function SearchListItem(
       ) : (
         <span className='block'>{item.package.name}</span>
       )}
-      <span className='block text-[0.55rem] sm:text-xs truncate'>
+      <span className='block text-[0.6rem] sm:text-xs truncate'>
         {item.package.description}
       </span>
     </li>

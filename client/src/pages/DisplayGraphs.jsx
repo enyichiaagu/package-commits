@@ -1,6 +1,5 @@
 import { memo } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
-import { BiSearchAlt } from 'react-icons/bi';
 import Header from '../components/Header';
 import SearchBox from '../components/SearchBox';
 import PackageTitle from '../components/PackageTitle';
@@ -19,19 +18,17 @@ function DisplayGraphs() {
   return (
     <>
       <Header>
-        <Link to='/'>
-          <h1 className='font-bold text-xl flex-col flex italic'>
-            <span>Package</span>
-            <span className='-mt-3 relative left-2'>Commits</span>
+        <Link to='/' className='order-1'>
+          <h1 className='font-bold text-2xl tracking-tight [word-spacing:-0.5rem] sm:flex-col sm:flex italic'>
+            <span>package</span>{' '}
+            <span className='sm:-mt-3 relative sm:left-2'>commits</span>
           </h1>
         </Link>
-        <div className='flex gap-4 items-center'>
-          {/* TODO: Remove this to use downshift functionality */}
-          <BiSearchAlt className='text-3xl' />
+        <div className='flex gap-4 items-center order-3 col-span-full'>
           <SearchBox variant='normal' pkg={pkg} />
         </div>
       </Header>
-      <main className='mt-10 mx-auto max-w-4xl'>
+      <main className='mt-5 sm:mt-10 mx-auto px-4 max-w-4xl'>
         <PackageTitle pkgData={pkgData} />
         <GraphControls tabType={tabType} pkgData={pkgData} />
         <GraphBox tabType={tabType} pkgData={pkgData} />

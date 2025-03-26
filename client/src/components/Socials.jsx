@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 function Socials({ className = '' }) {
   return (
-    <div className={`flex gap-4 text-xl ${className}`}>
+    <div className={`flex gap-5 text-2xl ${className}`}>
       <a href='https://github.com/enyichiaagu/package-commits' target='_blank'>
         <ImGithub />
       </a>
