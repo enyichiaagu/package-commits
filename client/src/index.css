@@ -18,3 +18,39 @@
     @apply font-bold;
   }
 }
+
+@font-face {
+  font-family: Consolas;
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  src: url('fonts/Consolas.woff2') format('woff2'),
+    url('fonts/Consolas.woff') format('woff');
+}
+
+@font-face {
+  font-family: Consolas;
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+  src: url('fonts/Consolas-Bold.woff2') format('woff2'),
+    url('fonts/Consolas-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: Consolas;
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+  src: url('fonts/Consolas-Italic.woff2') format('woff2'),
+    url('fonts/Consolas-Italic.woff') format('woff');
+}
+
+@font-face {
+  font-family: Consolas;
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+  src: url('fonts/Consolas-BoldItalic.woff2') format('woff2'),
+    url('fonts/Consolas-BoldItalic.woff') format('woff');
+}
