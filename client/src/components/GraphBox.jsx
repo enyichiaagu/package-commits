@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import { DailyCommits, MonthlyCommits } from './Graphs';
 import useCommits from '../hooks/useCommits';
 
-function GraphBox({ tabType, pkgData }) {
-  const { commits, isLoading, isError } = useCommits(pkgData);
+function GraphBox({ tabType, pkgData, period }) {
+  const { commits, isLoading, isError } = useCommits(pkgData, period);
 
   return (
     <>
@@ -20,6 +20,7 @@ function GraphBox({ tabType, pkgData }) {
 GraphBox.propTypes = {
   tabType: PropTypes.oneOf(['daily', 'monthly']).isRequired,
   pkgData: PropTypes.object,
+  period: PropTypes.oneOfType([PropTypes.oneOf(['Current']), PropTypes.number]),
 };
 
 export default GraphBox;

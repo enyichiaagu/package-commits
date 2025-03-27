@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
 import Header from '../components/Header';
 import SearchBox from '../components/SearchBox';
@@ -10,6 +10,7 @@ import GraphBox from '../components/GraphBox';
 function DisplayGraphs() {
   const params = useParams();
   const [searchParams] = useSearchParams();
+  const [period, setPeriod] = useState(null);
 
   const { '*': pkg } = params;
   const { pkgData, isLoading, isError } = usePackage(pkg);
@@ -32,8 +33,12 @@ function DisplayGraphs() {
       </Header>
       <main className='mt-5 sm:mt-10 mx-auto px-4 max-w-240'>
         <PackageTitle pkgData={pkgData} />
-        <GraphControls tabType={tabType} pkgData={pkgData} />
-        <GraphBox tabType={tabType} pkgData={pkgData} />
+        <GraphControls
+          tabType={tabType}
+          pkgData={pkgData}
+          setPeriod={setPeriod}
+        />
+        <GraphBox tabType={tabType} pkgData={pkgData} period={period} />
         {/* Change this to maintainers for now */}
         <span className='block text-right mt-8'>300 contributors</span>
       </main>

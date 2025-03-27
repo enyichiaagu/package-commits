@@ -26,7 +26,8 @@ function generateYrsArr(createdYear, currentYear, maxNumYears = 3) {
   if (createdYear > currentYear)
     throw new RangeError('Starting year cannot be greater than current year');
 
-  const minYear = Math.max(createdYear, currentYear - maxNumYears + 1);
+  // const minYear = Math.max(createdYear, currentYear - maxNumYears + 1);
+  const minYear = createdYear;
 
   return Array.from(
     { length: currentYear - minYear + 1 },

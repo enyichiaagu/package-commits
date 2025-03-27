@@ -6,7 +6,7 @@ import { getWeeklyCommits } from './utils/commits';
 const GITHUB_FETCH = 'https://api.github.com/repos';
 const MAX_COMMITS_FETCH = 100;
 
-const range = getDateRange();
+const currentRange = getDateRange();
 
 async function fetcher(key, size) {
   let response = await fetch(`${GITHUB_FETCH}/${key}`, {
@@ -23,7 +23,7 @@ async function fetcher(key, size) {
   return { result, pages };
 }
 
-const getKey = (pkgData, index) => {
+const getKey = (pkgData, range, index) => {
   return (
     pkgData.repo &&
     pkgData.owner &&
@@ -35,9 +35,12 @@ const getKey = (pkgData, index) => {
   );
 };
 
-function useCommits(pkgData) {
+function useCommits(pkgData, period) {
+  const range =
+    !period || period === 'Current' ? currentRange : getDateRange(period);
+
   const { data, error, isLoading, size, setSize } = useSWRInfinite(
-    (index) => getKey(pkgData, index),
+    (index) => getKey(pkgData, range, index),
     (key) => fetcher(key, size),
     { parallel: true }
   );

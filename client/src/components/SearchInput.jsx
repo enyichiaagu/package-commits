@@ -4,8 +4,8 @@ import { Link } from 'react-router';
 import { BiSearchAlt } from 'react-icons/bi';
 
 const containerStyles = {
-  front: 'bg-white border border-custom-grey',
-  normal: 'bg-inherit border-0',
+  front: '',
+  normal: 'sm:bg-inherit sm:border-0',
 };
 
 const iconStyles = {
@@ -24,7 +24,7 @@ const SearchInput = forwardRef(function SearchInput(
 
   return (
     <div
-      className={`flex rounded-lg py-1 px-4 gap-x-2 ${containerStyles[variant]}`}
+      className={`flex rounded-lg py-1 px-4 gap-x-2 bg-white border border-custom-grey ${containerStyles[variant]}`}
     >
       <Link
         to={trimmedValue && `/package/${trimmedValue}`}

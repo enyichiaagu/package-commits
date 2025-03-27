@@ -1,10 +1,11 @@
-import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import PropTypes, { number } from 'prop-types';
 import { useSelect } from 'downshift';
 import { AiFillCaretDown } from 'react-icons/ai';
 import ControlBtn from './ControlBtn';
 import useYears from '../hooks/useYears';
 
-function GraphControls({ tabType, pkgData }) {
+function GraphControls({ tabType, pkgData, setPeriod }) {
   // let [timeFrame, setTimeFrame] = useState(['Current']);
   const { years, isLoading, isError } = useYears(pkgData);
   let timeFrame = ['Current', ...years];
@@ -15,9 +16,14 @@ function GraphControls({ tabType, pkgData }) {
     getMenuProps,
     getItemProps,
     selectedItem,
+    highlightedIndex,
   } = useSelect({
     items: timeFrame,
   });
+
+  useEffect(() => {
+    setPeriod(selectedItem);
+  }, [setPeriod, selectedItem]);
 
   return (
     <div className='my-3 sm:my-8 flex items-center'>
@@ -41,7 +47,9 @@ function GraphControls({ tabType, pkgData }) {
           {isOpen &&
             timeFrame.map((value, index) => (
               <li
-                className='pl-6 px-3 py-1 border-b-1 border-custom-grey'
+                className={`pl-6 px-3 py-1 border-b-1 border-custom-grey cursor-pointer ${
+                  highlightedIndex === index ? 'bg-green-highlight' : null
+                }`}
                 key={index}
                 {...getItemProps({ value, index })}
               >
@@ -57,6 +65,7 @@ function GraphControls({ tabType, pkgData }) {
 GraphControls.propTypes = {
   tabType: PropTypes.oneOf(['daily', 'monthly']).isRequired,
   pkgData: PropTypes.object,
+  setPeriod: PropTypes.func.isRequired,
 };
 
 export default GraphControls;
