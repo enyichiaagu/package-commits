@@ -10,7 +10,7 @@ function FrontPage() {
           <h1 className='font-bold italic text-3xl sm:text-5xl tracking-tight [word-spacing:-0.5rem]'>
             package commits
           </h1>
-          <span className='text-center w-60'>
+          <span className='text-center w-60 sm:w-full'>
             Check how frequently an NPM package is maintained
           </span>
         </div>

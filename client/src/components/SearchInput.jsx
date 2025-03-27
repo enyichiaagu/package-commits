@@ -3,22 +3,20 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { BiSearchAlt } from 'react-icons/bi';
 
-const inputStyles = {
-  // front: 'sm:text-xl py-2 px-6',
-  front: '',
-  normal: '',
+const containerStyles = {
+  front: 'bg-white border border-custom-grey',
+  normal: 'bg-inherit border-0',
 };
 
-const containerStyles = {
-  // front: 'bg-white border border-custom-grey',
-  front: '',
+const iconStyles = {
+  front: 'sm:text-4xl',
+  normal: 'sm:text-3xl',
 };
 
 const SearchInput = forwardRef(function SearchInput(
   { variant, placeholder, pkg, otherProps: { value, ...restProps } },
   ref
 ) {
-  // let isFrontVariant = variant === 'front';
   let trimmedValue = value.trim();
   const [displayValue, setDisplayValue] = useState(pkg || '');
 
@@ -26,17 +24,19 @@ const SearchInput = forwardRef(function SearchInput(
 
   return (
     <div
-      className={`flex bg-white border border-custom-grey rounded-lg py-1 px-4 gap-x-2 ${containerStyles[variant]}`}
+      className={`flex rounded-lg py-1 px-4 gap-x-2 ${containerStyles[variant]}`}
     >
       <Link
         to={trimmedValue && `/package/${trimmedValue}`}
-        className='block w-8'
+        className='flex w-8 sm:w-10 justify-end'
       >
-        <BiSearchAlt className='text-3xl sm:text-4xl text-darker-grey' />
+        <BiSearchAlt
+          className={`text-3xl text-darker-grey ${iconStyles[variant]}`}
+        />
       </Link>
 
       <input
-        className={`w-full placeholder:text-black outline-0 ${inputStyles[variant]}`}
+        className={`w-full placeholder:text-black outline-0`}
         placeholder={placeholder}
         type='text'
         ref={ref}
@@ -51,7 +51,7 @@ const SearchInput = forwardRef(function SearchInput(
 });
 
 SearchInput.propTypes = {
-  variant: PropTypes.oneOf(Object.keys(inputStyles)),
+  variant: PropTypes.oneOf(Object.keys(containerStyles)),
   placeholder: PropTypes.string,
   pkg: PropTypes.string,
   otherProps: PropTypes.object,
