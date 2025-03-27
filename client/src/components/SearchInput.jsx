@@ -36,9 +36,10 @@ const SearchInput = forwardRef(function SearchInput(
       </Link>
 
       <input
-        className={`w-full placeholder:text-black outline-0`}
+        className={`w-full placeholder:text-black [&::-webkit-search-cancel-button]:hidden outline-0`}
         placeholder={placeholder}
-        type='text'
+        required
+        type='search'
         ref={ref}
         autoCapitalize='none'
         autoCorrect='off'

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import PropTypes from 'prop-types';
 import { useCombobox } from 'downshift';
@@ -26,18 +26,17 @@ function SearchBox({ variant, pkg }) {
     highlightedIndex,
     selectedItem,
   } = useCombobox({
+    items,
     async onInputValueChange({ inputValue }) {
       setItems(await getFilteredList(inputValue));
     },
-    items,
+    onSelectedItemChange({ inputValue }) {
+      navigate(`/package/${inputValue}`);
+    },
     itemToString(item) {
       return item?.package.name || '';
     },
   });
-
-  // useEffect(() => {
-  //   selectedItem && navigate(`/package/${selectedItem.package.name}`);
-  // }, [selectedItem, navigate]);
 
   // Make sure it fetches updates on a fresh display packages page
   // useEffect(() => {
