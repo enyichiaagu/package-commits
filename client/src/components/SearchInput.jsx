@@ -1,6 +1,6 @@
 import { forwardRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { BiSearchAlt } from 'react-icons/bi';
 
 const containerStyles = {
@@ -19,6 +19,7 @@ const SearchInput = forwardRef(function SearchInput(
 ) {
   let trimmedValue = value.trim();
   const [displayValue, setDisplayValue] = useState(pkg || '');
+  const navigate = useNavigate();
 
   if (value && displayValue !== value) setDisplayValue(value);
 
@@ -45,6 +46,9 @@ const SearchInput = forwardRef(function SearchInput(
         autoCorrect='off'
         value={displayValue}
         onInput={(event) => setDisplayValue(event.currentTarget.value)}
+        onKeyDownCapture={(event) =>
+          event.key === 'Enter' && navigate(`/package/${trimmedValue}`)
+        }
         {...restProps}
       />
     </div>
