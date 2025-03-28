@@ -21,9 +21,7 @@ const SearchListItem = forwardRef(function SearchListItem(
       ) : (
         <span className='block'>{item.package.name}</span>
       )}
-      <span className='block text-[0.6rem] sm:text-xs truncate'>
-        {item.package.description}
-      </span>
+      <span className='block text-xs truncate'>{item.package.description}</span>
     </li>
   );
 });
