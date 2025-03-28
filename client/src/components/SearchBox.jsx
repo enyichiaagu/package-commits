@@ -27,33 +27,28 @@ function SearchBox({ variant, pkg }) {
     selectedItem,
   } = useCombobox({
     items,
+    initialInputValue: pkg || '',
     async onInputValueChange({ inputValue }) {
       setItems(await getFilteredList(inputValue));
     },
     onSelectedItemChange({ inputValue }) {
       navigate(`/package/${inputValue}`);
     },
+    async onIsOpenChange({ inputValue, isOpen }) {
+      if (isOpen && !items.length && inputValue === pkg) {
+        setItems(await getFilteredList(inputValue));
+      }
+    },
     itemToString(item) {
       return item?.package.name || '';
     },
   });
-
-  // Make sure it fetches updates on a fresh display packages page
-  // useEffect(() => {
-  //   const loadItems = async () => {
-  //     if (isOpen && displayValue === pkg && !items.length) {
-  //       setItems(await getFilteredList(pkg));
-  //     }
-  //   };
-  //   loadItems();
-  // }, [isOpen, pkg, displayValue, items]);
 
   return (
     <div className='sm:w-lg w-full relative'>
       <SearchInput
         placeholder='Search npm package'
         variant={variant}
-        pkg={pkg}
         selectedItem={selectedItem}
         otherProps={getInputProps()}
       />

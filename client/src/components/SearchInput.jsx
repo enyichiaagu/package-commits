@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useNavigate } from 'react-router';
 import { BiSearchAlt } from 'react-icons/bi';
@@ -14,20 +14,11 @@ const iconStyles = {
 };
 
 const SearchInput = forwardRef(function SearchInput(
-  {
-    variant,
-    placeholder,
-    pkg,
-    selectedItem,
-    otherProps: { value, ...restProps },
-  },
+  { variant, placeholder, selectedItem, otherProps: { value, ...restProps } },
   ref
 ) {
   let navigate = useNavigate();
   let trimmedValue = value.trim();
-  const [displayValue, setDisplayValue] = useState(pkg || '');
-
-  if (value && displayValue !== value) setDisplayValue(value);
 
   return (
     <form
@@ -51,8 +42,7 @@ const SearchInput = forwardRef(function SearchInput(
         ref={ref}
         autoCapitalize='none'
         autoCorrect='off'
-        value={displayValue}
-        onInput={(event) => setDisplayValue(event.currentTarget.value)}
+        value={value}
         onKeyDownCapture={(event) => {
           event.key === 'Enter' &&
             !selectedItem &&
@@ -68,7 +58,6 @@ const SearchInput = forwardRef(function SearchInput(
 SearchInput.propTypes = {
   variant: PropTypes.oneOf(Object.keys(containerStyles)),
   placeholder: PropTypes.string,
-  pkg: PropTypes.string,
   selectedItem: PropTypes.object,
   otherProps: PropTypes.object,
 };
