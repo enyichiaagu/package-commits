@@ -23,14 +23,15 @@ const SearchInput = forwardRef(function SearchInput(
   },
   ref
 ) {
+  let navigate = useNavigate();
   let trimmedValue = value.trim();
   const [displayValue, setDisplayValue] = useState(pkg || '');
-  const navigate = useNavigate();
 
   if (value && displayValue !== value) setDisplayValue(value);
 
   return (
-    <div
+    <form
+      onSubmit={(event) => event.preventDefault()}
       className={`flex rounded-lg py-1 px-4 gap-x-2 bg-white border border-custom-grey ${containerStyles[variant]}`}
     >
       <Link
@@ -55,11 +56,12 @@ const SearchInput = forwardRef(function SearchInput(
         onKeyDownCapture={(event) => {
           event.key === 'Enter' &&
             !selectedItem &&
-            navigate(`/package/${displayValue}`);
+            trimmedValue &&
+            navigate(`/package/${trimmedValue}`);
         }}
         {...restProps}
       />
-    </div>
+    </form>
   );
 });
 
