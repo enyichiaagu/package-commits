@@ -54,6 +54,7 @@ function SearchBox({ variant, pkg }) {
         placeholder='Search npm package'
         variant={variant}
         pkg={pkg}
+        selectedItem={selectedItem}
         otherProps={getInputProps()}
       />
       <ul
