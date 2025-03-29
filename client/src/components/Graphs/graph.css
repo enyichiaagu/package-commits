@@ -19,6 +19,8 @@ text {
 .daily-commits,
 .monthly-commits {
   position: relative;
+  max-width: fit-content;
+  margin-inline: auto;
 
   & svg {
     display: block;

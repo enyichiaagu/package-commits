@@ -1,19 +1,30 @@
 import PropTypes from 'prop-types';
 import { DailyCommits, MonthlyCommits } from './Graphs';
+import Loader from './Loader';
 import useCommits from '../hooks/useCommits';
 
 function GraphBox({ tabType, pkgData, period }) {
   const { commits, isLoading, isError } = useCommits(pkgData, period);
 
   return (
-    <>
-      <div className={tabType !== 'daily' ? 'hidden' : ''}>
-        <DailyCommits weeklyCommits={commits} />
-      </div>
-      <div className={tabType !== 'monthly' ? 'hidden' : ''}>
-        <MonthlyCommits />
-      </div>
-    </>
+    <div
+      className={`h-35 sm:h-40 flex justify-center ${
+        isLoading ? 'shadow-xs rounded-md items-center' : 'flex-col'
+      }`}
+    >
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <div className={`${tabType !== 'daily' ? 'hidden' : ''}`}>
+            <DailyCommits weeklyCommits={commits} />
+          </div>
+          <div className={`${tabType !== 'monthly' ? 'hidden' : ''}`}>
+            <MonthlyCommits />
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 

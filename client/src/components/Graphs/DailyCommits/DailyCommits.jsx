@@ -21,58 +21,68 @@ import { calcDistribution } from '../utils/distribution';
 import { genMockCommits } from '../utils/mockCommits';
 
 /** Daily Commits Component for a single year */
-const DailyCommits = memo(function DailyCommits({
-  colors = defaultColors,
-  weeklyCommits = genMockCommits(0),
-}) {
-  let totalWeeks = weeklyCommits.length;
+const DailyCommits = memo(
+  function DailyCommits({
+    colors = defaultColors,
+    weeklyCommits = genMockCommits(0),
+  }) {
+    let totalWeeks = weeklyCommits.length;
 
-  let columns = [],
-    xPosition = daysWidth;
+    let columns = [],
+      xPosition = daysWidth;
 
-  const bounds = calcDistribution(weeklyCommits);
+    const bounds = calcDistribution(weeklyCommits);
 
-  // Loop to generate the weekly columns in the graph
-  for (let i = 0; i < totalWeeks; i++) {
-    columns.push(
-      <WeeklyColumn
-        key={i}
-        xPosition={xPosition}
-        yPosition={topSpace}
-        squareLength={squareLength}
-        padding={padding}
-        radius={radius}
-        days={daysArray}
-        colors={colors}
-        weekIndex={i}
-        weeklyCommits={weeklyCommits[i]}
-        bounds={bounds}
-      />
-    );
-    xPosition += squareLength + padding;
-  }
+    // Loop to generate the weekly columns in the graph
+    for (let i = 0; i < totalWeeks; i++) {
+      columns.push(
+        <WeeklyColumn
+          key={i}
+          xPosition={xPosition}
+          yPosition={topSpace}
+          squareLength={squareLength}
+          padding={padding}
+          radius={radius}
+          days={daysArray}
+          colors={colors}
+          weekIndex={i}
+          weeklyCommits={weeklyCommits[i]}
+          bounds={bounds}
+        />
+      );
+      xPosition += squareLength + padding;
+    }
 
-  return (
-    <TooltipProvider>
-      <div className='daily-commits'>
-        <svg height={GRAPH_HEIGHT} width={daysWidth} className='days-placement'>
-          <DaysText
-            xStart={xStart}
-            yStart={topSpace}
-            squareLength={squareLength}
-            padding={padding}
-            days={daysArray}
-          />
-        </svg>
-        <div className='contributions'>
-          <svg height={GRAPH_HEIGHT} width={GRAPH_WIDTH}>
-            {columns}
+    return (
+      <TooltipProvider>
+        <div className='daily-commits'>
+          <svg
+            height={GRAPH_HEIGHT}
+            width={daysWidth}
+            className='days-placement'
+          >
+            <DaysText
+              xStart={xStart}
+              yStart={topSpace}
+              squareLength={squareLength}
+              padding={padding}
+              days={daysArray}
+            />
           </svg>
+          <div className='contributions'>
+            <svg height={GRAPH_HEIGHT} width={GRAPH_WIDTH}>
+              {columns}
+            </svg>
+          </div>
         </div>
-      </div>
-    </TooltipProvider>
-  );
-});
+      </TooltipProvider>
+    );
+  },
+  (prevProps, nextProps) => {
+    if (JSON.stringify(prevProps) === JSON.stringify(nextProps)) return true;
+    return false;
+  }
+);
 
 DailyCommits.propTypes = {
   /** Set exactly 5 colors for the daily commits graph */
