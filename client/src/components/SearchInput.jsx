@@ -14,7 +14,12 @@ const iconStyles = {
 };
 
 const SearchInput = forwardRef(function SearchInput(
-  { variant, placeholder, selectedItem, otherProps: { value, ...restProps } },
+  {
+    variant,
+    placeholder,
+    highlightedIndex,
+    otherProps: { value, ...restProps },
+  },
   ref
 ) {
   let navigate = useNavigate();
@@ -44,10 +49,9 @@ const SearchInput = forwardRef(function SearchInput(
         autoCorrect='off'
         value={value}
         onKeyDownCapture={(event) => {
-          event.key === 'Enter' &&
-            !selectedItem &&
-            trimmedValue &&
+          if (event.key === 'Enter' && highlightedIndex < 0 && trimmedValue) {
             navigate(`/package/${trimmedValue}`);
+          }
         }}
         {...restProps}
       />
@@ -58,7 +62,7 @@ const SearchInput = forwardRef(function SearchInput(
 SearchInput.propTypes = {
   variant: PropTypes.oneOf(Object.keys(containerStyles)),
   placeholder: PropTypes.string,
-  selectedItem: PropTypes.object,
+  highlightedIndex: PropTypes.number,
   otherProps: PropTypes.object,
 };
 

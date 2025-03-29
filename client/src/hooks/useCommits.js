@@ -49,8 +49,10 @@ function useCommits(pkgData, period) {
   let isLoadedAllPages = data && data?.length === totalPages;
 
   useEffect(() => {
-    setSize(totalPages);
-  }, [totalPages, setSize]);
+    if (data?.length === 1 && totalPages > 1) {
+      setSize(totalPages);
+    }
+  }, [data, totalPages, setSize]);
 
   let fetchedCommits = isLoadedAllPages
     ? [].concat(...data.map((page) => page.result))
@@ -58,7 +60,7 @@ function useCommits(pkgData, period) {
   let commits = getWeeklyCommits(fetchedCommits, range);
   return {
     commits,
-    isLoading,
+    isLoading: isLoading || !isLoadedAllPages,
     isError: error,
   };
 }

@@ -24,7 +24,6 @@ function SearchBox({ variant, pkg }) {
     getMenuProps,
     getItemProps,
     highlightedIndex,
-    selectedItem,
   } = useCombobox({
     items,
     initialInputValue: pkg || '',
@@ -49,7 +48,7 @@ function SearchBox({ variant, pkg }) {
       <SearchInput
         placeholder='Search npm package'
         variant={variant}
-        selectedItem={selectedItem}
+        highlightedIndex={highlightedIndex}
         otherProps={getInputProps()}
       />
       <ul
