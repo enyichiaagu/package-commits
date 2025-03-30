@@ -7,7 +7,7 @@ function Bars({
   textY,
   barWidth,
   sidePadding,
-  monthObj,
+  monthsArr,
   highestCommits,
   defaultColors,
 }) {
@@ -15,7 +15,7 @@ function Bars({
 
   return (
     <>
-      {Object.entries(monthObj).map(([month, commits], index) => {
+      {monthsArr.map(({ id, month, commits }, index) => {
         xPosition = xStart + sidePadding + (barWidth + sidePadding) * index;
         fraction = commits / highestCommits;
         yPosition = yStart + (1 - fraction) * minY;
@@ -52,7 +52,7 @@ Bars.propTypes = {
   textY: PropTypes.number.isRequired,
   barWidth: PropTypes.number.isRequired,
   sidePadding: PropTypes.number.isRequired,
-  monthObj: PropTypes.object.isRequired,
+  monthsArr: PropTypes.array.isRequired,
   highestCommits: PropTypes.number.isRequired,
   defaultColors: PropTypes.arrayOf(PropTypes.string),
 };

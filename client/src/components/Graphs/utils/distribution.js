@@ -53,26 +53,37 @@ function monthlyCommitsY(highestMonthlyCommits) {
 }
 
 function weeklyToMonthlyCommits(weeklyCommits, months) {
-  const monthlyCommits = new Array(12).fill(0);
-  let finalObj = {};
+  let finalArr = [];
 
-  let commitsMonthIndex;
+  // if (!weeklyCommits) {
+  //   return months.map((month, index) => ({ id: index, month, commits: 0 }));
+  // }
+
+  let commitMonthIndex, currentMonthIndex;
 
   weeklyCommits.forEach((weekObj) => {
     let { week, commits } = weekObj;
 
     commits.forEach((numOfCommits, index) => {
-      commitsMonthIndex =
+      commitMonthIndex =
         numOfCommits !== null ? addDay(week, index).getMonth() : NaN;
+      if (isNaN(commitMonthIndex)) return;
 
-      if (isNaN(commitsMonthIndex)) return;
-      return (monthlyCommits[commitsMonthIndex] += numOfCommits);
+      if (isNaN(currentMonthIndex) || commitMonthIndex !== currentMonthIndex) {
+        currentMonthIndex = commitMonthIndex;
+
+        finalArr.push({
+          id: finalArr.length,
+          month: months[currentMonthIndex],
+          commits: numOfCommits,
+        });
+      } else {
+        finalArr.at(-1).commits += numOfCommits;
+      }
     });
   });
 
-  months.forEach((month, index) => (finalObj[month] = monthlyCommits[index]));
-
-  return finalObj;
+  return finalArr;
 }
 
 export { calcDistribution, monthlyCommitsY, weeklyToMonthlyCommits };

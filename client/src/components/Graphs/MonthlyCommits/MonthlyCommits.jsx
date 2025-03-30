@@ -18,42 +18,46 @@ import {
 import { weeklyToMonthlyCommits } from '../utils/distribution';
 import { genMockCommits } from '../utils/mockCommits';
 
-const MonthlyCommits = memo(function MonthlyCommits({
-  weeklyCommits = genMockCommits(5),
-}) {
-  const monthObj = weeklyToMonthlyCommits(weeklyCommits, MONTHS);
-  const highestCommits = Math.max(...Object.values(monthObj));
+const MonthlyCommits = memo(
+  function MonthlyCommits({ weeklyCommits = genMockCommits(5) }) {
+    const monthsArr = weeklyToMonthlyCommits(weeklyCommits, MONTHS);
+    const highestCommits = Math.max(...monthsArr.map((arr) => arr.commits));
 
-  return (
-    <TooltipProvider>
-      <div className='monthly-commits'>
-        <svg height={GRAPH_HEIGHT} width={daysWidth} className='y-placement'>
-          <YAxis
-            height={GRAPH_HEIGHT - bottomSpace - topSpace}
-            width={daysWidth}
-            topSpace={topSpace}
-            highestCommits={highestCommits}
-          />
-        </svg>
-        <div className='contributions'>
-          <svg height={GRAPH_HEIGHT} width={GRAPH_WIDTH}>
-            <Bars
-              xStart={daysWidth}
-              yStart={topSpace}
-              minY={GRAPH_HEIGHT - bottomSpace - topSpace}
-              textY={GRAPH_HEIGHT - bottomSpace + padding}
-              barWidth={barWidth}
-              monthObj={monthObj}
+    return (
+      <TooltipProvider>
+        <div className='monthly-commits'>
+          <svg height={GRAPH_HEIGHT} width={daysWidth} className='y-placement'>
+            <YAxis
+              height={GRAPH_HEIGHT - bottomSpace - topSpace}
+              width={daysWidth}
+              topSpace={topSpace}
               highestCommits={highestCommits}
-              sidePadding={barLeftPadding}
-              defaultColors={defaultColors}
             />
           </svg>
+          <div className='contributions'>
+            <svg height={GRAPH_HEIGHT} width={GRAPH_WIDTH}>
+              <Bars
+                xStart={daysWidth}
+                yStart={topSpace}
+                minY={GRAPH_HEIGHT - bottomSpace - topSpace}
+                textY={GRAPH_HEIGHT - bottomSpace + padding}
+                barWidth={barWidth}
+                monthsArr={monthsArr}
+                highestCommits={highestCommits}
+                sidePadding={barLeftPadding}
+                defaultColors={defaultColors}
+              />
+            </svg>
+          </div>
         </div>
-      </div>
-    </TooltipProvider>
-  );
-});
+      </TooltipProvider>
+    );
+  },
+  (prevProps, nextProps) => {
+    if (JSON.stringify(prevProps) === JSON.stringify(nextProps)) return true;
+    return false;
+  }
+);
 
 MonthlyCommits.propTypes = {
   weeklyCommits: PropTypes.arrayOf(
