@@ -29,7 +29,7 @@ const DailyCommits = memo(
     let totalWeeks = weeklyCommits.length;
 
     let columns = [],
-      xPosition = daysWidth;
+      xPosition = xStart;
 
     const bounds = calcDistribution(weeklyCommits);
 
@@ -55,7 +55,7 @@ const DailyCommits = memo(
 
     return (
       <TooltipProvider>
-        <div className='daily-commits'>
+        <div className='daily-commits' style={{ maxHeight: GRAPH_HEIGHT }}>
           <svg
             height={GRAPH_HEIGHT}
             width={daysWidth}
@@ -69,7 +69,10 @@ const DailyCommits = memo(
               days={daysArray}
             />
           </svg>
-          <div className='contributions'>
+          <div
+            className='contributions'
+            style={{ width: `calc(100% - ${daysWidth}px)` }}
+          >
             <svg height={GRAPH_HEIGHT} width={GRAPH_WIDTH}>
               {columns}
             </svg>

@@ -4,6 +4,7 @@ import { TooltipProvider } from '@radix-ui/react-tooltip';
 import YAxis from './YAxis';
 import Bars from './Bars';
 import {
+  xStart,
   daysWidth,
   bottomSpace,
   topSpace,
@@ -34,10 +35,13 @@ const MonthlyCommits = memo(
               highestCommits={highestCommits}
             />
           </svg>
-          <div className='contributions'>
+          <div
+            className='contributions'
+            style={{ width: `calc(100% - ${daysWidth}px)` }}
+          >
             <svg height={GRAPH_HEIGHT} width={GRAPH_WIDTH}>
               <Bars
-                xStart={daysWidth}
+                xStart={xStart}
                 yStart={topSpace}
                 minY={GRAPH_HEIGHT - bottomSpace - topSpace}
                 textY={GRAPH_HEIGHT - bottomSpace + padding}

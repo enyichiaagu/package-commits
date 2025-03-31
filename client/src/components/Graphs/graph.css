@@ -18,22 +18,26 @@ text {
 
 .daily-commits,
 .monthly-commits {
-  position: relative;
+  white-space: nowrap;
   max-width: fit-content;
   margin-inline: auto;
+  /* position: relative; */
 
   & svg {
-    display: block;
+    display: inline-block;
+    vertical-align: top;
 
     &.days-placement,
     &.y-placement {
-      position: absolute;
-      left: 0;
+      /* position: absolute; */
+      /* left: 0; */
     }
   }
 
   & div.contributions {
+    display: inline-block;
     overflow: auto;
+    max-width: fit-content;
   }
 }
 

@@ -13,8 +13,7 @@ export const xStart = 0,
   // Set height of the component once
   GRAPH_HEIGHT =
     (squareLength + padding) * daysArray.length + bottomSpace + topSpace,
-  GRAPH_WIDTH =
-    daysWidth + (squareLength + padding) * defaultTotalWeeks - padding,
+  GRAPH_WIDTH = (squareLength + padding) * defaultTotalWeeks - padding,
   MONTHS = [
     'Jan',
     'Feb',
