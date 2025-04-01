@@ -26,6 +26,7 @@ text {
   & svg {
     display: inline-block;
     vertical-align: top;
+    direction: ltr;
 
     &.days-placement,
     &.y-placement {
@@ -38,6 +39,7 @@ text {
     display: inline-block;
     overflow: auto;
     max-width: fit-content;
+    direction: rtl;
   }
 }
 
