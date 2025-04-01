@@ -3,7 +3,11 @@ import { TbBrandNpm } from 'react-icons/tb';
 import { SlGlobe } from 'react-icons/sl';
 import PropTypes from 'prop-types';
 
+const NPM_PACKAGE = 'https://npmjs.org/package';
+const GITHUB_REPO = 'https://github.com';
+
 function PackageTitle({ pkgData }) {
+  console.log(pkgData);
   return (
     <>
       <div className='flex justify-between'>
@@ -12,9 +16,27 @@ function PackageTitle({ pkgData }) {
           <span>{pkgData && `(${pkgData.version})`}</span>
         </div>
         <div className='flex text-2xl gap-3 items-start sm:items-end'>
-          <FaGithubAlt />
-          <TbBrandNpm />
-          <SlGlobe />
+          <a
+            target='_blank'
+            href={`${GITHUB_REPO}/${pkgData?.owner}/${pkgData?.repo}`}
+            className='hover:text-gray-500'
+          >
+            <FaGithubAlt />
+          </a>
+          <a
+            target='_blank'
+            href={`${NPM_PACKAGE}/${pkgData?.name}`}
+            className='hover:text-red-500'
+          >
+            <TbBrandNpm />
+          </a>
+          <a
+            target='_blank'
+            href={pkgData?.homepage}
+            className='hover:text-blue-400'
+          >
+            <SlGlobe />
+          </a>
         </div>
       </div>
 

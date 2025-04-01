@@ -17,6 +17,7 @@ async function fetcher(pkg) {
       ? data?.repository?.url?.split('/')[4].split('.')[0]
       : undefined,
     path: isGitRepo ? data?.repository?.directory : undefined,
+    homepage: data?.homepage,
   };
 }
 
