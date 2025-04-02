@@ -16,10 +16,10 @@ function GraphBox({ tabType, pkgData, period }) {
         <Loader />
       ) : (
         <>
-          <div className={`${tabType !== 'daily' ? 'hidden' : ''}`}>
+          <div className={`${tabType !== 'daily' ? 'hidden' : 'block'}`}>
             <DailyCommits weeklyCommits={commits} />
           </div>
-          <div className={`${tabType !== 'monthly' ? 'hidden' : ''}`}>
+          <div className={`${tabType !== 'monthly' ? 'hidden' : 'block'}`}>
             <MonthlyCommits weeklyCommits={commits} />
           </div>
         </>

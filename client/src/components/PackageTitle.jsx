@@ -7,7 +7,6 @@ const NPM_PACKAGE = 'https://npmjs.org/package';
 const GITHUB_REPO = 'https://github.com';
 
 function PackageTitle({ pkgData }) {
-  console.log(pkgData);
   return (
     <>
       <div className='flex justify-between'>
@@ -26,7 +25,7 @@ function PackageTitle({ pkgData }) {
           <a
             target='_blank'
             href={`${NPM_PACKAGE}/${pkgData?.name}`}
-            className='hover:text-red-500'
+            className='hover:text-red-700'
           >
             <TbBrandNpm />
           </a>
