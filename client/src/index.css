@@ -18,6 +18,12 @@
   em {
     @apply font-bold;
   }
+
+  footer {
+    & a {
+      @apply text-blue-500 underline;
+    }
+  }
 }
 
 @font-face {

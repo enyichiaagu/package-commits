@@ -1,8 +1,21 @@
 import PropTypes from 'prop-types';
 
+const footers = [
+  `Made with <3 and JavaScript`,
+  `Inspired by <a href='https://npmtrends.com'>NPM Trends</a>`,
+  `Inspired by <a href='https://star-historyy.com'>Star History</a>`,
+  `Inspired by <a href='https://bundlephobia.com'>Bundlephobia</a>`,
+  `Don't forget to <a href='https://github.com/enyichiaagu/package-commits'>star repo on GitHub</a>`,
+];
+
 function Footer() {
   return (
-    <div className='text-center py-4'>{`Made with <3 and JavaScript`}</div>
+    <footer
+      className='text-center py-4'
+      dangerouslySetInnerHTML={{
+        __html: footers[Math.floor(Math.random() * footers.length)],
+      }}
+    ></footer>
   );
 }
 
