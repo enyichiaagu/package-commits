@@ -14,28 +14,34 @@ function PackageTitle({ pkgData }) {
           <span className='font-bold'>{pkgData?.name}</span>
           <span>{pkgData && `(${pkgData.version})`}</span>
         </div>
-        <div className='flex text-2xl gap-3 items-start sm:items-end text-gray-400'>
-          <a
-            target='_blank'
-            href={`${GITHUB_REPO}/${pkgData?.owner}/${pkgData?.repo}`}
-            className='hover:text-black'
-          >
-            <FaGithubAlt />
-          </a>
-          <a
-            target='_blank'
-            href={`${NPM_PACKAGE}/${pkgData?.name}`}
-            className='hover:text-red-600'
-          >
-            <TbBrandNpm />
-          </a>
-          <a
-            target='_blank'
-            href={pkgData?.homepage}
-            className='hover:text-blue-400'
-          >
-            <SlGlobe />
-          </a>
+        <div className='flex text-2xl gap-3 items-start sm:items-end'>
+          {pkgData?.owner && (
+            <a
+              target='_blank'
+              href={`${GITHUB_REPO}/${pkgData.owner}/${pkgData.repo}`}
+              className='hover:text-gray-500'
+            >
+              <FaGithubAlt />
+            </a>
+          )}
+          {pkgData?.name && (
+            <a
+              target='_blank'
+              href={`${NPM_PACKAGE}/${pkgData.name}`}
+              className='hover:text-red-600'
+            >
+              <TbBrandNpm />
+            </a>
+          )}
+          {pkgData?.homepage && (
+            <a
+              target='_blank'
+              href={pkgData.homepage}
+              className='hover:text-blue-400'
+            >
+              <SlGlobe />
+            </a>
+          )}
         </div>
       </div>
 
