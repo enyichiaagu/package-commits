@@ -47,6 +47,7 @@ const SearchInput = forwardRef(function SearchInput(
         ref={ref}
         autoCapitalize='none'
         autoCorrect='off'
+        autoFocus={variant === 'front'}
         value={value}
         onKeyDownCapture={(event) => {
           if (event.key === 'Enter' && highlightedIndex < 0 && trimmedValue) {

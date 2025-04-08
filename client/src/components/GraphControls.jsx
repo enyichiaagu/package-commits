@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import PropTypes, { number } from 'prop-types';
+import PropTypes from 'prop-types';
 import { useSelect } from 'downshift';
 import { AiFillCaretDown } from 'react-icons/ai';
 import ControlBtn from './ControlBtn';

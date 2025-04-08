@@ -15,32 +15,36 @@ function Bars({
 
   return (
     <>
-      {monthsArr.map(({ id, month, commits }, index) => {
-        xPosition = xStart + sidePadding + (barWidth + sidePadding) * index;
-        fraction = commits / highestCommits;
-        yPosition = yStart + (1 - fraction) * minY;
-        height = fraction * minY;
+      {monthsArr
+        .toSorted((a, b) => a.id - b.id)
+        .map(({ month, commits }, index) => {
+          xPosition = xStart + sidePadding + (barWidth + sidePadding) * index;
+          fraction = commits / highestCommits;
+          yPosition = yStart + (1 - fraction) * minY;
+          height = fraction * minY;
 
-        return (
-          <g key={index}>
-            <rect
-              x={xPosition}
-              y={yPosition}
-              width={barWidth}
-              height={height}
-              fill={defaultColors[3]}
-            ></rect>
-            <text
-              x={xPosition + barWidth / 2}
-              y={textY}
-              textAnchor='middle'
-              dominantBaseline='hanging'
-            >
-              {month}
-            </text>
-          </g>
-        );
-      })}
+          return (
+            <g key={index}>
+              {fraction && (
+                <rect
+                  x={xPosition}
+                  y={yPosition}
+                  width={barWidth}
+                  height={height}
+                  fill={defaultColors[3]}
+                ></rect>
+              )}
+              <text
+                x={xPosition + barWidth / 2}
+                y={textY}
+                textAnchor='middle'
+                dominantBaseline='hanging'
+              >
+                {month}
+              </text>
+            </g>
+          );
+        })}
     </>
   );
 }

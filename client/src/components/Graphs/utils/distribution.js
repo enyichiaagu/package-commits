@@ -37,7 +37,7 @@ function calcDistribution(weeklyCommits) {
 }
 
 function monthlyCommitsY(highestMonthlyCommits) {
-  if (highestMonthlyCommits === 0) return null;
+  if (highestMonthlyCommits === 0) return [];
   else if (highestMonthlyCommits <= 4) {
     return new Array(highestMonthlyCommits + 1)
       .fill(0)

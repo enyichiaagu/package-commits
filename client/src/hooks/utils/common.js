@@ -22,7 +22,8 @@ function getDateRange(period = Date.now()) {
   };
 }
 
-function generateYrsArr(createdYear, currentYear, maxNumYears = 3) {
+function generateYrsArr(createdYear, currentYear) {
+  // maxNumYears = 3
   if (createdYear > currentYear)
     throw new RangeError('Starting year cannot be greater than current year');
 
