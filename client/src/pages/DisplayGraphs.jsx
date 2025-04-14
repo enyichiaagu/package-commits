@@ -40,7 +40,7 @@ function DisplayGraphs() {
           setPeriod={setPeriod}
         />
         <GraphBox tabType={tabType} pkgData={pkgData} period={period} />
-        <Contributors />
+        <Contributors pkgData={pkgData} period={period} />
       </main>
     </>
   );

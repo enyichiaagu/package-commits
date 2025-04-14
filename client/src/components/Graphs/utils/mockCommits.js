@@ -29,7 +29,6 @@ function isValidDate(current, yearStart, yearEnd) {
   return false;
 }
 
-// The random value 1 means the generated commit numbers are random while 0 means they are all o
 function genMockCommits(highestDayCommits = 0) {
   const randomYear = highestDayCommits
     ? 2010 + Math.floor(Math.random() * 10)

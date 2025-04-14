@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import { getDateRange } from './utils/common';
-import { getWeeklyCommits } from './utils/commits';
+import { getCommitsOrContributors } from './utils/commits';
 
 const GITHUB_FETCH = 'https://api.github.com/repos';
 const MAX_COMMITS_FETCH = 100;
@@ -54,12 +54,14 @@ function useCommits(pkgData, period) {
     }
   }, [data, totalPages, setSize]);
 
-  let fetchedCommits = isLoadedAllPages
+  let commitsArr = isLoadedAllPages
     ? [].concat(...data.map((page) => page.result))
     : [];
-  let commits = getWeeklyCommits(fetchedCommits, range);
+  let { commits, contributors } = getCommitsOrContributors(commitsArr, range);
+
   return {
     commits,
+    contributors,
     isLoading: isLoading || !isLoadedAllPages,
     isError: error,
   };

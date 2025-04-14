@@ -44,22 +44,41 @@ function getTemplate(range) {
   return template;
 }
 
-function getWeeklyCommits(commitsArr, range) {
+function getCommitsOrContributors(commitsArr, range) {
   let template = getTemplate(range),
-    weekIndex;
+    contrMap = new Map(),
+    weekIndex,
+    mint = {};
 
   commitsArr.forEach((ghCommit) => {
-    let commitIsoDate = ghCommit.commit.committer.date;
+    let commitISODate = ghCommit.commit.committer.date;
+
     weekIndex = template.findIndex(
-      (tempCommit) => getWeek(commitIsoDate).toISOString() === tempCommit.week
+      (tempCommit) => getWeek(commitISODate).toISOString() === tempCommit.week
     );
-
-    let dayIndex = new Date(commitIsoDate).getUTCDay();
-
+    let dayIndex = new Date(commitISODate).getUTCDay();
     template[weekIndex].commits[dayIndex]++;
+
+    if (!ghCommit.author || !ghCommit.committer) {
+      mint = { login: 'unknown', avatar_url: null };
+    } else {
+      mint = ghCommit.author;
+    }
+    let { login, avatar_url } = mint;
+    if (contrMap.has(login)) {
+      let entry = contrMap.get(login);
+      entry.contributions++;
+      return;
+    }
+    contrMap.set(login, { login, avatar_url, contributions: 1 });
   });
 
-  return template;
+  return {
+    commits: template,
+    contributors: Array.from(contrMap.values()).sort(
+      (a, b) => b.contributions - a.contributions
+    ),
+  };
 }
 
-export { getWeeklyCommits };
+export { getCommitsOrContributors };
