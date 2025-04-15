@@ -50,6 +50,9 @@ function getCommitsOrContributors(commitsArr, range) {
     weekIndex,
     mint = {};
 
+  if (!commitsArr || commitsArr.length === 0)
+    return { commits: template, contributors: [] };
+
   commitsArr.forEach((ghCommit) => {
     let commitISODate = ghCommit.commit.committer.date;
 
@@ -73,11 +76,13 @@ function getCommitsOrContributors(commitsArr, range) {
     contrMap.set(login, { login, avatar_url, contributions: 1 });
   });
 
+  let contributors = Array.from(contrMap.values()).sort(
+    (a, b) => b.contributions - a.contributions
+  );
+
   return {
     commits: template,
-    contributors: Array.from(contrMap.values()).sort(
-      (a, b) => b.contributions - a.contributions
-    ),
+    contributors,
   };
 }
 
