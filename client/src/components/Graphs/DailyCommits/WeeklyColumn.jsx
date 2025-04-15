@@ -14,7 +14,7 @@ function calcMonthIndex(weekIndex, week) {
 }
 
 // function to find the index of the color in the palette
-function colorIndex(bounds, dayCommit) {
+function getColorIndex(bounds, dayCommit) {
   if (dayCommit === null) return -1;
   if (bounds.length === 0 || dayCommit === 0) return 0;
 
@@ -66,7 +66,7 @@ function WeeklyColumn({
   bounds,
 }) {
   let monthIndex = calcMonthIndex(weekIndex, weeklyCommits.week);
-  let yPlacement, displayDate;
+  let yPlacement, displayDate, colorIndex, fillColor, strokeColor;
 
   return (
     <>
@@ -74,6 +74,10 @@ function WeeklyColumn({
         {days.map((_, index) => {
           yPlacement = (squareLength + padding) * index + yPosition;
           displayDate = formatDate(addDay(weeklyCommits.week, index));
+          colorIndex = getColorIndex(bounds, weeklyCommits.commits[index]);
+          fillColor = colors[colorIndex] || bgColor;
+          strokeColor =
+            colorIndex >= 0 ? (colorIndex > 0 ? colors.at(-1) : 'grey') : '';
 
           return (
             <Square
@@ -85,10 +89,8 @@ function WeeklyColumn({
               radius={radius}
               commits={weeklyCommits.commits[index]}
               date={displayDate}
-              bgColor={
-                colors[colorIndex(bounds, weeklyCommits.commits[index])] ||
-                bgColor
-              }
+              bgColor={fillColor}
+              strokeColor={strokeColor}
             />
           );
         })}

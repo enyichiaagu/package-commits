@@ -9,6 +9,7 @@ function Square({
   commits,
   date,
   bgColor,
+  strokeColor,
 }) {
   const squareRect = (
     <rect
@@ -19,6 +20,8 @@ function Square({
       rx={radius}
       ry={radius}
       fill={bgColor}
+      stroke={strokeColor}
+      strokeWidth={0.05}
       className='day'
     ></rect>
   );

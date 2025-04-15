@@ -45,7 +45,7 @@ function PackageTitle({ pkgData }) {
         </div>
       </div>
 
-      <p>{pkgData?.description}</p>
+      <p className='mt-3 mb-5 sm:my-0'>{pkgData?.description}</p>
     </>
   );
 }
