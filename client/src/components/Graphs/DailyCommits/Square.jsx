@@ -48,6 +48,7 @@ Square.propTypes = {
   commits: PropTypes.number,
   date: PropTypes.string,
   bgColor: PropTypes.string,
+  strokeColor: PropTypes.string,
 };
 
 export default Square;
