@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import { getDateRange } from './utils/common';
 import { getCommitsOrContributors } from './utils/commits';
+import { headers } from './utils/requests';
 
 const GITHUB_FETCH = 'https://api.github.com/repos';
 const MAX_COMMITS_FETCH = 100;
@@ -10,11 +11,7 @@ const currentRange = getDateRange();
 
 async function fetcher(key, size) {
   let response = await fetch(`${GITHUB_FETCH}/${key}`, {
-    headers: {
-      Accept: 'application/vnd.github+json',
-      'X-GitHub-Api-Version': '2022-11-28',
-      Authorization: `Bearer ${import.meta.env.VITE_GITHUB_PAT}`,
-    },
+    headers,
   });
   let headerLink = response.headers.get('link') || null;
   let regexArr = headerLink ? headerLink.match(/next.*page=(\d*).*last/) : null;

@@ -1,14 +1,9 @@
 import useSWRImmutable from 'swr';
+import { headers } from './utils/requests';
 
 const GITHUB_API = 'https://api.github.com/search';
 
 async function fetcher(key) {
-  const headers = {
-    Accept: 'application/vnd.github+json',
-    'X-GitHub-Api-Version': '2022-11-28',
-    Authorization: `Bearer ${import.meta.env.VITE_GITHUB_PAT}`,
-  };
-
   const [openIssues, allIssues] = await Promise.all([
     fetch(`${GITHUB_API}/${key}+is:open&per_page=1`, {
       headers,
