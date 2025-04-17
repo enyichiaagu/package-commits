@@ -8,10 +8,18 @@ import SearchListItem from './SearchListItem';
 const NPM_SEARCH = 'https://api.npms.io/v2/search/suggestions';
 
 async function getFilteredList(query) {
-  if (!query.trim()) return [];
-  let response = await fetch(`${NPM_SEARCH}?q=${query.trim()}`);
-  let data = await response.json();
-  return data;
+  let trimmed = query.trim();
+  // Maximum characters for an NPM Package is 214
+  if (!trimmed || trimmed.length > 214) return [];
+
+  try {
+    let response = await fetch(`${NPM_SEARCH}?q=${trimmed}`);
+    if (!response.ok) throw new Error();
+    let data = await response.json();
+    return data;
+  } catch {
+    return [];
+  }
 }
 
 function SearchBox({ variant, pkg }) {

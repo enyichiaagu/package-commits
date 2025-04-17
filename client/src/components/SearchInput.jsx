@@ -51,6 +51,7 @@ const SearchInput = forwardRef(function SearchInput(
         value={value}
         onKeyDownCapture={(event) => {
           if (event.key === 'Enter' && highlightedIndex < 0 && trimmedValue) {
+            event.currentTarget.blur();
             navigate(`/package/${trimmedValue}`);
           }
         }}
