@@ -14,7 +14,7 @@ function DisplayGraphs() {
   const [period, setPeriod] = useState(null);
 
   const { '*': pkg } = params;
-  const { pkgData, isLoading, isError } = usePackage(pkg);
+  const { pkgData, isLoading, error } = usePackage(pkg);
   const tabType = searchParams.get('tab') || 'daily';
 
   return (
@@ -33,14 +33,26 @@ function DisplayGraphs() {
         </div>
       </Header>
       <main className='mt-5 sm:mt-10 mx-auto px-4 max-w-240'>
-        <PackageTitle pkgData={pkgData} />
-        <GraphControls
-          tabType={tabType}
-          pkgData={pkgData}
-          setPeriod={setPeriod}
-        />
-        <GraphBox tabType={tabType} pkgData={pkgData} period={period} />
-        <Stats pkgData={pkgData} period={period} />
+        {!error ? (
+          isLoading ? (
+            'Loading ...'
+          ) : (
+            <PackageTitle pkgData={pkgData} />
+          )
+        ) : (
+          error.message
+        )}
+        {!error && (
+          <>
+            <GraphControls
+              tabType={tabType}
+              pkgData={pkgData}
+              setPeriod={setPeriod}
+            />
+            <GraphBox tabType={tabType} pkgData={pkgData} period={period} />
+            <Stats pkgData={pkgData} period={period} />
+          </>
+        )}
       </main>
     </>
   );
