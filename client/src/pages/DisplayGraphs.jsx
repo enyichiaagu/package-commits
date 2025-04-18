@@ -6,7 +6,7 @@ import PackageTitle from '../components/PackageTitle';
 import GraphControls from '../components/GraphControls';
 import usePackage from '../hooks/usePackage';
 import GraphBox from '../components/GraphBox';
-import Stats from '../components/Stats';
+// import Stats from '../components/Stats';
 
 function DisplayGraphs() {
   const params = useParams();
@@ -33,15 +33,11 @@ function DisplayGraphs() {
         </div>
       </Header>
       <main className='mt-5 sm:mt-10 mx-auto px-4 max-w-240'>
-        {!error ? (
-          isLoading ? (
-            'Loading ...'
-          ) : (
-            <PackageTitle pkgData={pkgData} />
-          )
-        ) : (
-          error.message
-        )}
+        <>
+          {isLoading && 'Loading...'}
+          {!isLoading &&
+            (error ? error.message : <PackageTitle pkgData={pkgData} />)}
+        </>
         {!error && (
           <>
             <GraphControls
@@ -50,7 +46,7 @@ function DisplayGraphs() {
               setPeriod={setPeriod}
             />
             <GraphBox tabType={tabType} pkgData={pkgData} period={period} />
-            <Stats pkgData={pkgData} period={period} />
+            {/* <Stats pkgData={pkgData} period={period} /> */}
           </>
         )}
       </main>

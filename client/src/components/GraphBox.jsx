@@ -6,16 +6,18 @@ import useCommits from '../hooks/useCommits';
 
 const GraphBox = memo(
   function GraphBox({ tabType, pkgData, period }) {
-    const { commits, isLoading, isError } = useCommits(pkgData, period);
+    const { commits, isLoading, error } = useCommits(pkgData, period);
 
     return (
       <div
-        className={`h-35 sm:h-40 flex justify-center ${
+        className={`h-35 sm:h-40 flex justify-center relative ${
           isLoading ? 'shadow-xs rounded-md items-center' : 'flex-col'
         }`}
       >
         {isLoading ? (
           <Loader />
+        ) : error ? (
+          <span className='absolute top-0'>{error.message}</span>
         ) : (
           <>
             <div className={`${tabType !== 'daily' ? 'hidden' : 'block'}`}>

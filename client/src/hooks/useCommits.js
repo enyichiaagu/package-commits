@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import { getDateRange } from './utils/common';
 import { getCommitsOrContributors } from './utils/commits';
-import { headers } from './utils/requests';
+// import { headers } from './utils/requests';
+import { CustomError } from './utils/errors';
 
 const GITHUB_FETCH = 'https://api.github.com/repos';
 const MAX_COMMITS_FETCH = 100;
@@ -10,14 +11,24 @@ const MAX_COMMITS_FETCH = 100;
 const currentRange = getDateRange();
 
 async function fetcher(key, size) {
-  let response = await fetch(`${GITHUB_FETCH}/${key}`, {
-    headers,
-  });
-  let headerLink = response.headers.get('link') || null;
-  let regexArr = headerLink ? headerLink.match(/next.*page=(\d*).*last/) : null;
-  let pages = regexArr ? +regexArr[1] : headerLink ? size : 1;
-  let result = await response.json();
-  return { result, pages };
+  try {
+    let response = await fetch(`${GITHUB_FETCH}/${key}`, {
+      // headers,
+    });
+
+    if (!response.ok) throw new CustomError('GitHub Error');
+    let headerLink = response.headers.get('link') || null;
+    let regexArr = headerLink
+      ? headerLink.match(/next.*page=(\d*).*last/)
+      : null;
+    let pages = regexArr ? +regexArr[1] : headerLink ? size : 1;
+    let result = await response.json();
+    // throw new Error();
+    return { result, pages };
+  } catch (err) {
+    if (err instanceof CustomError) throw err;
+    throw new CustomError();
+  }
 }
 
 const getKey = (pkgData, range, index) => {
@@ -43,7 +54,8 @@ function useCommits(pkgData, period) {
   );
 
   let totalPages = data?.[0].pages;
-  let isLoadedAllPages = data && data?.length === totalPages;
+  let isLoadedAllPages =
+    (data && data?.length === totalPages) || Boolean(error);
 
   useEffect(() => {
     if (data?.length === 1 && totalPages > 1) {
@@ -51,16 +63,17 @@ function useCommits(pkgData, period) {
     }
   }, [data, totalPages, setSize]);
 
-  let commitsArr = isLoadedAllPages
-    ? [].concat(...data.map((page) => page.result))
-    : [];
+  let commitsArr =
+    isLoadedAllPages && !error
+      ? [].concat(...data.map((page) => page.result))
+      : [];
   let { commits, contributors } = getCommitsOrContributors(commitsArr, range);
 
   return {
     commits,
     contributors,
     isLoading: isLoading || !isLoadedAllPages,
-    isError: error,
+    error,
   };
 }
 

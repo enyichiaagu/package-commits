@@ -7,7 +7,7 @@ import useYears from '../hooks/useYears';
 
 function GraphControls({ tabType, pkgData, setPeriod }) {
   // let [timeFrame, setTimeFrame] = useState(['Current']);
-  const { years, isLoading, isError } = useYears(pkgData);
+  const { years } = useYears(pkgData);
   let timeFrame = ['Current', ...years];
 
   const {
