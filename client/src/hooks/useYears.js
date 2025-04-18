@@ -1,5 +1,6 @@
 import useSWRImmutable from 'swr';
 import { getYear, generateYrsArr } from './utils/common';
+import { headers } from './utils/requests';
 import { CustomError } from './utils/errors';
 
 const GITHUB_API = 'https://api.github.com/repos';
@@ -8,13 +9,7 @@ const currentYear = new Date().getFullYear();
 
 async function fetcher(key) {
   try {
-    const response = await fetch(`${GITHUB_API}/${key}`, {
-      headers: {
-        Accept: 'application/vnd.github+json',
-        'X-GitHub-Api-Version': '2022-11-28',
-        Authorization: `Bearer ${import.meta.env.VITE_GITHUB_PAT}`,
-      },
-    });
+    const response = await fetch(`${GITHUB_API}/${key}`, { headers });
     if (!response.ok) throw new CustomError('GitHub Repo Not Found');
     const data = await response.json();
 

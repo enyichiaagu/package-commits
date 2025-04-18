@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import { getDateRange } from './utils/common';
 import { getCommitsOrContributors } from './utils/commits';
-// import { headers } from './utils/requests';
+import { headers } from './utils/requests';
 import { CustomError } from './utils/errors';
 
 const GITHUB_FETCH = 'https://api.github.com/repos';
@@ -12,9 +12,7 @@ const currentRange = getDateRange();
 
 async function fetcher(key, size) {
   try {
-    let response = await fetch(`${GITHUB_FETCH}/${key}`, {
-      // headers,
-    });
+    let response = await fetch(`${GITHUB_FETCH}/${key}`, { headers });
 
     if (!response.ok) throw new CustomError('GitHub Error');
     let headerLink = response.headers.get('link') || null;
@@ -23,7 +21,6 @@ async function fetcher(key, size) {
       : null;
     let pages = regexArr ? +regexArr[1] : headerLink ? size : 1;
     let result = await response.json();
-    // throw new Error();
     return { result, pages };
   } catch (err) {
     if (err instanceof CustomError) throw err;
