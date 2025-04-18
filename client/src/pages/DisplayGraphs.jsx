@@ -6,7 +6,7 @@ import PackageTitle from '../components/PackageTitle';
 import GraphControls from '../components/GraphControls';
 import usePackage from '../hooks/usePackage';
 import GraphBox from '../components/GraphBox';
-// import Stats from '../components/Stats';
+import Stats from '../components/Stats';
 
 function DisplayGraphs() {
   const params = useParams();
@@ -46,7 +46,7 @@ function DisplayGraphs() {
               setPeriod={setPeriod}
             />
             <GraphBox tabType={tabType} pkgData={pkgData} period={period} />
-            {/* <Stats pkgData={pkgData} period={period} /> */}
+            <Stats pkgData={pkgData} period={period} />
           </>
         )}
       </main>
