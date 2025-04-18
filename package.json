@@ -1,1 +1,22 @@
-{}
+{
+  "name": "package-commits",
+  "version": "0.0.1",
+  "description": "This app allows you to see how frequently an NPM package is contributed to, or maintained.",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "install": "npm install --prefix client",
+    "start": "npm run build --prefix client && npm run start --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enyichiaagu/package-commits.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/enyichiaagu/package-commits/issues"
+  },
+  "homepage": "https://github.com/enyichiaagu/package-commits#readme"
+}
