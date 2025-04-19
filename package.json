@@ -6,7 +6,7 @@
   "devDependencies": {},
   "scripts": {
     "install": "npm install --prefix client",
-    "start": "npm run build --prefix client && npm run preview --prefix client"
+    "build": "npm run build --prefix client"
   },
   "repository": {
     "type": "git",
