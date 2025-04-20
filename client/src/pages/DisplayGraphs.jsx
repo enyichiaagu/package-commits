@@ -28,7 +28,7 @@ function DisplayGraphs() {
             </span>
           </h1>
         </Link>
-        <div className='flex gap-4 items-center order-3 sm:order-2 col-span-full sm:col-span-1'>
+        <div className='flex items-center order-3 sm:order-2 col-span-full sm:col-span-1 sm:max-w-lg'>
           <SearchBox variant='normal' pkg={pkg} />
         </div>
       </Header>

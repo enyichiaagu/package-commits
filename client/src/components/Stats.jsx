@@ -8,7 +8,7 @@ const Stats = memo(
     const { data, error } = useIssues(pkgData);
 
     return (
-      <div className='mt-8 flex sm:justify-end sm:gap-8'>
+      <div className='mt-12 sm:mt-8 flex flex-col sm:flex-row items-center sm:justify-end gap-3 sm:gap-8'>
         <div className='flex gap-2 items-center'>
           {error ? (
             error.message
