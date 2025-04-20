@@ -14,7 +14,7 @@ function FrontPage() {
             Check how frequently an NPM package is maintained
           </span>
         </div>
-        <div className='mt-10 flex justify-center'>
+        <div className='mt-10 max-w-lg mx-auto'>
           <SearchBox variant='front' />
         </div>
       </main>
