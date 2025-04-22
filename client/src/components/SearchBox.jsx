@@ -61,7 +61,7 @@ function SearchBox({ variant, pkg }) {
       />
       <ul
         {...getMenuProps()}
-        className={`bg-list-bg max-h-60 overflow-y-auto shadow-md z-10 absolute w-[calc(100%-(--spacing(4)))] sm:w-[calc(100%-(--spacing(6)))] right-0`}
+        className={`bg-list-bg max-h-60 overflow-y-auto shadow-md z-1 absolute w-[calc(100%-(--spacing(4)))] sm:w-[calc(100%-(--spacing(6)))] right-0`}
       >
         {isOpen &&
           items.map((item, index) => (
