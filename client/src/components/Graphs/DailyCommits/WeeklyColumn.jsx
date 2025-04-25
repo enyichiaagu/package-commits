@@ -97,7 +97,7 @@ function WeeklyColumn({
       </g>
       <MonthsText
         xPosition={xPosition}
-        yPosition={yPlacement + squareLength + padding}
+        yPosition={yPlacement + squareLength + padding * 2}
         monthIndex={monthIndex}
       />
     </>
