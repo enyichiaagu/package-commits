@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import PropTypes from 'prop-types';
 import { useCombobox } from 'downshift';
@@ -25,6 +25,7 @@ async function getFilteredList(query) {
 function SearchBox({ variant, pkg }) {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
+  const latestRef = useRef(0);
 
   const {
     isOpen,
@@ -36,7 +37,9 @@ function SearchBox({ variant, pkg }) {
     items,
     initialInputValue: pkg || '',
     async onInputValueChange({ inputValue }) {
-      setItems(await getFilteredList(inputValue));
+      let update = ++latestRef.current;
+      let list = await getFilteredList(inputValue);
+      update === latestRef.current && setItems(list);
     },
     onSelectedItemChange({ inputValue }) {
       navigate(`/package/${inputValue}`);
