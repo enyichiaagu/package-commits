@@ -62,7 +62,7 @@ const DailyCommits = memo(
             className='days-placement'
           >
             <DaysText
-              xStart={xStart}
+              xStart={daysWidth - squareLength / 2}
               yStart={topSpace}
               squareLength={squareLength}
               padding={padding}

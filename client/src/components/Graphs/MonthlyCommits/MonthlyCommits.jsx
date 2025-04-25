@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { TooltipProvider } from '@radix-ui/react-tooltip';
 import YAxis from './YAxis';
 import Bars from './Bars';
+// TODO: Replace these with a class
 import {
   xStart,
   daysWidth,
@@ -11,6 +12,7 @@ import {
   padding,
   barLeftPadding,
   barWidth,
+  squareLength,
   defaultColors,
   MONTHS,
   GRAPH_HEIGHT,
@@ -26,11 +28,12 @@ const MonthlyCommits = memo(
 
     return (
       <TooltipProvider>
-        <div className='monthly-commits'>
+        <div className='monthly-commits' style={{ maxHeight: GRAPH_HEIGHT }}>
           <svg height={GRAPH_HEIGHT} width={daysWidth} className='y-placement'>
             <YAxis
               height={GRAPH_HEIGHT - bottomSpace - topSpace}
               width={daysWidth}
+              squareLength={squareLength}
               topSpace={topSpace}
               highestCommits={highestCommits}
             />

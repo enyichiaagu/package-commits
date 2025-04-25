@@ -9,7 +9,8 @@ function DaysText({ xStart, yStart, squareLength, padding, days }) {
             <text
               x={xStart}
               y={yStart + (squareLength + padding) * index + squareLength / 2}
-              dominantBaseline='middle'
+              dominantBaseline='mathematical'
+              textAnchor='end'
               key={index}
               className='text'
             >
