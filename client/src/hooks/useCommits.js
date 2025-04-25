@@ -2,29 +2,32 @@ import { useEffect } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import { getDateRange } from './utils/common';
 import { getCommitsOrContributors } from './utils/commits';
-import { headers } from './utils/requests';
-import { CustomError } from './utils/errors';
+import useHeaders from './useHeaders';
+import { finalCatch, resolveRes } from './utils/errors';
 
 const GITHUB_FETCH = 'https://api.github.com/repos';
 const MAX_COMMITS_FETCH = 100;
 
 const currentRange = getDateRange();
 
-async function fetcher(key, size) {
+// async function fetcher(key, size, reqHeaders) {
+async function fetcher(key, headers) {
   try {
     let response = await fetch(`${GITHUB_FETCH}/${key}`, { headers });
+    let result = await resolveRes(response);
 
-    if (!response.ok) throw new CustomError('GitHub Error');
-    let headerLink = response.headers.get('link') || null;
-    let regexArr = headerLink
-      ? headerLink.match(/next.*page=(\d*).*last/)
-      : null;
-    let pages = regexArr ? +regexArr[1] : headerLink ? size : 1;
-    let result = await response.json();
-    return { result, pages };
+    // If first index
+    if (key.endsWith(1)) {
+      let headerLink = response.headers.get('link') || null;
+      let regexArr = headerLink
+        ? headerLink.match(/next.*page=(\d*).*last/)
+        : null;
+      let pages = regexArr ? +regexArr[1] : 1;
+      return { result, pages };
+    }
+    return { result };
   } catch (err) {
-    if (err instanceof CustomError) throw err;
-    throw new CustomError();
+    finalCatch(err);
   }
 }
 
@@ -41,12 +44,13 @@ const getKey = (pkgData, range, index) => {
 };
 
 function useCommits(pkgData, period) {
+  const headers = useHeaders();
   const range =
     !period || period === 'Current' ? currentRange : getDateRange(period);
 
-  const { data, error, isLoading, size, setSize } = useSWRInfinite(
+  const { data, error, isLoading, setSize, mutate } = useSWRInfinite(
     (index) => getKey(pkgData, range, index),
-    (key) => fetcher(key, size),
+    (key) => fetcher(key, headers.get()),
     { parallel: true }
   );
 
@@ -71,6 +75,7 @@ function useCommits(pkgData, period) {
     contributors,
     isLoading: isLoading || !isLoadedAllPages,
     error,
+    mutate,
   };
 }
 

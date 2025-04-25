@@ -1,15 +1,45 @@
 class CustomError extends Error {
-  constructor(message = 'Something Went Wrong', options) {
-    super(message, options);
+  name = 'CustomError';
+  message = 'Something Went Wrong';
+  status;
 
-    this.name = 'CustomError';
+  constructor({ message, status }, options) {
+    super(message, options);
+    this.message = message;
+    this.status = status;
+  }
+
+  get isTokenError() {
+    return this.status === 401 || this.status === 403;
   }
 }
 
 async function resolveRes(response) {
-  if (response.ok) return await response.json();
-  if (response.status === 404) throw new CustomError('Resource Not Found');
-  throw new CustomError();
+  if (response.ok) return response.json();
+  switch (response.status) {
+    case 401:
+      throw new CustomError({
+        message: 'Bad Credentials',
+        status: response.status,
+      });
+    case 403:
+      throw new CustomError({
+        message: 'Rate Limit Exceeded!',
+        status: response.status,
+      });
+    case 404:
+      throw new CustomError({
+        message: 'Resource Not Found',
+        status: response.status,
+      });
+    default:
+      throw new CustomError();
+  }
 }
 
-export { CustomError, resolveRes };
+const finalCatch = (err) => {
+  if (err instanceof CustomError) throw err;
+  throw new CustomError();
+};
+
+export { resolveRes, finalCatch };

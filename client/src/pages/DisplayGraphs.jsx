@@ -1,17 +1,20 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
+import usePackage from '../hooks/usePackage';
 import Header from '../components/Header';
 import SearchBox from '../components/SearchBox';
 import PackageTitle from '../components/PackageTitle';
 import GraphControls from '../components/GraphControls';
-import usePackage from '../hooks/usePackage';
 import GraphBox from '../components/GraphBox';
 import Stats from '../components/Stats';
+import TokenDialog from '../components/TokenDialog';
 
 function DisplayGraphs() {
   const params = useParams();
   const [searchParams] = useSearchParams();
   const [period, setPeriod] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const refresh = useRef(null);
 
   const { '*': pkg } = params;
   const { pkgData, isLoading, error } = usePackage(pkg);
@@ -44,12 +47,25 @@ function DisplayGraphs() {
               tabType={tabType}
               pkgData={pkgData}
               setPeriod={setPeriod}
+              setDialogOpen={setDialogOpen}
+              ref={refresh}
             />
-            <GraphBox tabType={tabType} pkgData={pkgData} period={period} />
+            <GraphBox
+              tabType={tabType}
+              pkgData={pkgData}
+              period={period}
+              setDialogOpen={setDialogOpen}
+              ref={refresh}
+            />
             <Stats pkgData={pkgData} period={period} />
           </>
         )}
       </main>
+      <TokenDialog
+        dialogOpen={dialogOpen}
+        setDialogOpen={setDialogOpen}
+        refresh={refresh}
+      />
     </>
   );
 }

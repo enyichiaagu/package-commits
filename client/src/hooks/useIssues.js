@@ -1,10 +1,10 @@
 import useSWRImmutable from 'swr';
-import { headers } from './utils/requests';
-import { CustomError, resolveRes } from './utils/errors';
+import useHeaders from './useHeaders';
+import { resolveRes, finalCatch } from './utils/errors';
 
 const GITHUB_API = 'https://api.github.com/search';
 
-async function fetcher(key) {
+async function fetcher(key, headers) {
   try {
     const [openIssues, allIssues] = await Promise.all([
       fetch(`${GITHUB_API}/${key}+is:open&per_page=1`, { headers }).then(
@@ -19,17 +19,18 @@ async function fetcher(key) {
 
     return Math.round((result + Number.EPSILON) * 100) / 100;
   } catch (err) {
-    if (err instanceof CustomError) throw err;
-    throw new CustomError();
+    finalCatch(err);
   }
 }
 
 function useIssues(pkgData) {
+  const headers = useHeaders();
+
   const { data, isLoading, error } = useSWRImmutable(
     () =>
       pkgData.owner &&
       `issues?q=repo:${pkgData.owner}/${pkgData.repo}+is:issue`,
-    fetcher
+    (key) => fetcher(key, headers.get())
   );
 
   return { data: data || 0, isLoading, error };

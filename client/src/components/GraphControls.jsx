@@ -1,13 +1,16 @@
-import { useEffect } from 'react';
+import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import { useSelect } from 'downshift';
 import { AiFillCaretDown } from 'react-icons/ai';
 import ControlBtn from './ControlBtn';
 import useYears from '../hooks/useYears';
 
-function GraphControls({ tabType, pkgData, setPeriod }) {
+const GraphControls = forwardRef(function GraphControls(
+  { tabType, pkgData, setPeriod, setDialogOpen },
+  ref
+) {
   // let [timeFrame, setTimeFrame] = useState(['Current']);
-  const { years } = useYears(pkgData);
+  const { years, error, mutate } = useYears(pkgData);
   let timeFrame = ['Current', ...years];
 
   const {
@@ -21,9 +24,17 @@ function GraphControls({ tabType, pkgData, setPeriod }) {
     items: timeFrame,
   });
 
+  useImperativeHandle(ref, () => ({ mutate }), [mutate]);
+
   useEffect(() => {
     setPeriod(selectedItem);
   }, [setPeriod, selectedItem]);
+
+  useEffect(() => {
+    if (error?.isTokenError) {
+      setDialogOpen(true);
+    }
+  }, [error, setDialogOpen]);
 
   return (
     <div className='my-3 sm:my-8 flex items-center'>
@@ -60,12 +71,13 @@ function GraphControls({ tabType, pkgData, setPeriod }) {
       </div>
     </div>
   );
-}
+});
 
 GraphControls.propTypes = {
   tabType: PropTypes.oneOf(['daily', 'monthly']).isRequired,
   pkgData: PropTypes.object,
   setPeriod: PropTypes.func.isRequired,
+  setDialogOpen: PropTypes.func.isRequired,
 };
 
 export default GraphControls;

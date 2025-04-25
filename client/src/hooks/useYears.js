@@ -1,32 +1,31 @@
-import useSWRImmutable from 'swr';
+import useSWR from 'swr';
 import { getYear, generateYrsArr } from './utils/common';
-import { headers } from './utils/requests';
-import { CustomError } from './utils/errors';
+import { resolveRes, finalCatch } from './utils/errors';
+import useHeaders from './useHeaders';
 
 const GITHUB_API = 'https://api.github.com/repos';
 
 const currentYear = new Date().getFullYear();
 
-async function fetcher(key) {
+async function fetcher(key, headers) {
   try {
-    const response = await fetch(`${GITHUB_API}/${key}`, { headers });
-    if (!response.ok) throw new CustomError('GitHub Repo Not Found');
-    const data = await response.json();
-
+    const response = await fetch(`${GITHUB_API}/${key}`, {
+      headers: headers.get(),
+    });
+    const data = await resolveRes(response);
     return generateYrsArr(getYear(data.created_at), currentYear);
   } catch (err) {
-    if (err instanceof CustomError) throw err;
-    throw new CustomError();
+    finalCatch(err);
   }
 }
 
 function useYears(pkgData) {
-  const { data, error, isLoading } = useSWRImmutable(
+  const headers = useHeaders();
+  const { data, error, isLoading, mutate } = useSWR(
     () => pkgData.owner && pkgData.repo && `${pkgData.owner}/${pkgData.repo}`,
-    fetcher
+    (key) => fetcher(key, headers)
   );
-
-  return { years: data || [], isLoading, error };
+  return { years: data || [], isLoading, error, mutate };
 }
 
 export default useYears;

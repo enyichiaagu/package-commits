@@ -1,13 +1,12 @@
 import useSWRImmutable from 'swr/immutable';
-import { CustomError } from './utils/errors';
+import { finalCatch, resolveRes } from './utils/errors';
 
 const NPM_FETCH = 'https://registry.npmjs.org';
 
 async function fetcher(pkg) {
   try {
     const response = await fetch(`${NPM_FETCH}/${pkg}/latest`);
-    if (response.status === 404) throw new CustomError('Package Not Found');
-    const data = await response.json();
+    const data = await resolveRes(response);
     let repo = data?.repository;
     let url = repo?.url;
 
@@ -28,8 +27,7 @@ async function fetcher(pkg) {
       }),
     };
   } catch (err) {
-    if (err instanceof CustomError) throw err;
-    else throw new CustomError();
+    finalCatch(err);
   }
 }
 
