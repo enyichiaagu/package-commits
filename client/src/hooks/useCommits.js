@@ -44,6 +44,8 @@ const getKey = (pkgData, range, index) => {
 };
 
 function useCommits(pkgData, period) {
+  let isFetchable = pkgData ? pkgData?.name && pkgData?.owner : true;
+
   const headers = useHeaders();
   const range =
     !period || period === 'Current' ? currentRange : getDateRange(period);
@@ -56,7 +58,7 @@ function useCommits(pkgData, period) {
 
   let totalPages = data?.[0].pages;
   let isLoadedAllPages =
-    (data && data?.length === totalPages) || Boolean(error);
+    !isFetchable || (data && data?.length === totalPages) || Boolean(error);
 
   useEffect(() => {
     if (data?.length === 1 && totalPages > 1) {
@@ -65,7 +67,7 @@ function useCommits(pkgData, period) {
   }, [data, totalPages, setSize]);
 
   let commitsArr =
-    isLoadedAllPages && !error
+    isLoadedAllPages && !error && data
       ? [].concat(...data.map((page) => page.result))
       : [];
   let { commits, contributors } = getCommitsOrContributors(commitsArr, range);

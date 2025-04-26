@@ -7,6 +7,9 @@ import useCommits from '../hooks/useCommits';
 const GraphBox = memo(
   forwardRef(
     function GraphBox({ tabType, pkgData, period, setDialogOpen }, ref) {
+      let alert;
+      if (!pkgData?.owner) alert = 'No GitHub repo found in NPM package';
+
       const { commits, isLoading, error, mutate } = useCommits(pkgData, period);
 
       useImperativeHandle(ref, () => ({ mutate }), [mutate]);
@@ -19,12 +22,14 @@ const GraphBox = memo(
 
       return (
         <div
-          className={`h-35 sm:h-40 flex justify-center relative ${
-            isLoading ? 'shadow-xs rounded-md items-center' : 'flex-col'
+          className={`h-35 sm:h-40 flex justify-center relative rounded-md ${
+            isLoading ? 'shadow-xs items-center' : 'flex-col'
           }`}
         >
           {isLoading ? (
             <Loader />
+          ) : alert ? (
+            <span className='absolute top-0'>{alert}</span>
           ) : error ? (
             <span className='absolute top-0'>{error.message}</span>
           ) : (
