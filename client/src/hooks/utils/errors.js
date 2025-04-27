@@ -1,11 +1,8 @@
 class CustomError extends Error {
   name = 'CustomError';
-  message = 'Something Went Wrong';
-  status;
 
-  constructor({ message, status }, options) {
+  constructor({ message = 'Something Went Wrong', status }, options) {
     super(message, options);
-    this.message = message;
     this.status = status;
   }
 
@@ -32,8 +29,15 @@ async function resolveRes(response) {
         message: 'Resource Not Found',
         status: response.status,
       });
+    case 422:
+      throw new CustomError({
+        message: response.url.includes('search/issues')
+          ? 'Issues Not Available'
+          : 'Data Not Available',
+        status: response.status,
+      });
     default:
-      throw new CustomError();
+      throw new CustomError({});
   }
 }
 
