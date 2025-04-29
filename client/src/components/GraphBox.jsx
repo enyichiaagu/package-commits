@@ -8,7 +8,7 @@ const GraphBox = memo(
   forwardRef(
     function GraphBox({ tabType, pkgData, period, setDialogOpen }, ref) {
       let alert;
-      if (!pkgData?.owner) alert = 'No GitHub repo found in NPM package';
+      if (!pkgData?.owner) alert = 'No GitHub repo found';
 
       const { commits, isLoading, error, mutate } = useCommits(pkgData, period);
 
