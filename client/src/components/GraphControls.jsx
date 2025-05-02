@@ -26,6 +26,7 @@ const GraphControls = forwardRef(function GraphControls(
 
   useImperativeHandle(ref, () => ({ mutate }), [mutate]);
 
+  // TODO: Use URL to encode this
   useEffect(() => {
     setPeriod(selectedItem);
   }, [setPeriod, selectedItem]);

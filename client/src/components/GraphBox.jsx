@@ -7,6 +7,7 @@ import useCommits from '../hooks/useCommits';
 const GraphBox = memo(
   forwardRef(
     function GraphBox({ tabType, pkgData, period, setDialogOpen }, ref) {
+      // TODO: Throw errors in useSWR
       let alert;
       if (!pkgData?.owner) alert = 'No GitHub repo found';
 
