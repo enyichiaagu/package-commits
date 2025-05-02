@@ -20,7 +20,7 @@ describe('calcDistribution', () => {
 
 describe('monthlyCommitsY', () => {
   test('Should return null if no commits', () => {
-    expect(monthlyCommitsY(0)).toBeNull();
+    expect(monthlyCommitsY(0)).toStrictEqual([]);
   });
 
   test('Should work when commits <= 4', () => {
