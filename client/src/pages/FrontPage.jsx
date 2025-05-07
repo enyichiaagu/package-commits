@@ -11,7 +11,7 @@ function FrontPage() {
             package commits
           </h1>
           <span className='text-center w-60 sm:w-full'>
-            Check how frequently an NPM package is maintained
+            Check how frequently an npm package is maintained
           </span>
         </div>
         <div className='mt-10 max-w-lg mx-auto'>
