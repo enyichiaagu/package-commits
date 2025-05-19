@@ -31,7 +31,6 @@
     "eslint-plugin-react": "^7.34.3",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
-    "eslint-plugin-react-you-might-not-need-an-effect": "^0.0.28",
     "prop-types": "^15.8.1",
     "vite": "^6.3.2",
     "vitest": "^3.0.5"
