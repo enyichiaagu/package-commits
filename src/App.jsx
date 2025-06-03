@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router';
+import { SWRConfig } from 'swr';
 import Footer from './components/Footer';
 import FrontPage from './pages/FrontPage';
 import DisplayGraphs from './pages/DisplayGraphs';
-import { SWRConfig } from 'swr';
 
 function App() {
   return (
