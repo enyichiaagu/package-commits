@@ -9,7 +9,7 @@ import GraphBox from '../components/GraphBox';
 import Stats from '../components/Stats';
 import TokenDialog from '../components/TokenDialog';
 
-function DisplayGraphs() {
+function Result() {
   const params = useParams();
   const [searchParams] = useSearchParams();
   const [period, setPeriod] = useState(null);
@@ -70,4 +70,4 @@ function DisplayGraphs() {
   );
 }
 
-export default DisplayGraphs;
+export default Result;

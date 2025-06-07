@@ -1,7 +1,7 @@
 import Header from '../components/Header';
 import SearchBox from '../components/SearchBox';
 
-function FrontPage() {
+function Front() {
   return (
     <>
       <Header />
@@ -22,4 +22,4 @@ function FrontPage() {
   );
 }
 
-export default FrontPage;
+export default Front;

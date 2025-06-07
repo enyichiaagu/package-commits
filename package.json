@@ -4,16 +4,18 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "react-router dev --host",
-    "build": "tsc && vite build",
+    "dev": "react-router dev",
+    "build": "react-router build",
+    "typecheck": "react-router typegen && tsc",
     "lint": "eslint . --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
+    "start": "react-router-serve ./build/server/index.js",
     "test": "vitest"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.10",
     "@radix-ui/react-tooltip": "^1.1.3",
     "@react-router/node": "^7.6.2",
+    "@react-router/serve": "^7.6.2",
     "@tailwindcss/vite": "^4.0.6",
     "@vercel/analytics": "^1.5.0",
     "downshift": "^9.0.8",
