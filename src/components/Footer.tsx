@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 
 const footers = [
   `Made with <3 and JavaScript`,
@@ -9,18 +9,20 @@ const footers = [
 ];
 
 function Footer() {
+  let [index, setIndex] = useState<number>(0);
+
+  useEffect(() => {
+    setIndex(Math.floor(Math.random() * footers.length));
+  }, []);
+
   return (
     <footer
       className='text-center py-4'
       dangerouslySetInnerHTML={{
-        __html: footers[Math.floor(Math.random() * footers.length)],
+        __html: footers[index],
       }}
     ></footer>
   );
 }
-
-Footer.propTypes = {
-  className: PropTypes.string,
-};
 
 export default Footer;
