@@ -1,13 +1,12 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router';
-import PropTypes from 'prop-types';
 import { useCombobox } from 'downshift';
-import SearchInput from './SearchInput';
-import SearchListItem from './SearchListItem';
+import SearchInput, { type InputVariants } from './SearchInput';
+import SearchListItem, { type ListedItem } from './SearchListItem';
 
 const NPM_SEARCH = 'https://api.npms.io/v2/search/suggestions';
 
-async function getFilteredList(query) {
+async function getFilteredList(query: string): Promise<ListedItem[]> {
   let trimmed = query.trim();
   // Maximum characters for an NPM Package is 214
   if (!trimmed || trimmed.length > 214) return [];
@@ -22,8 +21,13 @@ async function getFilteredList(query) {
   }
 }
 
-function SearchBox({ variant, pkg }) {
-  const [items, setItems] = useState([]);
+interface SearchBoxProps {
+  variant: InputVariants;
+  pkg: string;
+}
+
+function SearchBox({ variant, pkg }: SearchBoxProps) {
+  const [items, setItems] = useState<ListedItem[]>([]);
   const navigate = useNavigate();
   const latestRef = useRef(0);
 
@@ -79,10 +83,5 @@ function SearchBox({ variant, pkg }) {
     </div>
   );
 }
-
-SearchBox.propTypes = {
-  variant: PropTypes.oneOf(['front', 'normal']).isRequired,
-  pkg: PropTypes.string,
-};
 
 export default SearchBox;

@@ -1,9 +1,21 @@
 import { forwardRef } from 'react';
-import PropTypes from 'prop-types';
+
+export interface ListedItem {
+  package: {
+    name: string;
+    description: string;
+  };
+  highlight: boolean;
+}
+
+interface ListItemProps extends React.HTMLAttributes<HTMLLIElement> {
+  item: ListedItem;
+  highlighted: boolean;
+}
 
 const SearchListItem = forwardRef(function SearchListItem(
-  { item, highlighted, ...otherProps },
-  ref
+  { item, highlighted, ...otherProps }: ListItemProps,
+  ref: React.Ref<HTMLLIElement>
 ) {
   return (
     <li
@@ -25,11 +37,5 @@ const SearchListItem = forwardRef(function SearchListItem(
     </li>
   );
 });
-
-SearchListItem.propTypes = {
-  item: PropTypes.object.isRequired,
-  highlighted: PropTypes.bool.isRequired,
-  otherProps: PropTypes.object,
-};
 
 export default SearchListItem;

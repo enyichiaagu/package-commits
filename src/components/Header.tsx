@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
 import Socials from './Socials';
 
-function Header({ children }) {
+function Header({ children }: { children: React.ReactNode }) {
   return (
     <header className='py-4 px-4 sm:py-4 lg:px-8 grid gap-y-2 grid-cols-[auto_auto] sm:grid-cols-[--spacing(26)_auto_auto]'>
       {children}
@@ -9,9 +8,5 @@ function Header({ children }) {
     </header>
   );
 }
-
-Header.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element),
-};
 
 export default Header;

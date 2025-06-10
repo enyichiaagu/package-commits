@@ -1,6 +1,5 @@
 import { ImGithub } from 'react-icons/im';
 import { BsTwitterX } from 'react-icons/bs';
-import PropTypes from 'prop-types';
 
 function Socials({ className = '' }) {
   return (
@@ -14,9 +13,5 @@ function Socials({ className = '' }) {
     </div>
   );
 }
-
-Socials.propTypes = {
-  className: PropTypes.string,
-};
 
 export default Socials;

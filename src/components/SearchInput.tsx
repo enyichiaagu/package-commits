@@ -1,14 +1,23 @@
 import { forwardRef } from 'react';
-import PropTypes from 'prop-types';
 import { Link, useNavigate } from 'react-router';
 import { BiSearchAlt } from 'react-icons/bi';
+import type { UseComboboxGetInputPropsReturnValue } from 'downshift';
 
-const containerStyles = {
+export type InputVariants = 'front' | 'normal';
+
+interface SearchInputProps {
+  variant: InputVariants;
+  placeholder: string;
+  highlightedIndex: number;
+  otherProps: UseComboboxGetInputPropsReturnValue;
+}
+
+const containerStyles: Record<InputVariants, string> = {
   front: '',
   normal: 'sm:bg-inherit sm:border-0',
 };
 
-const iconStyles = {
+const iconStyles: Record<InputVariants, string> = {
   front: 'sm:text-4xl',
   normal: 'sm:text-3xl',
 };
@@ -19,8 +28,8 @@ const SearchInput = forwardRef(function SearchInput(
     placeholder,
     highlightedIndex,
     otherProps: { value, ...restProps },
-  },
-  ref
+  }: SearchInputProps,
+  ref: React.Ref<HTMLInputElement>
 ) {
   let navigate = useNavigate();
   let trimmedValue = value.trim();
@@ -60,12 +69,5 @@ const SearchInput = forwardRef(function SearchInput(
     </form>
   );
 });
-
-SearchInput.propTypes = {
-  variant: PropTypes.oneOf(Object.keys(containerStyles)),
-  placeholder: PropTypes.string,
-  highlightedIndex: PropTypes.number,
-  otherProps: PropTypes.object,
-};
 
 export default SearchInput;
