@@ -1,5 +1,15 @@
 import * as Tooltip from '@radix-ui/react-tooltip';
-import PropTypes from 'prop-types';
+
+interface SquareProps {
+  xPosition: number;
+  yPosition: number;
+  length: number;
+  radius: number;
+  commits: number | null;
+  date: string;
+  bgColor: string;
+  strokeColor?: string;
+}
 
 function Square({
   xPosition,
@@ -10,7 +20,7 @@ function Square({
   date,
   bgColor,
   strokeColor,
-}) {
+}: SquareProps) {
   const squareRect = (
     <rect
       x={xPosition}
@@ -39,16 +49,5 @@ function Square({
     </Tooltip.Root>
   );
 }
-
-Square.propTypes = {
-  xPosition: PropTypes.number.isRequired,
-  yPosition: PropTypes.number.isRequired,
-  length: PropTypes.number.isRequired,
-  radius: PropTypes.number.isRequired,
-  commits: PropTypes.number,
-  date: PropTypes.string,
-  bgColor: PropTypes.string,
-  strokeColor: PropTypes.string,
-};
 
 export default Square;

@@ -1,6 +1,20 @@
-import PropTypes from 'prop-types';
+import { daysArray } from '../utils/constants';
 
-function DaysText({ xStart, yStart, squareLength, padding, days }) {
+interface DaysTextProps {
+  xStart: number;
+  yStart: number;
+  squareLength: number;
+  padding: number;
+  days: typeof daysArray;
+}
+
+function DaysText({
+  xStart,
+  yStart,
+  squareLength,
+  padding,
+  days,
+}: DaysTextProps) {
   return (
     <g>
       {days.map((day, index) => {
@@ -22,13 +36,5 @@ function DaysText({ xStart, yStart, squareLength, padding, days }) {
     </g>
   );
 }
-
-DaysText.propTypes = {
-  xStart: PropTypes.number.isRequired,
-  yStart: PropTypes.number.isRequired,
-  squareLength: PropTypes.number.isRequired,
-  padding: PropTypes.number.isRequired,
-  days: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
 
 export default DaysText;

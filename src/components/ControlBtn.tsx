@@ -1,9 +1,13 @@
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router';
 
-const tabTypes = ['daily', 'monthly'];
+export type TabTypes = 'daily' | 'monthly';
 
-function ControlBtn({ option, currentTab }) {
+interface ControlProps {
+  option: TabTypes;
+  currentTab: TabTypes;
+}
+
+function ControlBtn({ option, currentTab }: ControlProps) {
   return (
     <NavLink
       className={`px-3 sm:px-6 py-0.5 ${
@@ -15,10 +19,5 @@ function ControlBtn({ option, currentTab }) {
     </NavLink>
   );
 }
-
-ControlBtn.propTypes = {
-  option: PropTypes.oneOf(tabTypes).isRequired,
-  currentTab: PropTypes.oneOf(tabTypes).isRequired,
-};
 
 export default ControlBtn;

@@ -1,12 +1,12 @@
 import { FaGithubAlt } from 'react-icons/fa6';
 import { TbBrandNpm } from 'react-icons/tb';
 import { SlGlobe } from 'react-icons/sl';
-import PropTypes from 'prop-types';
+import type { PackageData } from '../hooks/usePackage';
 
 const NPM_PACKAGE = 'https://npmjs.org/package';
 const GITHUB_REPO = 'https://github.com';
 
-function PackageTitle({ pkgData }) {
+function PackageTitle({ pkgData }: { pkgData: PackageData }) {
   return (
     <>
       <div className='flex justify-between'>
@@ -49,9 +49,5 @@ function PackageTitle({ pkgData }) {
     </>
   );
 }
-
-PackageTitle.propTypes = {
-  pkgData: PropTypes.object,
-};
 
 export default PackageTitle;

@@ -1,17 +1,26 @@
 import { forwardRef, useEffect, useImperativeHandle } from 'react';
-import PropTypes from 'prop-types';
 import { useSelect } from 'downshift';
 import { AiFillCaretDown } from 'react-icons/ai';
-import ControlBtn from './ControlBtn';
+import ControlBtn, { type TabTypes } from './ControlBtn';
 import useYears from '../hooks/useYears';
+import type { PackageData } from 'src/hooks/usePackage';
+
+type Period = 'Current' | number;
+
+interface GraphControlProps {
+  tabType: TabTypes;
+  pkgData: PackageData;
+  setPeriod: React.Dispatch<React.SetStateAction<Period | null>>;
+  setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const GraphControls = forwardRef(function GraphControls(
-  { tabType, pkgData, setPeriod, setDialogOpen },
+  { tabType, pkgData, setPeriod, setDialogOpen }: GraphControlProps,
   ref
 ) {
   // let [timeFrame, setTimeFrame] = useState(['Current']);
   const { years, error, mutate } = useYears(pkgData);
-  let timeFrame = ['Current', ...years];
+  let timeFrame: Period[] = ['Current', ...years];
 
   const {
     isOpen,
@@ -63,7 +72,7 @@ const GraphControls = forwardRef(function GraphControls(
                   highlightedIndex === index ? 'bg-green-highlight' : null
                 }`}
                 key={index}
-                {...getItemProps({ value, index })}
+                {...getItemProps({ value, index, item: value })}
               >
                 {value}
               </li>
@@ -73,12 +82,5 @@ const GraphControls = forwardRef(function GraphControls(
     </div>
   );
 });
-
-GraphControls.propTypes = {
-  tabType: PropTypes.oneOf(['daily', 'monthly']).isRequired,
-  pkgData: PropTypes.object,
-  setPeriod: PropTypes.func.isRequired,
-  setDialogOpen: PropTypes.func.isRequired,
-};
 
 export default GraphControls;

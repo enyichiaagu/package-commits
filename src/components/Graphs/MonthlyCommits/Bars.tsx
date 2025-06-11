@@ -1,4 +1,16 @@
-import PropTypes from 'prop-types';
+import type { MonthlyCommits } from '../utils/distribution';
+
+interface BarsProps {
+  xStart: number;
+  yStart: number;
+  minY: number;
+  textY: number;
+  barWidth: number;
+  sidePadding: number;
+  monthsArr: MonthlyCommits[];
+  highestCommits: number;
+  defaultColors: string[];
+}
 
 function Bars({
   xStart,
@@ -10,7 +22,7 @@ function Bars({
   monthsArr,
   highestCommits,
   defaultColors,
-}) {
+}: BarsProps) {
   let xPosition, yPosition, height, fraction;
 
   return (
@@ -48,17 +60,5 @@ function Bars({
     </>
   );
 }
-
-Bars.propTypes = {
-  xStart: PropTypes.number.isRequired,
-  yStart: PropTypes.number.isRequired,
-  minY: PropTypes.number.isRequired,
-  textY: PropTypes.number.isRequired,
-  barWidth: PropTypes.number.isRequired,
-  sidePadding: PropTypes.number.isRequired,
-  monthsArr: PropTypes.array.isRequired,
-  highestCommits: PropTypes.number.isRequired,
-  defaultColors: PropTypes.arrayOf(PropTypes.string),
-};
 
 export default Bars;

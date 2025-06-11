@@ -23,10 +23,10 @@ async function getFilteredList(query: string): Promise<ListedItem[]> {
 
 interface SearchBoxProps {
   variant: InputVariants;
-  pkg: string;
+  pkg?: string;
 }
 
-function SearchBox({ variant, pkg }: SearchBoxProps) {
+function SearchBox({ variant, pkg = '' }: SearchBoxProps) {
   const [items, setItems] = useState<ListedItem[]>([]);
   const navigate = useNavigate();
   const latestRef = useRef(0);

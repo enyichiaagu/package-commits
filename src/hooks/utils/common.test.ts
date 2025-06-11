@@ -39,8 +39,8 @@ describe('getDateRange', () => {
     expect(getDateRange(timestamp)).toBeTypeOf('object');
     expect(getDateRange(timestamp)).toHaveProperty('start');
     expect(getDateRange(timestamp)).toHaveProperty('end');
-    expect(getDateRange(timestamp).end).toMatch(currentYear);
-    expect(getDateRange(timestamp).start).toMatch(currentYear - 1);
+    expect(getDateRange(timestamp).end).toMatch(currentYear.toString());
+    expect(getDateRange(timestamp).start).toMatch((currentYear - 1).toString());
   });
 });
 

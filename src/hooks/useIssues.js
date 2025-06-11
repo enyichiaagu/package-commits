@@ -4,6 +4,7 @@ import { resolveRes, finalCatch } from './utils/errors';
 
 const GITHUB_API = 'https://api.github.com/search';
 
+// rewrite this to map
 async function fetcher(key, headers) {
   try {
     const [openIssues, allIssues] = await Promise.all([

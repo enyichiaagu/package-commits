@@ -1,5 +1,4 @@
 import { memo, useEffect, forwardRef, useImperativeHandle } from 'react';
-import PropTypes from 'prop-types';
 import { DailyCommits, MonthlyCommits } from './Graphs';
 import Loader from './Loader';
 import useCommits from '../hooks/useCommits';

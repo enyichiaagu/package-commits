@@ -4,13 +4,13 @@ function useHeaders() {
   const token = useLocalToken();
 
   return {
-    get: () => {
+    get: (): HeadersInit => {
       let localToken = token.getLocalToken();
 
       return {
         Accept: 'application/vnd.github+json',
         'X-GitHub-Api-Version': '2022-11-28',
-        Authorization: localToken ? `Bearer ${localToken}` : undefined,
+        Authorization: localToken ? `Bearer ${localToken}` : '',
       };
     },
   };

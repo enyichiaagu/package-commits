@@ -3,11 +3,10 @@ class CustomError extends Error {
 
   constructor(
     message = 'Something Went Wrong',
-    status = undefined,
-    options = {}
+    readonly status?: number,
+    options?: ErrorOptions
   ) {
     super(message, options);
-    this.status = status;
   }
 
   get isTokenError() {
@@ -15,7 +14,7 @@ class CustomError extends Error {
   }
 }
 
-async function resolveRes(response) {
+async function resolveRes<T>(response: Response): Promise<T> {
   if (response.ok) return response.json();
   switch (response.status) {
     case 401:
@@ -36,7 +35,7 @@ async function resolveRes(response) {
   }
 }
 
-const finalCatch = (err) => {
+const finalCatch = (err: unknown) => {
   if (err instanceof CustomError) throw err;
   throw new CustomError();
 };

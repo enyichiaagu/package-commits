@@ -1,10 +1,9 @@
-import PropTypes from 'prop-types';
 import MonthsText from './MonthsText';
 import Square from './Square';
-import { addDay } from '../utils/mockCommits';
+import { addDay, type WeeklyCommits } from '../utils/mockCommits';
 
 // function for calculating the month index using the week index
-function calcMonthIndex(weekIndex, week) {
+function calcMonthIndex(weekIndex: number, week: string) {
   if (!week && weekIndex % 4 === 0) {
     return weekIndex / 4;
   }
@@ -14,7 +13,7 @@ function calcMonthIndex(weekIndex, week) {
 }
 
 // function to find the index of the color in the palette
-function getColorIndex(bounds, dayCommit) {
+function getColorIndex(bounds: number[], dayCommit: number | null) {
   if (dayCommit === null) return -1;
   if (bounds.length === 0 || dayCommit === 0) return 0;
 
@@ -28,10 +27,10 @@ function getColorIndex(bounds, dayCommit) {
 // Transparent Color
 let bgColor = '#ffffff00';
 
-function formatDate(date) {
+function formatDate(date: Date) {
   const month = date.toLocaleString('default', { month: 'long' });
   const day = date.getUTCDate();
-  let suffix;
+  let suffix: string = 'th';
 
   if (day <= 3 || (day > 20 && day <= 23)) {
     const lastNum = day % 10;
@@ -46,11 +45,22 @@ function formatDate(date) {
         suffix = 'rd';
         break;
     }
-  } else {
-    suffix = 'th';
   }
 
   return `${month} ${day}${suffix}`;
+}
+
+interface WeeklyColumnProps {
+  xPosition: number;
+  yPosition: number;
+  squareLength: number;
+  padding: number;
+  radius: number;
+  days: string[];
+  colors: string[];
+  weekIndex: number;
+  weeklyCommits: WeeklyCommits;
+  bounds: number[];
 }
 
 function WeeklyColumn({
@@ -64,19 +74,19 @@ function WeeklyColumn({
   weekIndex,
   weeklyCommits,
   bounds,
-}) {
+}: WeeklyColumnProps) {
   let monthIndex = calcMonthIndex(weekIndex, weeklyCommits.week);
-  let yPlacement, displayDate, colorIndex, fillColor, strokeColor;
+  let yPlacement: number = 0;
 
   return (
     <>
       <g>
         {days.map((_, index) => {
           yPlacement = (squareLength + padding) * index + yPosition;
-          displayDate = formatDate(addDay(weeklyCommits.week, index));
-          colorIndex = getColorIndex(bounds, weeklyCommits.commits[index]);
-          fillColor = colors[colorIndex] || bgColor;
-          strokeColor =
+          let displayDate = formatDate(addDay(weeklyCommits.week, index));
+          let colorIndex = getColorIndex(bounds, weeklyCommits.commits[index]);
+          let fillColor = colors[colorIndex] || bgColor;
+          let strokeColor =
             colorIndex >= 0 ? (colorIndex > 0 ? colors.at(-1) : 'grey') : '';
 
           return (
@@ -85,7 +95,6 @@ function WeeklyColumn({
               xPosition={xPosition}
               yPosition={yPlacement}
               length={squareLength}
-              padding={padding}
               radius={radius}
               commits={weeklyCommits.commits[index]}
               date={displayDate}
@@ -103,18 +112,5 @@ function WeeklyColumn({
     </>
   );
 }
-
-WeeklyColumn.propTypes = {
-  xPosition: PropTypes.number.isRequired,
-  yPosition: PropTypes.number.isRequired,
-  squareLength: PropTypes.number.isRequired,
-  padding: PropTypes.number.isRequired,
-  radius: PropTypes.number.isRequired,
-  days: PropTypes.arrayOf(PropTypes.string).isRequired,
-  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
-  weekIndex: PropTypes.number.isRequired,
-  weeklyCommits: PropTypes.object,
-  bounds: PropTypes.arrayOf(PropTypes.number),
-};
 
 export default WeeklyColumn;

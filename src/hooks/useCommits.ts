@@ -1,23 +1,28 @@
 import { useEffect } from 'react';
 import useSWRInfinite from 'swr/infinite';
-import { getDateRange } from './utils/common';
-import { getCommitsOrContributors } from './utils/commits';
 import useHeaders from './useHeaders';
-import { finalCatch, resolveRes } from './utils/errors';
+import type { PackageData } from './usePackage';
+import { getDateRange } from './utils/common';
+import { getCommitsOrContributors, type FetchedCommit } from './utils/commits';
+import { CustomError, finalCatch, resolveRes } from './utils/errors';
 
 const GITHUB_FETCH = 'https://api.github.com/repos';
 const MAX_COMMITS_FETCH = 100;
 
 const currentRange = getDateRange();
 
+interface ReturnedCommitsData {
+  result: FetchedCommit[];
+  pages?: number;
+}
 // async function fetcher(key, size, reqHeaders) {
-async function fetcher(key, headers) {
+async function fetcher(key: string, headers: HeadersInit) {
   try {
     let response = await fetch(`${GITHUB_FETCH}/${key}`, { headers });
-    let result = await resolveRes(response);
+    let result = await resolveRes<FetchedCommit[]>(response);
 
     // If first index
-    if (key.endsWith(1)) {
+    if (key.endsWith('1')) {
       let headerLink = response.headers.get('link') || null;
       let regexArr = headerLink
         ? headerLink.match(/next.*page=(\d*).*last/)
@@ -27,11 +32,16 @@ async function fetcher(key, headers) {
     }
     return { result };
   } catch (err) {
-    finalCatch(err);
+    return finalCatch(err);
   }
 }
 
-const getKey = (pkgData, range, index) => {
+interface Range {
+  start: string;
+  end: string;
+}
+
+const getKey = (pkgData: PackageData, range: Range, index: number) => {
   return (
     pkgData.repo &&
     pkgData.owner &&
@@ -43,20 +53,23 @@ const getKey = (pkgData, range, index) => {
   );
 };
 
-function useCommits(pkgData, period) {
+function useCommits(pkgData: PackageData, period: 'Current' | number) {
   let isFetchable = pkgData ? pkgData?.name && pkgData?.owner : true;
 
   const headers = useHeaders();
   const range =
     !period || period === 'Current' ? currentRange : getDateRange(period);
 
-  const { data, error, isLoading, setSize, mutate } = useSWRInfinite(
+  const { data, error, isLoading, setSize, mutate } = useSWRInfinite<
+    ReturnedCommitsData,
+    CustomError
+  >(
     (index) => getKey(pkgData, range, index),
     (key) => fetcher(key, headers.get()),
     { parallel: true }
   );
 
-  let totalPages = data?.[0].pages;
+  let totalPages = data?.[0].pages || 0;
   let isLoadedAllPages =
     !isFetchable || (data && data?.length === totalPages) || Boolean(error);
 
@@ -66,9 +79,9 @@ function useCommits(pkgData, period) {
     }
   }, [data, totalPages, setSize]);
 
-  let commitsArr =
+  let commitsArr: FetchedCommit[] =
     isLoadedAllPages && !error && data
-      ? [].concat(...data.map((page) => page.result))
+      ? data.map((page) => page.result).flat()
       : [];
   let { commits, contributors } = getCommitsOrContributors(commitsArr, range);
 

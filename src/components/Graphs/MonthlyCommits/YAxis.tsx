@@ -1,8 +1,14 @@
-import PropTypes from 'prop-types';
 import { monthlyCommitsY } from '../utils/distribution';
 import { squareLength } from '../utils/constants';
 
-function YAxis({ height, topSpace, highestCommits, width }) {
+interface YAxisProps {
+  height: number;
+  topSpace: number;
+  highestCommits: number;
+  width: number;
+}
+
+function YAxis({ height, topSpace, highestCommits, width }: YAxisProps) {
   const yNumbers = monthlyCommitsY(highestCommits).sort((a, b) => a - b);
   let dividend = highestCommits <= 3 ? highestCommits : 4,
     xSpace = width - squareLength / 2,
@@ -28,13 +34,5 @@ function YAxis({ height, topSpace, highestCommits, width }) {
     </g>
   );
 }
-
-YAxis.propTypes = {
-  height: PropTypes.number.isRequired,
-  topSpace: PropTypes.number.isRequired,
-  highestCommits: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
-  squareLength: PropTypes.number.isRequired,
-};
 
 export default YAxis;

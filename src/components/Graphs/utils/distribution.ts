@@ -1,7 +1,8 @@
-import { addDay } from './mockCommits';
+import type { MONTHS } from './constants';
+import { addDay, type WeeklyCommits } from './mockCommits';
 
-function calcDistribution(weeklyCommits) {
-  let dist = [];
+function calcDistribution(weeklyCommits: WeeklyCommits[]) {
+  let dist: WeeklyCommits['commits'] = [];
   // Get commits for every single day in the year
   const commitsDup = weeklyCommits.flatMap((week) => week.commits);
 
@@ -9,14 +10,14 @@ function calcDistribution(weeklyCommits) {
   const commits = [...new Set(commitsDup)];
 
   // Sort array
-  const sorted = commits.toSorted((a, b) => a - b);
+  const sorted = commits.toSorted((a, b) => Number(a) - Number(b));
 
   //remove zero from the commits
-  const modifiedArr = sorted.slice(sorted.findIndex((n) => n > 0));
+  const modifiedArr = sorted.slice(sorted.findIndex((n) => Number(n) > 0));
 
   //return empty array if its all zeroes
   if (modifiedArr[0] === 0) {
-    return dist;
+    return dist as number[];
   }
 
   if (modifiedArr.length <= 4) {
@@ -33,10 +34,10 @@ function calcDistribution(weeklyCommits) {
     dist = upperBounds.slice(1, upperBounds.length);
   }
   // return the upper bounds which is first three elements of dist
-  return dist;
+  return dist as number[];
 }
 
-function monthlyCommitsY(highestMonthlyCommits) {
+function monthlyCommitsY(highestMonthlyCommits: number) {
   if (highestMonthlyCommits === 0) return [];
   else if (highestMonthlyCommits <= 4) {
     return new Array(highestMonthlyCommits + 1)
@@ -45,21 +46,31 @@ function monthlyCommitsY(highestMonthlyCommits) {
   } else {
     const maxYValues = [20, 40, 100, 200, 400, 1000, 2000, 4000, 10000, 20000];
 
-    let maxY = maxYValues.find((num) => highestMonthlyCommits <= num);
+    let maxY =
+      maxYValues.find((num) => highestMonthlyCommits <= num) ??
+      maxYValues[maxYValues.length - 1];
     const values = new Array(5).fill(0).map((_, index) => (maxY * index) / 4);
 
     return values.sort((a, b) => a - b);
   }
 }
 
-function weeklyToMonthlyCommits(weeklyCommits, months) {
-  let finalArr = [];
+export interface MonthlyCommits {
+  id: number;
+  month: string;
+  commits: number;
+}
+
+function weeklyToMonthlyCommits(
+  weeklyCommits: WeeklyCommits[],
+  months: typeof MONTHS
+) {
+  let finalArr: MonthlyCommits[] = [];
+  let commitMonthIndex: number, currentMonthIndex: number;
 
   // if (!weeklyCommits) {
   //   return months.map((month, index) => ({ id: index, month, commits: 0 }));
   // }
-
-  let commitMonthIndex, currentMonthIndex;
 
   weeklyCommits.forEach((weekObj) => {
     let { week, commits } = weekObj;
@@ -75,10 +86,10 @@ function weeklyToMonthlyCommits(weeklyCommits, months) {
         finalArr.push({
           id: finalArr.length,
           month: months[currentMonthIndex],
-          commits: numOfCommits,
+          commits: Number(numOfCommits),
         });
       } else {
-        finalArr.at(-1).commits += numOfCommits;
+        finalArr[finalArr.length - 1].commits += Number(numOfCommits);
       }
     });
   });

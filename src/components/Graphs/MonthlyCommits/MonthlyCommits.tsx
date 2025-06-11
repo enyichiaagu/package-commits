@@ -1,8 +1,8 @@
 import { memo } from 'react';
-import PropTypes from 'prop-types';
 import { TooltipProvider } from '@radix-ui/react-tooltip';
 import YAxis from './YAxis';
 import Bars from './Bars';
+
 // TODO: Replace these with a class
 import {
   xStart,
@@ -12,17 +12,22 @@ import {
   padding,
   barLeftPadding,
   barWidth,
-  squareLength,
   defaultColors,
   MONTHS,
   GRAPH_HEIGHT,
   GRAPH_WIDTH,
 } from '../utils/constants';
 import { weeklyToMonthlyCommits } from '../utils/distribution';
-import { genMockCommits } from '../utils/mockCommits';
+import { genMockCommits, type WeeklyCommits } from '../utils/mockCommits';
+
+interface MonthlyCommitsProps {
+  weeklyCommits: WeeklyCommits[];
+}
 
 const MonthlyCommits = memo(
-  function MonthlyCommits({ weeklyCommits = genMockCommits(5) }) {
+  function MonthlyCommits({
+    weeklyCommits = genMockCommits(5),
+  }: MonthlyCommitsProps) {
     const monthsArr = weeklyToMonthlyCommits(weeklyCommits, MONTHS);
     const highestCommits = Math.max(...monthsArr.map((arr) => arr.commits));
 
@@ -33,7 +38,6 @@ const MonthlyCommits = memo(
             <YAxis
               height={GRAPH_HEIGHT - bottomSpace - topSpace}
               width={daysWidth}
-              squareLength={squareLength}
               topSpace={topSpace}
               highestCommits={highestCommits}
             />
@@ -65,14 +69,5 @@ const MonthlyCommits = memo(
     return false;
   }
 );
-
-MonthlyCommits.propTypes = {
-  weeklyCommits: PropTypes.arrayOf(
-    PropTypes.exact({
-      week: PropTypes.string,
-      commits: PropTypes.arrayOf(PropTypes.number),
-    })
-  ),
-};
 
 export default MonthlyCommits;

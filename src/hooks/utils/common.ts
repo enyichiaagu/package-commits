@@ -1,4 +1,4 @@
-function getYear(dateId) {
+function getYear(dateId: number | string) {
   const date = new Date(dateId);
   return date.getUTCFullYear();
 }
@@ -22,7 +22,7 @@ function getDateRange(period = Date.now()) {
   };
 }
 
-function generateYrsArr(createdYear, currentYear) {
+function generateYrsArr(createdYear: number, currentYear: number) {
   // maxNumYears = 3
   if (createdYear > currentYear)
     throw new RangeError('Starting year cannot be greater than current year');
