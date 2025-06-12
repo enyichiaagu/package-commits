@@ -56,7 +56,7 @@ const getKey = (index: number, range: Range, pkgData?: PackageData) => {
 export type Period = 'Current' | number | null;
 
 function useCommits(pkgData?: PackageData, period?: Period) {
-  let isFetchable = pkgData ? pkgData?.name && pkgData?.owner : true;
+  let isFetchable = pkgData ? Boolean(pkgData.name && pkgData.owner) : true;
 
   const headers = useHeaders();
   const range =

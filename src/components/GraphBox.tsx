@@ -59,7 +59,7 @@ const GraphBox = memo(
   (prevProps, nextProps) =>
     prevProps.tabType === nextProps.tabType &&
     prevProps.period === nextProps.period &&
-    prevProps.pkgData?.name === prevProps.pkgData?.name
+    prevProps.pkgData?.name === nextProps.pkgData?.name
 );
 
 export default GraphBox;
