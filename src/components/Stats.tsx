@@ -1,10 +1,16 @@
 import { memo } from 'react';
-import PropTypes from 'prop-types';
 import Contributors from './Contributors';
 import useIssues from '../hooks/useIssues';
+import type { PackageData } from 'src/hooks/usePackage';
+import type { Period } from 'src/hooks/useCommits';
+
+interface StatsProps {
+  pkgData?: PackageData;
+  period: Period;
+}
 
 const Stats = memo(
-  function Stats({ pkgData, period }) {
+  function Stats({ pkgData, period }: StatsProps) {
     const { data, error } = useIssues(pkgData);
 
     return (
@@ -38,10 +44,5 @@ const Stats = memo(
     return false;
   }
 );
-
-Stats.propTypes = {
-  pkgData: PropTypes.object,
-  period: PropTypes.oneOfType([PropTypes.oneOf(['Current']), PropTypes.number]),
-};
 
 export default Stats;

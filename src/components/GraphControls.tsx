@@ -4,19 +4,18 @@ import { AiFillCaretDown } from 'react-icons/ai';
 import ControlBtn, { type TabTypes } from './ControlBtn';
 import useYears from '../hooks/useYears';
 import type { PackageData } from 'src/hooks/usePackage';
-
-type Period = 'Current' | number;
+import type { Period } from 'src/hooks/useCommits';
 
 interface GraphControlProps {
   tabType: TabTypes;
-  pkgData: PackageData;
+  pkgData?: PackageData;
   setPeriod: React.Dispatch<React.SetStateAction<Period | null>>;
   setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const GraphControls = forwardRef(function GraphControls(
   { tabType, pkgData, setPeriod, setDialogOpen }: GraphControlProps,
-  ref
+  ref: React.Ref<{ mutate: () => void }>
 ) {
   // let [timeFrame, setTimeFrame] = useState(['Current']);
   const { years, error, mutate } = useYears(pkgData);

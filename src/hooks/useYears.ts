@@ -24,10 +24,10 @@ async function fetcher(key: string, headers: ReturnType<typeof useHeaders>) {
   }
 }
 
-function useYears(pkgData: PackageData) {
+function useYears(pkgData?: PackageData) {
   const headers = useHeaders();
   const { data, error, isLoading, mutate } = useSWR(
-    () => pkgData.owner && pkgData.repo && `${pkgData.owner}/${pkgData.repo}`,
+    () => pkgData?.owner && pkgData.repo && `${pkgData.owner}/${pkgData.repo}`,
     (key) => fetcher(key, headers)
   );
   return { years: data || [], isLoading, error, mutate };

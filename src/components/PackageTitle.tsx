@@ -6,7 +6,7 @@ import type { PackageData } from '../hooks/usePackage';
 const NPM_PACKAGE = 'https://npmjs.org/package';
 const GITHUB_REPO = 'https://github.com';
 
-function PackageTitle({ pkgData }: { pkgData: PackageData }) {
+function PackageTitle({ pkgData }: { pkgData?: PackageData }) {
   return (
     <>
       <div className='flex justify-between'>

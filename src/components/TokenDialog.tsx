@@ -1,11 +1,15 @@
 import { forwardRef, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import PropTypes from 'prop-types';
 import useLocalToken from '../hooks/useLocalToken';
 
+interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  className: string;
+  children: React.ReactNode;
+}
+
 const Button = forwardRef(function Button(
-  { className, children, ...otherProps },
-  ref
+  { className, children, ...otherProps }: ButtonProps,
+  ref: React.Ref<HTMLButtonElement>
 ) {
   return (
     <button
@@ -18,12 +22,13 @@ const Button = forwardRef(function Button(
   );
 });
 
-Button.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired,
-};
+interface TokenDialogProps {
+  dialogOpen: boolean;
+  setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  refresh: React.RefObject<{ mutate: () => void }>;
+}
 
-function TokenDialog({ dialogOpen, setDialogOpen, refresh }) {
+function TokenDialog({ dialogOpen, setDialogOpen, refresh }: TokenDialogProps) {
   const token = useLocalToken();
   const [inputToken, setInputToken] = useState(token.getLocalToken());
 
@@ -65,7 +70,7 @@ function TokenDialog({ dialogOpen, setDialogOpen, refresh }) {
             className='text-green-100 bg-green-800 ml-5'
             onClick={() => {
               token.setLocalToken(inputToken);
-              refresh.current.mutate();
+              refresh.current?.mutate();
               setDialogOpen(false);
             }}
           >
@@ -76,11 +81,5 @@ function TokenDialog({ dialogOpen, setDialogOpen, refresh }) {
     </Dialog.Root>
   );
 }
-
-TokenDialog.propTypes = {
-  dialogOpen: PropTypes.bool.isRequired,
-  setDialogOpen: PropTypes.func.isRequired,
-  refresh: PropTypes.object.isRequired,
-};
 
 export default TokenDialog;

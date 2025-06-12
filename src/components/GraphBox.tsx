@@ -1,13 +1,14 @@
 import { memo, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { DailyCommits, MonthlyCommits } from './Graphs';
 import Loader from './Loader';
-import useCommits from '../hooks/useCommits';
+import type { TabTypes } from './ControlBtn';
+import useCommits, { type Period } from '../hooks/useCommits';
 import type { PackageData } from 'src/hooks/usePackage';
 
 interface GraphBoxProps {
-  tabType: 'daily' | 'monthly';
-  pkgData: PackageData;
-  period: 'Current' | number;
+  tabType: TabTypes;
+  pkgData?: PackageData;
+  period?: Period;
   setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

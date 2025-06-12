@@ -41,9 +41,9 @@ interface Range {
   end: string;
 }
 
-const getKey = (pkgData: PackageData, range: Range, index: number) => {
+const getKey = (index: number, range: Range, pkgData?: PackageData) => {
   return (
-    pkgData.repo &&
+    pkgData?.repo &&
     pkgData.owner &&
     `${pkgData.owner}/${pkgData.repo}/commits?since=${range.start}&until=${
       range.end
@@ -53,7 +53,9 @@ const getKey = (pkgData: PackageData, range: Range, index: number) => {
   );
 };
 
-function useCommits(pkgData: PackageData, period: 'Current' | number) {
+export type Period = 'Current' | number | null;
+
+function useCommits(pkgData?: PackageData, period?: Period) {
   let isFetchable = pkgData ? pkgData?.name && pkgData?.owner : true;
 
   const headers = useHeaders();
@@ -64,7 +66,7 @@ function useCommits(pkgData: PackageData, period: 'Current' | number) {
     ReturnedCommitsData,
     CustomError
   >(
-    (index) => getKey(pkgData, range, index),
+    (index) => getKey(index, range, pkgData),
     (key) => fetcher(key, headers.get()),
     { parallel: true }
   );

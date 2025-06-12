@@ -4,7 +4,7 @@ export type TabTypes = 'daily' | 'monthly';
 
 interface ControlProps {
   option: TabTypes;
-  currentTab: TabTypes;
+  currentTab?: TabTypes;
 }
 
 function ControlBtn({ option, currentTab }: ControlProps) {

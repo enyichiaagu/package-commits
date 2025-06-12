@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import useCommits from '../hooks/useCommits';
+import type { PackageData } from 'src/hooks/usePackage';
+import useCommits, { type Period } from '../hooks/useCommits';
 
 const positions = [
   'bg-purple-400 z-1',
@@ -9,7 +9,12 @@ const positions = [
   'bg-orange-400 z-5',
 ].toReversed();
 
-function Contributors({ pkgData, period }) {
+interface ContributorsProps {
+  pkgData?: PackageData;
+  period: Period;
+}
+
+function Contributors({ pkgData, period }: ContributorsProps) {
   const { contributors } = useCommits(pkgData, period);
   let numOfCbs = contributors.length;
   let pfArrayLength = numOfCbs < 5 ? numOfCbs : 5;
@@ -45,10 +50,5 @@ function Contributors({ pkgData, period }) {
     </div>
   );
 }
-
-Contributors.propTypes = {
-  pkgData: PropTypes.object,
-  period: PropTypes.oneOfType([PropTypes.oneOf(['Current']), PropTypes.number]),
-};
 
 export default Contributors;

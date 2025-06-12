@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
-import usePackage from '../hooks/usePackage';
 import Header from '../components/Header';
 import SearchBox from '../components/SearchBox';
 import PackageTitle from '../components/PackageTitle';
@@ -8,17 +7,20 @@ import GraphControls from '../components/GraphControls';
 import GraphBox from '../components/GraphBox';
 import Stats from '../components/Stats';
 import TokenDialog from '../components/TokenDialog';
+import usePackage from '../hooks/usePackage';
+import type { Period } from 'src/hooks/useCommits';
+import type { TabTypes } from 'src/components/ControlBtn';
 
 function Result() {
   const params = useParams();
   const [searchParams] = useSearchParams();
-  const [period, setPeriod] = useState(null);
+  const [period, setPeriod] = useState<Period | null>('Current');
   const [dialogOpen, setDialogOpen] = useState(false);
   const refresh = useRef(null);
 
   const { '*': pkg } = params;
   const { pkgData, isLoading, error } = usePackage(pkg);
-  const tabType = searchParams.get('tab') || 'daily';
+  const tabType = (searchParams.get('tab') || 'daily') as TabTypes;
 
   return (
     <>
