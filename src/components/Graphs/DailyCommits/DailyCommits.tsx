@@ -19,7 +19,7 @@ import { calcDistribution } from '../utils/distribution';
 import { genMockCommits, type WeeklyCommits } from '../utils/mockCommits';
 
 interface DailyCommitsProps {
-  colors: typeof defaultColors;
+  colors?: typeof defaultColors;
   weeklyCommits: WeeklyCommits[];
 }
 
