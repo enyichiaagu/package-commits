@@ -15,7 +15,7 @@ function MonthsText({ xPosition, yPosition, monthIndex }: MonthsTextProps) {
         dominantBaseline='hanging'
         className='text'
       >
-        {monthIndex && MONTHS[monthIndex]}
+        {MONTHS[monthIndex ?? -1]}
       </text>
     </g>
   );

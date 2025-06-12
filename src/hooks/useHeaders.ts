@@ -1,11 +1,12 @@
-import useLocalToken from './useLocalToken';
+// import useLocalToken from './useLocalToken';
 
 function useHeaders() {
-  const token = useLocalToken();
+  // const token = useLocalToken();
 
   return {
     get: (): HeadersInit => {
-      let localToken = token.getLocalToken();
+      // let localToken = token.getLocalToken();
+      let localToken = undefined;
 
       return {
         Accept: 'application/vnd.github+json',
