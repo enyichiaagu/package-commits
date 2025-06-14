@@ -1,6 +1,6 @@
 import { forwardRef, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-// import useLocalToken from '../hooks/useLocalToken';
+import useLocalToken from '../hooks/useLocalToken';
 
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   className: string;
@@ -29,8 +29,8 @@ interface TokenDialogProps {
 }
 
 function TokenDialog({ dialogOpen, setDialogOpen, refresh }: TokenDialogProps) {
-  // const token = useLocalToken();
-  // const [inputToken, setInputToken] = useState(token.getLocalToken());
+  const token = useLocalToken();
+  const [localToken, setLocalToken] = useState(token.get());
 
   return (
     <Dialog.Root open={dialogOpen} modal onOpenChange={setDialogOpen}>
@@ -54,8 +54,8 @@ function TokenDialog({ dialogOpen, setDialogOpen, refresh }: TokenDialogProps) {
             <input
               type='password'
               placeholder='github_pat_xxxxx'
-              // value={inputToken}
-              // onInput={(e) => setInputToken(e.currentTarget.value)}
+              value={localToken}
+              onInput={(e) => setLocalToken(e.currentTarget.value)}
               className='w-full inline-block border-2 border-custom-grey px-5 py-2 rounded-sm'
             />
           </div>
@@ -69,7 +69,7 @@ function TokenDialog({ dialogOpen, setDialogOpen, refresh }: TokenDialogProps) {
           <Button
             className='text-green-100 bg-green-800 ml-5'
             onClick={() => {
-              // token.setLocalToken(inputToken);
+              token.set(localToken);
               refresh.current?.mutate();
               setDialogOpen(false);
             }}

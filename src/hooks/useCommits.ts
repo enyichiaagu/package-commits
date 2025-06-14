@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import useSWRInfinite from 'swr/infinite';
-import useHeaders from './useHeaders';
+import useHeaders, { type CustomHeaderType } from './useHeaders';
 import type { PackageData } from './usePackage';
 import { getDateRange } from './utils/common';
 import { getCommitsOrContributors, type FetchedCommit } from './utils/commits';
@@ -16,9 +16,11 @@ interface ReturnedCommitsData {
   pages?: number;
 }
 // async function fetcher(key, size, reqHeaders) {
-async function fetcher(key: string, headers: HeadersInit) {
+async function fetcher(key: string, headers: CustomHeaderType) {
   try {
-    let response = await fetch(`${GITHUB_FETCH}/${key}`, { headers });
+    let response = await fetch(`${GITHUB_FETCH}/${key}`, {
+      headers: headers.get(),
+    });
     let result = await resolveRes<FetchedCommit[]>(response);
 
     // If first index
@@ -58,7 +60,6 @@ export type Period = 'Current' | number | null;
 function useCommits(pkgData?: PackageData, period?: Period) {
   let isFetchable = pkgData ? Boolean(pkgData.name && pkgData.owner) : true;
 
-  const headers = useHeaders();
   const range =
     !period || period === 'Current' ? currentRange : getDateRange(period);
 
@@ -67,9 +68,10 @@ function useCommits(pkgData?: PackageData, period?: Period) {
     CustomError
   >(
     (index) => getKey(index, range, pkgData),
-    (key) => fetcher(key, headers.get()),
+    (key) => fetcher(key, headers),
     { parallel: true }
   );
+  const headers = useHeaders();
 
   let totalPages = data?.[0].pages || 0;
   let isLoadedAllPages =

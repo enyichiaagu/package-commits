@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { getYear, generateYrsArr } from './utils/common';
 import { resolveRes, finalCatch } from './utils/errors';
-import useHeaders from './useHeaders';
+import useHeaders, { type CustomHeaderType } from './useHeaders';
 import type { PackageData } from './usePackage';
 
 const GITHUB_API = 'https://api.github.com/repos';
@@ -12,7 +12,7 @@ interface GitHubResponse {
   created_at: string;
 }
 
-async function fetcher(key: string, headers: ReturnType<typeof useHeaders>) {
+async function fetcher(key: string, headers: CustomHeaderType) {
   try {
     const response = await fetch(`${GITHUB_API}/${key}`, {
       headers: headers.get(),

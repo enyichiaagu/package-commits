@@ -43,7 +43,7 @@ function SearchBox({ variant, pkg = '' }: SearchBoxProps) {
     async onInputValueChange({ inputValue }) {
       let update = ++latestRef.current;
       let list = await getFilteredList(inputValue);
-      update === latestRef.current && setItems(list);
+      if (update === latestRef.current) setItems(list);
     },
     onSelectedItemChange({ inputValue }) {
       navigate(`/package/${inputValue}`);

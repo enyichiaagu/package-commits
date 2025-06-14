@@ -1,5 +1,5 @@
 import useSWRImmutable from 'swr';
-import useHeaders from './useHeaders';
+import useHeaders, { type CustomHeaderType } from './useHeaders';
 import { resolveRes, finalCatch } from './utils/errors';
 import type { PackageData } from './usePackage';
 
@@ -10,13 +10,13 @@ interface Issues {
 }
 
 // rewrite this to map
-async function fetcher(key: string, headers: HeadersInit) {
+async function fetcher(key: string, headers: CustomHeaderType) {
   try {
     const [openIssues, allIssues] = await Promise.all([
-      fetch(`${GITHUB_API}/${key}+is:open&per_page=1`, { headers }).then(
-        resolveRes<Issues>
-      ),
-      fetch(`${GITHUB_API}/${key}&per_page=1`, { headers }).then(
+      fetch(`${GITHUB_API}/${key}+is:open&per_page=1`, {
+        headers: headers.get(),
+      }).then(resolveRes<Issues>),
+      fetch(`${GITHUB_API}/${key}&per_page=1`, { headers: headers.get() }).then(
         resolveRes<Issues>
       ),
     ]);
@@ -36,7 +36,7 @@ function useIssues(pkgData?: PackageData) {
     () =>
       pkgData?.owner &&
       `issues?q=repo:${pkgData.owner}/${pkgData.repo}+is:issue`,
-    (key) => fetcher(key, headers.get())
+    (key) => fetcher(key, headers)
   );
 
   return { data: data || 0, isLoading, error };

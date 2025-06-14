@@ -1,11 +1,16 @@
-// const TOKEN_LOCATION = 'localstorage-github-token';
+const TOKEN_LOCATION = 'localstorage-github-token';
 
-// function useLocalToken() {
-//   const getLocalToken = () => localStorage.getItem(TOKEN_LOCATION) || '';
-//   const setLocalToken = (token: string) =>
-//     localStorage.setItem(TOKEN_LOCATION, token);
-//   const token = { getLocalToken, setLocalToken };
-//   return token;
-// }
+function useLocalToken() {
+  return {
+    get: () => {
+      if (typeof window === 'undefined') return '';
+      return localStorage.getItem(TOKEN_LOCATION) ?? '';
+    },
+    set: (token: string) => {
+      if (typeof window !== 'undefined')
+        return localStorage.setItem(TOKEN_LOCATION, token);
+    },
+  };
+}
 
-// export default useLocalToken;
+export default useLocalToken;

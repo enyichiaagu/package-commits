@@ -71,7 +71,7 @@ const GraphControls = forwardRef(function GraphControls(
                   highlightedIndex === index ? 'bg-green-highlight' : null
                 }`}
                 key={index}
-                {...getItemProps({ value, index, item: value })}
+                {...getItemProps({ index, item: value })}
               >
                 {value}
               </li>
