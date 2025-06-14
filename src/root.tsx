@@ -14,7 +14,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className='h-svh flex flex-col bg-linear-to-t from-body-gradient-b to-body-gradient-t text-xs sm:text-base tracking-tight sm:tracking-normal'>
+      <body className='h-svh flex flex-col bg-linear-to-t from-body-gradient-b to-body-gradient-t text-sm sm:text-base tracking-tight sm:tracking-normal'>
         {children}
         <Footer />
         <ScrollRestoration />
