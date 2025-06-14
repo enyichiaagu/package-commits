@@ -1,1 +1,3 @@
+*.local
+.react-router
 node_modules
