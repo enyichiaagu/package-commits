@@ -1,9 +1,16 @@
 import Header from '../components/Header';
 import SearchBox from '../components/SearchBox';
+import type { Route } from './+types/home';
 
-let description = 'View the heatmap of commits made to any npm package';
+export function loader() {
+  return {
+    description: 'Generate a heatmap of commits made to any npm package',
+  };
+}
 
-export function meta() {
+export function meta({ data }: Route.MetaArgs) {
+  let description = data?.description;
+
   return [
     { title: 'Package Commits' },
     {
@@ -13,7 +20,7 @@ export function meta() {
   ];
 }
 
-export default function Home() {
+export default function Home({ loaderData }: Route.ComponentProps) {
   return (
     <>
       <Header />
@@ -22,7 +29,9 @@ export default function Home() {
           <h1 className='font-bold italic text-3xl sm:text-5xl tracking-tight [word-spacing:-0.5rem]'>
             package commits
           </h1>
-          <span className='text-center w-60 sm:w-full'>{description}</span>
+          <span className='text-center w-60 sm:w-full'>
+            {loaderData.description}
+          </span>
         </div>
         <div className='mt-10 max-w-lg mx-auto'>
           <SearchBox variant='front' />

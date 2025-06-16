@@ -9,7 +9,7 @@ const footers = [
 ];
 
 function Footer() {
-  let [index, setIndex] = useState<number>(0);
+  let [index, setIndex] = useState<number>();
 
   useEffect(() => {
     setIndex(Math.floor(Math.random() * footers.length));
@@ -19,7 +19,7 @@ function Footer() {
     <footer
       className='text-center py-4'
       dangerouslySetInnerHTML={{
-        __html: footers[index],
+        __html: footers[index || -1],
       }}
     ></footer>
   );
