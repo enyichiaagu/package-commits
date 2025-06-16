@@ -1,7 +1,7 @@
 import Header from '../components/Header';
 import SearchBox from '../components/SearchBox';
 
-function Front() {
+export default function Home() {
   return (
     <>
       <Header />
@@ -21,5 +21,3 @@ function Front() {
     </>
   );
 }
-
-export default Front;

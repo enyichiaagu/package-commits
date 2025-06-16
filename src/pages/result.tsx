@@ -11,7 +11,7 @@ import usePackage from '../hooks/usePackage';
 import type { Period } from 'src/hooks/useCommits';
 import type { TabTypes } from 'src/components/ControlBtn';
 
-function Result() {
+export default function Result() {
   const params = useParams();
   const [searchParams] = useSearchParams();
   const [period, setPeriod] = useState<Period | null>('Current');
@@ -71,5 +71,3 @@ function Result() {
     </>
   );
 }
-
-export default Result;
