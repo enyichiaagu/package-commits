@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "react-router dev",
+    "dev": "react-router dev --host",
     "build": "react-router build",
     "typecheck": "react-router typegen && tsc",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",

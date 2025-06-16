@@ -11,6 +11,10 @@ import usePackage from '../hooks/usePackage';
 import type { Period } from 'src/hooks/useCommits';
 import type { TabTypes } from 'src/components/ControlBtn';
 
+export function meta() {
+  return [{ title: 'Very Cool App2' }];
+}
+
 export default function Result() {
   const params = useParams();
   const [searchParams] = useSearchParams();
